@@ -9,6 +9,12 @@ var AppInit = function(){
         return Apps.getAllApps();
     }
 
+    function setUniversalHandlers(){
+
+        
+        
+    }
+
 
     return {
         init: init,
