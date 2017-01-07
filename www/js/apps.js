@@ -3,13 +3,22 @@ var Apps = function(){
     function getAllApps(){
 
         var hueApp = {
-            logo: "resources/logos/hue.png",
+            logo: "resources/logos/bulb.svg",
             onClick: function(){
                 console.log("hello world");
             }
         };
 
         createAppButton(hueApp);
+        createAppButton(hueApp);
+        createAppButton(hueApp);
+        createAppButton(hueApp);
+    }
+
+    function firstTimeInstall(){
+
+        
+
     }
 
 
@@ -30,7 +39,7 @@ var Apps = function(){
         appIconC.appendChild(appIcon);
 
         document.getElementById("apps-container").appendChild(appIconC);
-        //return appIconC;
+
     }
 
     return {
