@@ -8,15 +8,18 @@ body {
 
 
 div.title-screen{
-    width: 100%;
+    max-width: 70%;
+    display:block;
+    margin: 0 auto;
+    text-align: center;
     position: relative;
+    border-bottom: 1px black solid;
 }
 
 p.title {
     display: block;
     margin: 0 auto;
     width: 20%;
-    border-bottom: 1px #000 solid;
 }
 
 div.app-icon-c{
@@ -25,8 +28,7 @@ div.app-icon-c{
     cursor: pointer;
     display: inline-block;
     margin-right: 1em;
-    margin-top: 2em;
-
+    margin-top: 0.5em;
 }
 
 div.app-icon-button{
@@ -59,16 +61,49 @@ div#apps-container {
 div#main-popup {
     position: absolute;
     display: none;
-    top: 2%;
+    top: 0%;
     left: 0;
     right: 0;
-    width: 95%;
+    width: 99%;
     height: 90%;
     background: #fff;
     z-index: 10;
     margin: 0 auto;
     border-radius: 2px;
 
+}
+
+
+div#weather-container{
+    box-sizing: border-box;
+    width: inherit;   
+    height: 4em;
+    padding-top: 0.3em;
+    /* font-size: 2em; */
+}
+
+i#weather-icon{
+    line-height: 1;
+    font-size: 3em;
+    margin-right: 0.4em;
+    color: #000000;
+}
+
+div#weather-text-container {
+    box-sizing: border-box;
+    display:inline-block;
+    vertical-align: top;
+    height: inherit;
+    line-height: 0;
+    /* top: 0; */
+}
+p.weather-description {
+    font-family: 'Source Sans Pro Light';
+    box-sizing: border-box;
+    display: block;
+    font-size: 1.1em;
+    /* line-height: 0; */
+    /* font-size: x-large; */
 }
 
 img#main-popup-exit{

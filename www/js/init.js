@@ -11,7 +11,10 @@ var AppInit = function(){
     }
 
     function setUniversalHandlers(){
-        
+
+        // Keeps apps awake, cant sleep.
+        window.plugins.insomnia.keepAwake();
+
         // exit button on popup screen
         document.getElementById("main-popup-exit").addEventListener("click", function(){
            document.getElementById("main-popup").className = "main-popup-out";
