@@ -1,6 +1,8 @@
 var Apps = function(){
     
     function getAllApps(){
+        
+        checkFirstTimeInstall();
 
         var hueApp = {
             logo: "resources/logos/bulb.svg",
@@ -9,16 +11,18 @@ var Apps = function(){
             }
         };
 
-        createAppButton(hueApp);
-        createAppButton(hueApp);
-        createAppButton(hueApp);
-        createAppButton(hueApp);
+        //createAppButton(hueApp);
+       
     }
 
-    function firstTimeInstall(){
-
-        
-
+    function checkFirstTimeInstall(){
+       FileUtil.requestPermission(function(r){
+           if(r == ReadValues.EMPTY){
+               console.log("first time install needed");
+           } else {
+               // do shit
+           }
+       });
     }
 
 
