@@ -3,7 +3,9 @@ var Apps = function(){
     function getAllApps(){
         
         checkFirstTimeInstall(Files.Apps);
-
+        
+        // because weather app is a constant notes as well, perhaps. 
+        WeatherApp.init();
         //createAppButton(hueApp);
        
     }
