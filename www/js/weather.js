@@ -7,6 +7,7 @@ var WeatherApp = function(){
 
     
     function init(){
+        getPermission();
         getElements();
         getWeatherData();
 
@@ -21,6 +22,10 @@ var WeatherApp = function(){
         } catch(e){
             console.log("error getting elements in weather apps");
         }
+    }
+    
+    function getPermission(){
+        
     }
 
     function getWeatherData(){

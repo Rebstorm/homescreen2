@@ -15,6 +15,9 @@
         },
         "cordova-plugin-insomnia": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.paul.wiki.homescreen"
         }
     },
     "dependent_plugins": {
