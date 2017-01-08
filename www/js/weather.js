@@ -9,8 +9,21 @@ var WeatherApp = function(){
     function init(){
         getPermission();
         getElements();
-        getWeatherData();
 
+    }
+
+    function displayWeatherData(data){
+        var currentDate = new Date();
+
+        for(var i = 0; i < data.length; i++){
+            if(currentDate > data[i]){
+                continue;
+            } else {
+                changeSymbol(data[i].symbol);
+                textContainer.innerHTML = "<b>" + data[i].temp + "</b> °Celcius <br><b>" + data[i].humidity + "</b> Humidity<br><b>" + data[i].precipation + "</b> mm rain incoming";
+                return;
+            }
+        }
     }
 
     function getElements(){
@@ -25,12 +38,80 @@ var WeatherApp = function(){
     }
     
     function getPermission(){
-        
+        navigator.geolocation.getCurrentPosition(
+        function(pos){
+            // get geo pos
+            makeWeatherCall(pos);
+        }, function(e){
+            // get geo pos failed
+            console.log(e);
+        });
+
     }
 
-    function getWeatherData(){
-        icon.className = "wi " + WeatherIcons.SunnyDay;
-        textLocation.textContent = "Bonn, I think";
+    function changeSymbol(symbol){
+        var sym = "";
+        switch(symbol){
+            
+            case "Cloud":
+                sym = WeatherIcons.CloudyDay;
+                break;
+
+            default:
+                sym = MiscIcons.NA;
+                break;
+        }
+
+        icon.className = "wi " + sym;
+
+
+    }
+    
+    function makeWeatherCall(pos){
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            try{
+                if (xhr.readyState == XMLHttpRequest.DONE) {
+                    handleWeatherData(xhr.responseText);
+                }
+            } catch(e){
+
+                if(e.stack.indexOf("TypeError") >= 0)
+                    console.log("Error parsing weather data, maybe api is screwed?");
+            }
+        }
+        xhr.open('GET', 'http://api.met.no/weatherapi/locationforecast/1.9/?lat='+ pos.coords.latitude +';lon=' + pos.coords.longitude, true);
+        xhr.send(null);
+
+    }
+
+    function handleWeatherData(data){
+        if(window.DOMParser){
+            var parser = new DOMParser();
+            var xmlData = parser.parseFromString(data, "text/xml");
+            var forecastData = xmlData.getElementsByTagName("time");
+            //console.log(forecastData);
+            var length = forecastData.length;
+            if(length > 30)
+                length = 30;
+            var weatherData = [];
+            for(var i = 0; i < length; i++){
+                var weather = {}
+                weather.from = new Date(forecastData[i].attributes["from"].nodeValue);
+                weather.to = new Date(forecastData[i].attributes["to"].nodeValue);
+                weather.temp = forecastData[i].children[0].children[0].attributes["value"].nodeValue;
+                weather.humidity = forecastData[i].children[0].children[3].attributes["value"].nodeValue + "%";
+                weather.symbol = forecastData[i+1].children[0].children[1].attributes["id"].nodeValue;
+                weather.precipation = forecastData[i+1].children[0].children[0].attributes["value"].nodeValue;
+                
+                weatherData.push(weather);
+                i = i + 2;
+            }
+            
+            displayWeatherData(weatherData);
+            
+        }
     }
     
 

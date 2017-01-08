@@ -75,6 +75,7 @@ div#main-popup {
 
 
 div#weather-container{
+    font-family: 'Source Sans Pro Light';
     box-sizing: border-box;
     width: inherit;   
     height: 4em;
@@ -94,7 +95,8 @@ div#weather-text-container {
     display:inline-block;
     vertical-align: top;
     height: inherit;
-    line-height: 0;
+    text-align: left;
+    /* line-height: 0; */
     /* top: 0; */
 }
 p.weather-description {
