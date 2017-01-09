@@ -12,16 +12,28 @@
         <title>HomeScreen2</title>
     </head>
     <body>
-        <div class="title-screen">
-            <div id="weather-container">
-                <i id="weather-icon" class="wi wi-na"></i> 
-                <div id="weather-text-container" class="weather-description"> 
+        <div id="app">
+            <div class="title-screen">
+                <div id="weather-container">
+                    <i id="weather-icon" class="wi wi-na"></i> 
+                    <div id="weather-text-container" class="weather-description"> 
+                    </div>
+                    <div id="weather-refresh-button">
+                    <i id="weather-refresh-button-sym" class="wi wi-refresh"></i>
+                    </div>
                 </div>
+                <p class="title"></p>
             </div>
-            <p class="title"></p>
+
+            <div id="apps-container">
+            </div>
         </div>
 
-        <div id="apps-container">
+
+        <div id="uhoh" style="display:none">
+        <p> :( </p>
+        <p> Im not comfortable being displayed on such a small window. </p>
+        <p> Please turn me or use another device. </p>
         </div>
 
         <div id="main-popup">

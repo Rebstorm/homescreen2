@@ -21,7 +21,17 @@ var AppInit = function(){
            setTimeout(function() {
               document.getElementById("main-popup").style.display = "none";
            }, 300);
-           //document.getElementById("main-popup-exit-div").css.display = "none"; 
+        });
+
+
+        window.addEventListener("resize", function(event){
+           if(window.outerWidth < 375){
+               document.getElementById("uhoh").style.display = "block";
+               document.getElementById("app").style.display = "none";
+           } else {
+               document.getElementById("uhoh").style.display = "none";
+               document.getElementById("app").style.display = "block";
+           }
         });
         
     }

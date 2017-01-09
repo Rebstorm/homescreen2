@@ -4,11 +4,13 @@ var WeatherApp = function(){
     var icon;
     var textContainer;
     var textLocation;
+    var position;
 
     
     function init(){
         getPermission();
         getElements();
+        setEventHandlers();
 
     }
 
@@ -21,6 +23,23 @@ var WeatherApp = function(){
             } else {
                 changeSymbol(data[i].symbol);
                 textContainer.innerHTML = "<b>" + data[i].temp + "</b> °Celcius <br><b>" + data[i].humidity + "</b> Humidity<br><b>" + data[i].precipation + "</b> mm rain incoming";
+                
+                // animate button
+                document.getElementById("weather-refresh-button").className = "";
+
+                var d = document.createElement("img");
+                d.src = "resources/system/check.svg";
+                d.width = "32";
+                d.height = "32";
+                document.getElementById("weather-refresh-button-sym").style.display = "none";
+                document.getElementById("weather-refresh-button").appendChild(d);
+
+                window.setTimeout(function(){
+                    document.getElementById("weather-refresh-button-sym").style.display = "block";
+                    document.getElementById("weather-refresh-button").removeChild(d);
+                }, 2000);
+
+
                 return;
             }
         }
@@ -41,6 +60,7 @@ var WeatherApp = function(){
         navigator.geolocation.getCurrentPosition(
         function(pos){
             // get geo pos
+            position = pos;
             makeWeatherCall(pos);
         }, function(e){
             // get geo pos failed
@@ -56,6 +76,10 @@ var WeatherApp = function(){
             case "Cloud":
                 sym = WeatherIcons.CloudyDay;
                 break;
+            case "PartlyCloud":
+                sym = WeatherIcons.CloudyDay;
+                break; 
+            
 
             default:
                 sym = MiscIcons.NA;
@@ -112,6 +136,14 @@ var WeatherApp = function(){
             displayWeatherData(weatherData);
             
         }
+    }
+
+    function setEventHandlers(){
+
+        document.getElementById("weather-refresh-button").addEventListener("click", function(){
+           document.getElementById("weather-refresh-button").className = "rotating";
+           makeWeatherCall(position);
+        });
     }
     
 

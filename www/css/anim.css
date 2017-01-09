@@ -18,6 +18,10 @@
    animation: main-popup-out-anim 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
 }
 
+.rotating {
+   animation: rotating 1.5s cubic-bezier(0.1, 0.68, 0.68, 0.19) infinite;
+}
+
 @keyframes main-popup-in-anim{
     0%{ top: 7%; opacity: 0.3; display: block; }
     50%{ top: 4%; opacity: 0.6; }
@@ -28,4 +32,14 @@
     0%{ top: 2% opacity: 1; }
     50%{ top: 4%; opacity: 0.6; }
     100% { top: 7%; opacity: 0.3; display: none;}
+}
+
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
