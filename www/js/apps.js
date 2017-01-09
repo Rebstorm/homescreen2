@@ -57,7 +57,7 @@ var AppsRepo = {
         name: "Philips Hue",    
         logo: "resources/logos/bulb.svg",
         onClick: function(){
-            AppInit.startNewActivity();
+            HueApp.init();
         },
     },
     testApp: {

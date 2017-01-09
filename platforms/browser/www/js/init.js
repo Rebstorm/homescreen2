@@ -18,6 +18,8 @@ var AppInit = function(){
         // exit button on popup screen
         document.getElementById("main-popup-exit").addEventListener("click", function(){
            document.getElementById("main-popup").className = "main-popup-out";
+           document.getElementById("main-popup").removeChild(document.getElementById("main-app-content"));
+           
            setTimeout(function() {
               document.getElementById("main-popup").style.display = "none";
            }, 300);

@@ -5,7 +5,7 @@ var WeatherApp = function(){
     var textContainer;
     var textLocation;
     var position;
-
+    var tries = 0;
     
     function init(){
         getPermission();
@@ -16,13 +16,22 @@ var WeatherApp = function(){
 
     function displayWeatherData(data){
         var currentDate = new Date();
+        
+        var recheckEveryH = 9;
+        var recheck = 3600000 * recheckEveryH;
 
         for(var i = 0; i < data.length; i++){
             if(currentDate > data[i]){
                 continue;
             } else {
                 changeSymbol(data[i].symbol);
-                textContainer.innerHTML = "<b>" + data[i].temp + "</b> °Celcius <br><b>" + data[i].humidity + "</b> Humidity<br><b>" + data[i].precipation + "</b> mm rain incoming";
+                var checkedDate = new Date(data[i].from);
+                var min = checkedDate.getMinutes();
+                if(min < 10)
+                    min = "0" + min;
+                    
+                textContainer.innerHTML = "<b>" + data[i].temp + "</b> °Celcius <br><b>" + data[i].humidity + "</b> Humidity<br><b>" + data[i].precipation + "</b> mm rain incoming<br>" +
+                                          "Checked for " + checkedDate.getHours() + ":" + min + ".";
                 
                 // animate button
                 document.getElementById("weather-refresh-button").className = "";
@@ -38,11 +47,32 @@ var WeatherApp = function(){
                     document.getElementById("weather-refresh-button-sym").style.display = "block";
                     document.getElementById("weather-refresh-button").removeChild(d);
                 }, 2000);
+                
+                recheckWeather(position, recheck);
 
+                tries = 0;
 
                 return;
             }
         }
+        if(tries < 3){
+            makeWeatherCall(position);
+        } else {
+            console.log("Weops! Too many tries!");
+            document.getElementById("weather-refresh-button").className = "";
+            tries = 0;
+        }
+        tries++;
+    }
+
+    function recheckWeather(position, timeout){
+        // recheck at this timepoint for new info
+        window.setTimeout(function(){
+            makeWeatherCall(position);
+        }, timeout);
+
+        console.log("Will check weather again in: " + (timeout/3600000) + "h.");
+
     }
 
     function getElements(){
@@ -68,8 +98,12 @@ var WeatherApp = function(){
                    makeWeatherCall(pos); 
                 } else {
                    FileUtil.readFile(weatherFile, function(data){
-                      var dataParsed = JSON.parse(data);
-                      displayWeatherData(dataParsed);
+                      try{ 
+                          var dataParsed = JSON.parse(data);
+                          displayWeatherData(dataParsed);
+                      } catch(e){
+                          makeWeatherCall(pos);
+                      }
                    });
                 }
             });
@@ -92,6 +126,9 @@ var WeatherApp = function(){
                 sym = WeatherIcons.CloudyDay;
                 break; 
             
+            case "DrizzleSun":
+                sym = WeatherIcons.SprinkleDay;
+                break;
 
             default:
                 sym = MiscIcons.NA;
@@ -187,6 +224,7 @@ var WeatherIcons = {
     HazyDay: "wi-day-haze",
     LightningDay: "wi-day-lightning",
     RainyDay: "wi-day-rain",
+    SprinkleDay: "wi-day-sprinkle",
     SleetDay: "wi-day-sleet",
     SleetStormDay: "wi-day-sleet-storm",
     SnowyDay: "wi-day-snow",
