@@ -130,6 +130,10 @@ var WeatherApp = function(){
                 sym = WeatherIcons.SprinkleDay;
                 break;
 
+            case "Drizzle":
+                sym = WeatherIcons.SprinkleDay;
+                break;
+
             default:
                 sym = MiscIcons.NA;
                 break;
