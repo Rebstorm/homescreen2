@@ -7,13 +7,13 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
+        "cordova-plugin-file": {
             "PACKAGE_NAME": "com.paul.wiki.homescreen"
         },
         "cordova-plugin-insomnia": {
             "PACKAGE_NAME": "com.paul.wiki.homescreen"
         },
-        "cordova-plugin-file": {
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.paul.wiki.homescreen"
         }
     },

@@ -59,6 +59,83 @@ div#apps-container {
     text-align: center;
 }
 
+div.full-app-c {
+    /* width: inherit; */
+    height: inherit;
+}
+
+div.hue-light-bar {
+    padding-top: 2em;
+    /* margin-left: 2em; */
+    /* width: 100%; */
+    display: inline-flex;
+    /* margin: 0 auto; */
+    vertical-align: center;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+    /* align-items: center; */
+    /* align-content: center; */
+    /* alignment-baseline: central; */
+    justify-content: center;
+}
+
+div.hue-lightbar-container{
+    width: 10em;
+    /* display: inline-table; */
+    margin-right: 2em;
+    max-width: 23%;
+    height: 15em;
+    border-radius: 0 0 1em 1em;
+    box-shadow: 0px 21px 20px -2px rgba(0,0,0,0.41);
+}
+
+div.hue-light-indicator {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 3em;
+    margin-right: 2em;
+    border-radius: 1em 1em 0 0;
+    box-shadow: 0px 3px 15px 1px rgba(25, 0, 0, 0.6);
+}
+
+div.hue-light-text{
+    text-align: center;
+    width: 100%;    
+}
+
+div.hue-toggle-bar{
+    display: block;
+    width: 70%;
+    margin: 0 auto;
+    height: 2em;
+    background: #75787b;
+    border-radius: 2em;
+    
+}
+
+div.hue-toggle-bar-button{
+    width: 1.5em;
+    height: 80%;
+    background: white;
+    border-radius: 2em;
+    margin-top: 0.2em;
+    margin-left: 0.3em;
+    display: inline-block;
+}
+
+div.hue-toggle-bar-button-toggled{
+    width: 1.5em;
+    height: 80%;
+    background: white;
+    border-radius: 2em;
+    margin-top: 0.2em;
+    /* margin-left: 58%; */
+    margin-right: 5%;
+    float:  right;
+    display: inline-block;
+}
+
 div#main-popup {
     position: absolute;
     display: none;
@@ -75,7 +152,7 @@ div#main-popup {
 }
 
 div#main-app-content{
-    width:100%;
+    width: 100%;
     height:100%;
 }
 
