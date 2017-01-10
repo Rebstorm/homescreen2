@@ -74,6 +74,11 @@ div#main-popup {
 
 }
 
+div#main-app-content{
+    width:100%;
+    height:100%;
+}
+
 
 div#weather-container{
     font-family: 'Source Sans Pro Light';

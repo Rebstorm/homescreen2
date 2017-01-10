@@ -1,4 +1,8 @@
 #platforms for cordova
+platforms/
+
+#hooks for cordova
+hooks/
 
 #plugin for cordova
 plugins/

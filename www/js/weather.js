@@ -134,6 +134,10 @@ var WeatherApp = function(){
                 sym = WeatherIcons.SprinkleDay;
                 break;
 
+           case "LightRain":
+                sym = WeatherIcons.LightRainDay;
+                break;
+
             default:
                 sym = MiscIcons.NA;
                 break;
@@ -227,6 +231,7 @@ var WeatherIcons = {
     FoggyDay: "wi-day-fog",
     HazyDay: "wi-day-haze",
     LightningDay: "wi-day-lightning",
+    LightRainDay: "wi-day-rain-mix",
     RainyDay: "wi-day-rain",
     SprinkleDay: "wi-day-sprinkle",
     SleetDay: "wi-day-sleet",
