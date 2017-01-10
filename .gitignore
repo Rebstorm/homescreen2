@@ -12,6 +12,9 @@ logs
 *.log
 npm-debug.log*
 
+#KDE
+.directory
+
 # Runtime data
 pids
 *.pid
