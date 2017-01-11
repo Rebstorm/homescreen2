@@ -20,14 +20,19 @@ var HueApp = function(){
         hueAppContainer.textContent = "Hue App";
 
         lightBars.id = "hue-app-lightbars";
-        lightBars.style.width = "100%";
         lightBars.className = "hue-light-bar";
 
         var lightBarContainer = createNewLightBar();
         var light2 = createNewLightBar();
+        var light3 = createNewLightBar();
+        var light4 = createNewLightBar();
+        var light5 = createNewLightBar();
 
         lightBars.appendChild(lightBarContainer);
         lightBars.appendChild(light2);
+        lightBars.appendChild(light3);
+        lightBars.appendChild(light4);
+        lightBars.appendChild(light5);
 
         hueAppContainer.appendChild(lightBars);
         mainContainer.appendChild(hueAppContainer);
@@ -44,10 +49,12 @@ var HueApp = function(){
         lightBarContainer.id = "lightbar" + nextId;
         
         var lightBar = document.createElement("div");
+        lightBar.id = "lightbarC"+nextId;
+        lightBar.className = "hue-lightbar-c";
 
         var lightIndicator = document.createElement("div");
         lightIndicator.id = "lightindicator" + nextId;
-        lightIndicator.className = "hue-light-indicator";
+        lightIndicator.className = "hue-light-indicator glowing";
 
         lightIndicator.style.background = "#f0f0f0";
 
@@ -56,7 +63,9 @@ var HueApp = function(){
         var lightName = document.createElement("p");
         var lightOpacity = document.createElement("p");
         lightName.textContent = "name";
+        lightName.className ="hue-text";
         lightOpacity.textContent = "light (%)";
+        lightOpacity.className = "hue-text";
 
         var toggleBar = document.createElement("div");
         toggleBar.className = "hue-toggle-bar";
@@ -81,11 +90,11 @@ var HueApp = function(){
         textContainer.appendChild(lightName);
         textContainer.appendChild(lightOpacity);
         
-        lightBar.appendChild(lightIndicator);
         lightBar.appendChild(textContainer);
         lightBar.appendChild(toggleBar);
         
         lightBarContainer.appendChild(lightBar);
+        lightBarContainer.appendChild(lightIndicator);
 
         nextId++;
 

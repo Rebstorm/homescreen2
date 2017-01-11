@@ -22,6 +22,10 @@
    animation: rotating 1.5s cubic-bezier(0.1, 0.68, 0.68, 0.19) infinite;
 }
 
+.glowing {
+  animation: glowing 5s ease-in-out infinite;
+}
+
 @keyframes main-popup-in-anim{
     0%{ top: 7%; opacity: 0.3; display: block; }
     50%{ top: 4%; opacity: 0.6; }
@@ -42,4 +46,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+@-webkit-keyframes glowing {
+    0% { box-shadow: 0 0 15px #14a714; }
+    50% { box-shadow: 0 0 45px #1a821a; }
+    100% { box-shadow: 0 0 15px #26d626; }
 }

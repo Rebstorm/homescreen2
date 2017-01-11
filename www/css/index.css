@@ -66,9 +66,9 @@ div.full-app-c {
 
 div.hue-light-bar {
     padding-top: 2em;
-    /* margin-left: 2em; */
+    margin-left: 2em;
     /* width: 100%; */
-    display: inline-flex;
+    /* display: inline-flex; */
     /* margin: 0 auto; */
     vertical-align: center;
     /* margin-left: auto; */
@@ -79,39 +79,53 @@ div.hue-light-bar {
     justify-content: center;
 }
 
+div.hue-lightbar-c{
+    display: inline-block;
+    width: 80%;
+    height: 100%;
+}
+
 div.hue-lightbar-container{
-    width: 10em;
-    /* display: inline-table; */
-    margin-right: 2em;
-    max-width: 23%;
-    height: 15em;
-    border-radius: 0 0 1em 1em;
-    box-shadow: 0px 21px 20px -2px rgba(0,0,0,0.41);
+    /* width: 10em; */
+    display: inline-table;
+    /* margin-right: 2em; */
+    margin-bottom: 2em;
+    /* max-width: 33%; */
+    width: 90%;
+    height: 8em;
+    /* border-radius: 0 0 1em 1em; */
+    /* border: 1px black solid; */
+    /* box-shadow: 0px 21px 20px -2px rgba(0,0,0,0.41); */
 }
 
 div.hue-light-indicator {
     position: relative;
-    display: block;
-    width: 100%;
-    height: 3em;
-    margin-right: 2em;
-    border-radius: 1em 1em 0 0;
+    display: inline-block;
+    float: left;
+    /* width: 100%; */
+    width: 20%;
+    height: 100%;
+    /* margin-right: 2em; */
+    border-radius: 1em;
+    /* outline: 1px black solid; */
     box-shadow: 0px 3px 15px 1px rgba(25, 0, 0, 0.6);
 }
 
 div.hue-light-text{
-    text-align: center;
-    width: 100%;    
+    /* text-align: center; */
+    width: 100%;
+    margin-left:  2em;
 }
 
 div.hue-toggle-bar{
     display: block;
-    width: 70%;
-    margin: 0 auto;
+    width: 5em;
+    max-width: 40%;
+    /* margin: 0 auto; */
+    margin-left: 2em;
     height: 2em;
     background: #75787b;
     border-radius: 2em;
-    
 }
 
 div.hue-toggle-bar-button{
@@ -200,11 +214,15 @@ p.weather-description {
     /* font-size: x-large; */
 }
 
+p.hue-text{
+    margin: 0;
+}
+
 img#main-popup-exit{
     filter: grayscale(100%);
     width: 5%;
     height: auto;
-    position: absolute;
+    position: fixed;
     top: 0.4em;
     right: 0.4em;
 }
@@ -217,10 +235,9 @@ div#uhoh {
     font-family: 'Source Sans Pro Light';
     font-size: 1.4em;
     position: absolute;
-    width: 100%;
+    width: 86%;
     height: 100%;
     display: none;
-
 }
 
 
