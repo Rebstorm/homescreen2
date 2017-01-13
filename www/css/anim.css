@@ -49,7 +49,8 @@
 }
 
 @-webkit-keyframes glowing {
-    0% { box-shadow: 0 0 15px #14a714; }
-    50% { box-shadow: 0 0 45px #1a821a; }
-    100% { box-shadow: 0 0 15px #26d626; }
+    0% { box-shadow: 0 0 15px rgb(230, 239, 230); }
+    33% { box-shadow: 0 0 45px #788878; }
+    66% { box-shadow: 0 0 30px #060606; }
+    100% { box-shadow: 0 0 15px rgb(230, 239, 230); }
 }

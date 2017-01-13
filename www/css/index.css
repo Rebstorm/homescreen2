@@ -4,6 +4,8 @@
 
 body {
     font-family: 'Source Sans Pro Light';
+    /* width: 10em; */
+    /* height: 100%; */
 }
 
 
@@ -62,14 +64,28 @@ div#apps-container {
 div.full-app-c {
     /* width: inherit; */
     height: inherit;
-    background: #f0f0f0;
+    /* background: #f0f0f0; */
 }
+
+
+div#hue-color-popup{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    background: white;
+    display: none;
+    
+}
+
 
 div.hue-light-bar {
     padding-top: 2em;
     margin-left: 2em;
-    background: #f0f0f0;
-    width: 100%;
+    /* background: #f0f0f0; */
+    /* width: 100%; */
     height: 100%;
     /* max-width: 40em; */
     /* height: 20%; */
@@ -160,6 +176,34 @@ div.hue-toggle-bar-button-toggled{
     display: inline-block;
 }
 
+div#hue-popup-exit-div{
+    margin-bottom: 10%;
+}
+
+canvas.hue-spectrum-canvas{
+    width: 600px;
+    max-width: 100%;
+    height: 388px;
+    margin: 0 auto;
+    display: block;
+    border: 1px #000 solid;
+}
+
+img#hue-popup-exit{
+    filter: grayscale(100%);
+    width: 10%;
+    max-width: 50px;
+    height: auto;
+    position: fixed;
+    top: 0.4em;
+    right: 0.4em;
+}
+
+img#hue-popup-exit:hover{
+    filter: none;
+}
+
+
 div#main-popup {
     position: absolute;
     display: none;
@@ -230,7 +274,8 @@ p.hue-text{
 
 img#main-popup-exit{
     filter: grayscale(100%);
-    width: 5%;
+    width: 10%;
+    max-width: 50px;
     height: auto;
     position: fixed;
     top: 0.4em;

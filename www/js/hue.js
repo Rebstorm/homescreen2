@@ -2,8 +2,11 @@ var HueApp = function(){
     
     function init(){
         createInterface();
+        createConstantInterface();
+        createHueComponents();
         AppInit.startNewActivity();
     }
+    
 
     function createInterface(){
         var mainPopup = document.getElementById("main-popup");
@@ -38,6 +41,45 @@ var HueApp = function(){
         mainContainer.appendChild(hueAppContainer);
         mainPopup.appendChild(mainContainer);
 
+ 
+    }
+
+    function createConstantInterface(){
+        
+        if(document.getElementById("spectrum-canvas") == undefined){
+            var hueColorPopup = document.getElementById("hue-color-popup");
+            
+            var spectrumCanvas = document.createElement("canvas");
+            spectrumCanvas.className = "hue-spectrum-canvas";
+            spectrumCanvas.id = "spectrum-canvas";
+
+            hueColorPopup.appendChild(spectrumCanvas);
+        }
+
+    }
+
+    function createHueComponents(){
+
+        var spectrumCanvas = document.getElementById("spectrum-canvas");
+        var spectrumContext = spectrumCanvas.getContext("2d");
+
+        var spectrumImg = new Image();
+        spectrumImg.src = "resources/system/spectrum.jpg";
+        spectrumImg.onload = function(){
+            spectrumContext.drawImage(spectrumImg, 0, 0 );
+        }
+        
+
+        spectrumCanvas.addEventListener("touchmove", function(e){
+            if(e instanceof TouchEvent){
+                console.log(e);
+            }
+        })
+
+        document.getElementById("hue-popup-exit").addEventListener("click", function(){
+            closeColorWindow();
+        });
+
 
     }
     
@@ -57,6 +99,10 @@ var HueApp = function(){
         lightIndicator.className = "hue-light-indicator glowing";
 
         lightIndicator.style.background = "#f0f0f0";
+
+        lightIndicator.addEventListener("click", function(e){
+           toggleColorWindow(); 
+        });
 
         var textContainer = document.createElement("div");
         textContainer.className = "hue-light-text";
@@ -100,6 +146,21 @@ var HueApp = function(){
 
         return lightBarContainer;
 
+    }
+
+    function toggleColorWindow(){
+        var x = document.getElementById("hue-color-popup");
+
+        if(x.style.display == "none"){
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+
+    }
+
+    function closeColorWindow(){
+        document.getElementById("hue-color-popup").style.display = "none";
     }
 
 
