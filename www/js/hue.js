@@ -46,6 +46,7 @@ var HueApp = function(){
 
     function createConstantInterface(){
         
+        debugger;
         if(document.getElementById("spectrum-canvas") == undefined){
             var hueColorPopup = document.getElementById("hue-color-popup");
             
@@ -54,6 +55,23 @@ var HueApp = function(){
             spectrumCanvas.id = "spectrum-canvas";
 
             hueColorPopup.appendChild(spectrumCanvas);
+            
+            // constans that shouldnt be regenerated.
+            spectrumCanvas.addEventListener("touchmove", function(e){
+                if(e instanceof TouchEvent){
+                    var pos = spectrumCanvas.getBoundingClientRect();
+
+                    var x = e.changedTouches[0].clientX - pos.left;
+                    var y = e.changedTouches[0].clientY - pos.top;
+
+                    console.log("x: "+ x + "y: " + y);                
+                }
+            });
+
+            document.getElementById("hue-popup-exit").addEventListener("click", function(){
+                closeColorWindow();
+            });
+            
         }
 
     }
@@ -69,17 +87,6 @@ var HueApp = function(){
             spectrumContext.drawImage(spectrumImg, 0, 0 );
         }
         
-
-        spectrumCanvas.addEventListener("touchmove", function(e){
-            if(e instanceof TouchEvent){
-                console.log(e);
-            }
-        })
-
-        document.getElementById("hue-popup-exit").addEventListener("click", function(){
-            closeColorWindow();
-        });
-
 
     }
     
