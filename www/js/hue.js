@@ -3,7 +3,6 @@ var HueApp = function(){
     function init(){
         createInterface();
         createConstantInterface();
-        createHueComponents();
         AppInit.startNewActivity();
     }
     
@@ -20,7 +19,6 @@ var HueApp = function(){
         
         hueAppContainer.id = "hue-app-c";
         hueAppContainer.className = "full-app-c";
-        hueAppContainer.textContent = "Hue App";
 
         lightBars.id = "hue-app-lightbars";
         lightBars.className = "hue-light-bar";
@@ -46,7 +44,6 @@ var HueApp = function(){
 
     function createConstantInterface(){
         
-        debugger;
         if(document.getElementById("spectrum-canvas") == undefined){
             var hueColorPopup = document.getElementById("hue-color-popup");
             
@@ -55,6 +52,15 @@ var HueApp = function(){
             spectrumCanvas.id = "spectrum-canvas";
 
             hueColorPopup.appendChild(spectrumCanvas);
+
+            var spectrumCanvas = document.getElementById("spectrum-canvas");
+            var spectrumContext = spectrumCanvas.getContext("2d");
+
+            var spectrumImg = new Image();
+            spectrumImg.src = "resources/system/spectrum.jpg";
+            spectrumImg.onload = function(){
+                spectrumContext.drawImage(spectrumImg, 0, 0 );
+            }
             
             // constans that shouldnt be regenerated.
             spectrumCanvas.addEventListener("touchmove", function(e){
@@ -73,20 +79,6 @@ var HueApp = function(){
             });
             
         }
-
-    }
-
-    function createHueComponents(){
-
-        var spectrumCanvas = document.getElementById("spectrum-canvas");
-        var spectrumContext = spectrumCanvas.getContext("2d");
-
-        var spectrumImg = new Image();
-        spectrumImg.src = "resources/system/spectrum.jpg";
-        spectrumImg.onload = function(){
-            spectrumContext.drawImage(spectrumImg, 0, 0 );
-        }
-        
 
     }
     
