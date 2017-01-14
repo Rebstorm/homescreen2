@@ -83,7 +83,11 @@ var HueApp = function(){
         var hue = jsHue();
         FileUtil.checkAppSettings(Files.HueApp, function(fEntry){
             FileUtil.readFile(fEntry.fEntry, function(r){
+                try{
                 r = JSON.parse(r);
+                } catch(e){
+                    console.log("file error: " + e.stack);
+                }
                 // discovery
                 hue.discover(
                     function(bridges) {
@@ -113,9 +117,26 @@ var HueApp = function(){
                 );
             });
         });
+    }
 
-      
-        
+    function showPairWindow(){
+        var div = document.getElementById("main-popup");
+        if(document.getElementById("main-app-content") == undefined){
+            var bubble = document.createElement("div");
+            bubble.id = "main-app-content";
+            bubble.textContent  = "Please pair me :(";
+            div.appendChild(bubble);
+        }
+
+        if(div.style.display == "block"){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function removePairWindow(){
+        document.getElementById("main-popup").removeChild(document.getElementById("main-app-content"));
     }
 
     function pairBridgeFirstTime(ip){
@@ -126,7 +147,12 @@ var HueApp = function(){
             // extract bridge-generated username from returned data
             if(("error" in data[0]) && (data[0].error.description.indexOf("link") >= 0)){
                 window.setTimeout(function(){
-                    connectToBridge(ip);
+                    if(!showPairWindow()){
+                        document.getElementById("main-popup").style.display = "none";
+                        return;
+                    }
+                   
+                    pairBridgeFirstTime(ip);
                 }, 1000);
                 return;
             } else if("success" in data[0]) {
@@ -142,6 +168,8 @@ var HueApp = function(){
                 user.getLights(function(l){
                   createInterface(l);
                 });
+
+                removePairWindow();
             }
         });
          
