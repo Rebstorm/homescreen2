@@ -138,6 +138,14 @@ var WeatherApp = function(){
                 sym = WeatherIcons.LightRainDay;
                 break;
 
+            case "LightCloud":
+                sym = WeatherIcons.CloudyDay;
+                break;
+
+            case "SnowSun":
+                sym = WeatherIcons.SnowyDay;
+                break;
+
             default:
                 sym = MiscIcons.NA;
                 break;

@@ -27,25 +27,9 @@ var HueApp = function(){
         lightBars.className = "hue-light-bar";
         
         for(light in lights){
-            var x = createNewLightBar(lights[light]);
+            var x = createNewLightBar(lights[light], light);
             lightBars.appendChild(x);
         }
-
-        /*
-        var lightBarContainer = createNewLightBar();
-        var light2 = createNewLightBar();
-        var light3 = createNewLightBar();
-        var light4 = createNewLightBar();
-        var light5 = createNewLightBar();
-        
-
-        lightBars.appendChild(lightBarContainer);
-        lightBars.appendChild(light2);
-        lightBars.appendChild(light3);
-        lightBars.appendChild(light4);
-        lightBars.appendChild(light5);
-
-        */
 
         hueAppContainer.appendChild(lightBars);
         mainContainer.appendChild(hueAppContainer);
@@ -112,7 +96,7 @@ var HueApp = function(){
                                    var bridge = hue.bridge(e.internalipaddress);
                                    user = bridge.user(r.username);
                                    user.getLights(function(l){
-                                       createInterface(l);
+                                      createInterface(l);
                                    });
                                    
                                } else {
@@ -155,17 +139,22 @@ var HueApp = function(){
                 FileUtil.checkAppSettings(Files.HueApp, function(fileEntry){
                     FileUtil.writeFile(fileEntry.fEntry, JSON.stringify(r));
                 });
+                user.getLights(function(l){
+                  createInterface(l);
+                });
             }
         });
          
     }
     
     var nextId = 0;
-    function createNewLightBar(light){
+    function createNewLightBar(light, nr){
 
         var lightBarContainer = document.createElement("div");
         lightBarContainer.className = "hue-lightbar-container";
         lightBarContainer.id = "lightbar" + nextId;
+        lightBarContainer.dataset.light = JSON.stringify(light);
+        lightBarContainer.dataset.nr = nr;
         
         var lightBar = document.createElement("div");
         lightBar.id = "lightbarC"+nextId;
@@ -174,8 +163,9 @@ var HueApp = function(){
         var lightIndicator = document.createElement("div");
         lightIndicator.id = "lightindicator" + nextId;
         lightIndicator.className = "hue-light-indicator glowing";
-
-        lightIndicator.style.background = "#f0f0f0";
+        var color = xyBriToRgb(light.state.xy[0], light.state.xy[1], light.state.bri);
+        if(light.state.on)
+            lightIndicator.style.background = "rgb("+parseInt(color.r)+","+parseInt(color.g)+","+parseInt(color.b)+")";
 
         lightIndicator.addEventListener("click", function(e){
            toggleColorWindow(); 
@@ -189,6 +179,7 @@ var HueApp = function(){
         lightName.className ="hue-text";
         lightOpacity.textContent = light.state.bri ;
         lightOpacity.className = "hue-text";
+        
 
         var toggleBar = document.createElement("div");
         toggleBar.className = "hue-toggle-bar";
@@ -196,10 +187,18 @@ var HueApp = function(){
 
         toggleBar.addEventListener("click", function(e){
            var id = document.getElementById(this.dataset.button);
-           if(id.className == "hue-toggle-bar-button")
+           var lightId = document.getElementById("lightbar" + this.dataset.nr).dataset.nr;
+           if(id.className == "hue-toggle-bar-button"){
                 id.className = "hue-toggle-bar-button-toggled";
-            else
+                user.setLightState(parseInt(lightId), {on: false}, function(d){
+                    console.log(d);
+                })
+           } else {
                 id.className = "hue-toggle-bar-button";
+                user.setLightState(parseInt(lightId), {on: true}, function(d){
+                    console.log(d);
+                })
+           }
         });
 
         var toggleBarButton = document.createElement("div");
@@ -207,6 +206,7 @@ var HueApp = function(){
         toggleBarButton.className = "hue-toggle-bar-button";
 
         toggleBar.dataset.button = toggleBarButton.id;
+        toggleBar.dataset.nr = nextId;
 
         toggleBar.appendChild(toggleBarButton);
 
@@ -224,7 +224,6 @@ var HueApp = function(){
         return lightBarContainer;
 
     }
-
     function toggleColorWindow(){
         var x = document.getElementById("hue-color-popup");
 
@@ -238,6 +237,32 @@ var HueApp = function(){
 
     function closeColorWindow(){
         document.getElementById("hue-color-popup").style.display = "none";
+    }
+
+
+   function xyBriToRgb(x, y, bri){
+        z = 1.0 - x - y;
+        Y = bri / 255.0; // Brightness of lamp
+        X = (Y / y) * x;
+        Z = (Y / y) * z;
+        r = X * 1.612 - Y * 0.203 - Z * 0.302;
+        g = -X * 0.509 + Y * 1.412 + Z * 0.066;
+        b = X * 0.026 - Y * 0.072 + Z * 0.962;
+        r = r <= 0.0031308 ? 12.92 * r : (1.0 + 0.055) * Math.pow(r, (1.0 / 2.4)) - 0.055;
+        g = g <= 0.0031308 ? 12.92 * g : (1.0 + 0.055) * Math.pow(g, (1.0 / 2.4)) - 0.055;
+        b = b <= 0.0031308 ? 12.92 * b : (1.0 + 0.055) * Math.pow(b, (1.0 / 2.4)) - 0.055;
+        maxValue = Math.max(r,g,b);
+        r /= maxValue;
+        g /= maxValue;
+        b /= maxValue;
+        r = r * 255;   if (r < 0) { r = 255 };
+        g = g * 255;   if (g < 0) { g = 255 };
+        b = b * 255;   if (b < 0) { b = 255 };
+        return {
+            r :r,
+            g :g,
+            b :b
+        }
     }
 
 
