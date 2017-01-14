@@ -54,11 +54,15 @@ var FileUtil = function(){
             case Files.Apps:
                 res = "apps.json";
                 break;
-            case Apps.Settings:
+            case Files.Settings:
                 res = "settings.json";
                 break;
-            case Apps.Weather:
+            case Files.Weather:
                 res = "weather.json";
+                break;
+
+            case Files.HueApp:
+                res = "hue.json";
                 break;
 
             default:
@@ -74,7 +78,6 @@ var FileUtil = function(){
     function writeFile(fileEntry, dataObj) {
         // Create a FileWriter object for our FileEntry (log.txt).
         fileEntry.createWriter(function (fileWriter) {
-
             fileWriter.onwriteend = function() {
                 console.log("Successfully wrote to file.");
                 //readFile(fileEntry);
@@ -138,5 +141,6 @@ var Files = {
     Apps : 0,
     Settings: 1,
     Weather: 2,
+    HueApp: 3
         
 }

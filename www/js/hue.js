@@ -1,15 +1,16 @@
 var HueApp = function(){
     
+    var user;
+
     function init(){
-        createInterface();
         createConstantInterface();
         AppInit.startNewActivity();
 
         createHueConnection();
     }
-    
+   
 
-    function createInterface(){
+    function createInterface(lights){
         var mainPopup = document.getElementById("main-popup");
         var mainContainer = document.createElement("div");
         
@@ -24,18 +25,27 @@ var HueApp = function(){
 
         lightBars.id = "hue-app-lightbars";
         lightBars.className = "hue-light-bar";
+        
+        for(light in lights){
+            var x = createNewLightBar(lights[light]);
+            lightBars.appendChild(x);
+        }
 
+        /*
         var lightBarContainer = createNewLightBar();
         var light2 = createNewLightBar();
         var light3 = createNewLightBar();
         var light4 = createNewLightBar();
         var light5 = createNewLightBar();
+        
 
         lightBars.appendChild(lightBarContainer);
         lightBars.appendChild(light2);
         lightBars.appendChild(light3);
         lightBars.appendChild(light4);
         lightBars.appendChild(light5);
+
+        */
 
         hueAppContainer.appendChild(lightBars);
         mainContainer.appendChild(hueAppContainer);
@@ -85,34 +95,73 @@ var HueApp = function(){
     }
 
     function createHueConnection(){
-        var hue = jsHue();
 
-        hue.discover(
-            function(bridges) {
-                if(bridges.length === 0) {
-                    console.log('No bridges found. :(');
-                }
-                else {
-                    bridges.forEach(function(e) {
-                        connectToBridge(e.internalipaddress);
-                    });
-                }
-            },
-            function(error) {
-                console.error(error.message);
-            }
-        );
+        var hue = jsHue();
+        FileUtil.checkAppSettings(Files.HueApp, function(fEntry){
+            FileUtil.readFile(fEntry.fEntry, function(r){
+                r = JSON.parse(r);
+                // discovery
+                hue.discover(
+                    function(bridges) {
+                        if(bridges.length === 0) {
+                            console.log('No bridges found. :(');
+                        }
+                        else {
+                            bridges.forEach(function(e) {
+                                if(r.username){ 
+                                   var bridge = hue.bridge(e.internalipaddress);
+                                   user = bridge.user(r.username);
+                                   user.getLights(function(l){
+                                       createInterface(l);
+                                   });
+                                   
+                               } else {
+                                   pairBridgeFirstTime(e.internalipaddress);
+                                }
+
+
+                            });
+                        }
+                    },
+                    function(error) {
+                        console.error(error.message);
+                    }
+                );
+            });
+        });
+
+      
         
     }
 
-
-    function connectToBridge(ip){
+    function pairBridgeFirstTime(ip){
+        var hue = jsHue();
         var bridge = hue.bridge(ip);
+
+        bridge.createUser('homescreen2', function(data) {
+            // extract bridge-generated username from returned data
+            if(("error" in data[0]) && (data[0].error.description.indexOf("link") >= 0)){
+                window.setTimeout(function(){
+                    connectToBridge(ip);
+                }, 1000);
+                return;
+            } else if("success" in data[0]) {
+                var username = data[0].success.username;
+                var r = {"username": username};
+
+                // instantiate user object with username
+                user = bridge.user(username);
+                
+                FileUtil.checkAppSettings(Files.HueApp, function(fileEntry){
+                    FileUtil.writeFile(fileEntry.fEntry, JSON.stringify(r));
+                });
+            }
+        });
          
     }
     
     var nextId = 0;
-    function createNewLightBar(){
+    function createNewLightBar(light){
 
         var lightBarContainer = document.createElement("div");
         lightBarContainer.className = "hue-lightbar-container";
@@ -136,9 +185,9 @@ var HueApp = function(){
         textContainer.className = "hue-light-text";
         var lightName = document.createElement("p");
         var lightOpacity = document.createElement("p");
-        lightName.textContent = "name";
+        lightName.textContent = light.name;
         lightName.className ="hue-text";
-        lightOpacity.textContent = "light (%)";
+        lightOpacity.textContent = light.state.bri ;
         lightOpacity.className = "hue-text";
 
         var toggleBar = document.createElement("div");

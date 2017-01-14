@@ -91,7 +91,7 @@ var WeatherApp = function(){
         function(pos){
             // get geo pos
             position = pos;
-            FileUtil.checkAppSettings(Apps.Weather, function(obj){
+            FileUtil.checkAppSettings(Files.Weather, function(obj){
                 weatherFile = obj.fEntry;
 
                 if(obj.readValue == ReadValues.EMPTY){
