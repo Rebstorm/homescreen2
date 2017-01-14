@@ -30,7 +30,7 @@ var WeatherApp = function(){
                 if(min < 10)
                     min = "0" + min;
                     
-                textContainer.innerHTML = "<b>" + data[i].temp + "</b> °Celcius <br><b>" + data[i].humidity + "</b> Humidity<br><b>" + data[i].precipation + "</b> mm rain incoming<br>" +
+                textContainer.innerHTML = "<b>" + data[i].temp + "</b> &deg;Celcius <br><b>" + data[i].humidity + "</b> Humidity<br><b>" + data[i].precipation + "</b> mm rain incoming<br>" +
                                           "Checked for " + checkedDate.getHours() + ":" + min + ".";
                 
                 // animate button
