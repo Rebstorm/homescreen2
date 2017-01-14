@@ -10,6 +10,9 @@
         "cordova-plugin-file": {
             "PACKAGE_NAME": "com.paul.wiki.homescreen"
         },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.paul.wiki.homescreen"
+        },
         "cordova-plugin-insomnia": {
             "PACKAGE_NAME": "com.paul.wiki.homescreen"
         },

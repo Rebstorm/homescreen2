@@ -4,6 +4,8 @@ var HueApp = function(){
         createInterface();
         createConstantInterface();
         AppInit.startNewActivity();
+
+        createHueConnection();
     }
     
 
@@ -80,6 +82,33 @@ var HueApp = function(){
             
         }
 
+    }
+
+    function createHueConnection(){
+        var hue = jsHue();
+
+        hue.discover(
+            function(bridges) {
+                if(bridges.length === 0) {
+                    console.log('No bridges found. :(');
+                }
+                else {
+                    bridges.forEach(function(e) {
+                        connectToBridge(e.internalipaddress);
+                    });
+                }
+            },
+            function(error) {
+                console.error(error.message);
+            }
+        );
+        
+    }
+
+
+    function connectToBridge(ip){
+        var bridge = hue.bridge(ip);
+         
     }
     
     var nextId = 0;
