@@ -12,7 +12,8 @@ var HueApp = function(){
 
     function createInterface(lights){
         var mainPopup = document.getElementById("main-popup");
-        mainPopup.removeChild(document.getElementById("load-img"));
+        // hide load
+        document.getElementById("load-img").style.display = "none";
 
         var mainContainer = document.createElement("div");
         
@@ -123,18 +124,7 @@ var HueApp = function(){
     }
 
     function showtempLoadScreen(){
-        
-        var c = document.getElementById("main-popup");
-
-        var loadingImg = document.createElement("img");
-        loadingImg.id = "load-img";
-        loadingImg.src = "resources/system/load.gif";
-        loadingImg.width = "100";
-        loadingImg.height = "100";
-        loadingImg.style.display = "block";
-        loadingImg.style.margin = "5em auto";
-
-        c.appendChild(loadingImg);
+        document.getElementById("load-img").style.display = "block";
     }
 
     function showPairWindow(){

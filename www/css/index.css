@@ -291,6 +291,7 @@ img#main-popup-exit{
     position: fixed;
     top: 0.4em;
     right: 0.4em;
+    z-index: 10;
 }
 
 img#main-popup-exit:hover{
