@@ -12,6 +12,8 @@ var HueApp = function(){
 
     function createInterface(lights){
         var mainPopup = document.getElementById("main-popup");
+        mainPopup.removeChild(document.getElementById("load-img"));
+
         var mainContainer = document.createElement("div");
         
         var hueAppContainer = document.createElement("div");
@@ -102,6 +104,7 @@ var HueApp = function(){
                                    user.getLights(function(l){
                                       createInterface(l);
                                    });
+                                   showtempLoadScreen();
                                    
                                } else {
                                    pairBridgeFirstTime(e.internalipaddress);
@@ -117,6 +120,21 @@ var HueApp = function(){
                 );
             });
         });
+    }
+
+    function showtempLoadScreen(){
+        
+        var c = document.getElementById("main-popup");
+
+        var loadingImg = document.createElement("img");
+        loadingImg.id = "load-img";
+        loadingImg.src = "resources/system/load.gif";
+        loadingImg.width = "100";
+        loadingImg.height = "100";
+        loadingImg.style.display = "block";
+        loadingImg.style.margin = "5em auto";
+
+        c.appendChild(loadingImg);
     }
 
     function showPairWindow(){
@@ -216,7 +234,6 @@ var HueApp = function(){
         toggleBar.addEventListener("click", function(e){
            var id = document.getElementById(this.dataset.button);
            var lightId = document.getElementById("lightbar" + this.dataset.nr).dataset.nr;
-           debugger;
            if(id.className == "hue-toggle-bar-button-toggled"){
                 id.className = "hue-toggle-bar-button";
                 user.setLightState(parseInt(lightId), {on: false}, function(d){
