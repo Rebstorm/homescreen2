@@ -177,6 +177,16 @@ div.hue-toggle-bar-button-toggled{
     display: inline-block;
 }
 
+div.hue-toggle-bar-button-disabled{
+    width: 1.5em;
+    height: 80%;
+    background: #635f5f;
+    border-radius: 2em;
+    margin-top: 0.2em;
+    margin-left: 1.8em;
+    display: inline-block;
+}
+
 div#hue-popup-exit-div{
     margin-bottom: 12%;
 }

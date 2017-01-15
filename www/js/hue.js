@@ -216,23 +216,30 @@ var HueApp = function(){
         toggleBar.addEventListener("click", function(e){
            var id = document.getElementById(this.dataset.button);
            var lightId = document.getElementById("lightbar" + this.dataset.nr).dataset.nr;
-           if(id.className == "hue-toggle-bar-button"){
-                id.className = "hue-toggle-bar-button-toggled";
+           debugger;
+           if(id.className == "hue-toggle-bar-button-toggled"){
+                id.className = "hue-toggle-bar-button";
                 user.setLightState(parseInt(lightId), {on: false}, function(d){
                     console.log(d);
                 })
-           } else {
-                id.className = "hue-toggle-bar-button";
+           } else if(id.className == "hue-toggle-bar-button"){
+                id.className = "hue-toggle-bar-button-toggled";
                 user.setLightState(parseInt(lightId), {on: true}, function(d){
                     console.log(d);
                 })
+           } else if(id.className == "hue-toggle-bar-button-disabled"){
+               console.log("TODO: herp derp is disabled");
            }
         });
 
         var toggleBarButton = document.createElement("div");
         toggleBarButton.id = "hue-toggle-button"+nextId;
-        toggleBarButton.className = "hue-toggle-bar-button";
-
+        if(light.state.on && light.state.reachable)
+            toggleBarButton.className = "hue-toggle-bar-button-toggled";
+        else if(!light.state.on && light.state.reachable)
+            toggleBarButton.className = "hue-toggle-bar-button";
+        else
+            toggleBarButton.className = "hue-toggle-bar-button-disabled";
         toggleBar.dataset.button = toggleBarButton.id;
         toggleBar.dataset.nr = nextId;
 
