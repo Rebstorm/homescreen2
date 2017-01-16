@@ -146,6 +146,10 @@ var WeatherApp = function(){
                 sym = WeatherIcons.SnowyDay;
                 break;
 
+            case "SnowyNight":
+                sym = WeatherIcons.SnowyNight;
+                break;
+
             default:
                 sym = MiscIcons.NA;
                 break;
