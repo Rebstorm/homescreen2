@@ -87,15 +87,19 @@ var HueApp = function(){
         FileUtil.checkAppSettings(Files.HueApp, function(fEntry){
             FileUtil.readFile(fEntry.fEntry, function(r){
                 try{
-                r = JSON.parse(r);
+                    r = JSON.parse(r);
                 } catch(e){
-                    console.log("file error: " + e.stack);
+                    if(r.length < 1)
+                        console.log("nothing read from hue file");
+                    else
+                        console.log("file error: " + e.stack);
                 }
                 // discovery
                 hue.discover(
                     function(bridges) {
                         if(bridges.length === 0) {
                             console.log('No bridges found. :(');
+                            // TODO, refresh and error msg when no bridge found.
                         }
                         else {
                             bridges.forEach(function(e) {
