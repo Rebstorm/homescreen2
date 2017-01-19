@@ -66,28 +66,38 @@ var HueApp = function(){
                 spectrumContext.drawImage(spectrumImg, 0, 0, this.width, this.height,
                                            0, 0, spectrumCanvas.width, spectrumCanvas.height);
             }
- 
+            
+            var lastTrigger = 0;
             // constans that shouldnt be regenerated.
             spectrumCanvas.addEventListener("touchmove", function(e){
-                if(e instanceof TouchEvent){
+                if(e instanceof TouchEvent && (Date.now() - lastTrigger) > 200){
                     
                     var context = this.getContext("2d");    
-                    
-                    /*
-                    var pos = spectrumCanvas.getBoundingClientRect();
                    
-                    var x = e.changedTouches[0].clientX - pos.left;
-                    var y = e.changedTouches[0].clientY - pos.top;
-                    */
-
                     var pos = findPos(this)
                     var x = e.changedTouches[0].pageX - pos.x;
                     var y = e.changedTouches[0].pageY - pos.y;
                     
                     var p = context.getImageData(parseInt(x), parseInt(y), 1, 1).data;
                     
-                    console.log(rgbToHex(p[0], p[1], p[2]));
-                    console.log("x: "+ x + "y: " + y);                
+                    //var newC = "rgb(" + p[0] + "," +  p[1] + "," + p[2] + ")";
+                    //var c = rgbToHsl(p[0], p[1], p[2]);
+                    var c = rgbToXy(p[0], p[1], p[2]);
+                    if(c == undefined){
+                        return;
+                    } else {
+                       user.setLightState(parseInt(toggledLight.dataset.nr), { "xy" : [c.x , c.y ] }  , function(e){
+                          //console.log(e);
+                          if(e[0].success)
+                            console.log("light changed");
+                          else
+                            console.log(e);
+                       });
+
+                    }
+
+                    lastTrigger = Date.now();
+                                   
                 }
             });
 
@@ -105,7 +115,7 @@ var HueApp = function(){
 
             function rgbToHex(r, g, b) {
                 if (r > 255 || g > 255 || b > 255)
-                    throw "Invalid Color";
+                    return "error";
                 return ((r << 16) | (g << 8) | b).toString(16);
             }
 
@@ -260,6 +270,7 @@ var HueApp = function(){
     }
     
     var nextId = 0;
+    var toggledLight = ""; 
     function createNewLightBar(light, nr){
 
         var lightBarContainer = document.createElement("div");
@@ -274,13 +285,14 @@ var HueApp = function(){
 
         var lightIndicator = document.createElement("div");
         lightIndicator.id = "lightindicator" + nextId;
+        lightIndicator.dataset.nr = nr;
         lightIndicator.className = "hue-light-indicator glowing";
         var color = xyBriToRgb(light.state.xy[0], light.state.xy[1], light.state.bri);
         if(light.state.on)
             lightIndicator.style.background = "rgb("+parseInt(color.r)+","+parseInt(color.g)+","+parseInt(color.b)+")";
 
         lightIndicator.addEventListener("click", function(e){
-           toggleColorWindow(); 
+           toggleColorWindow(this); 
         });
 
         var textContainer = document.createElement("div");
@@ -307,7 +319,7 @@ var HueApp = function(){
                 user.setLightState(parseInt(lightId), {on: false}, function(d){
                     lightInd.style.background = "#000";
                     lightInd.className = "hue-light-indicator";
-                })
+                });
            } else if(obj.className == "hue-toggle-bar-button"){
                 obj.className = "hue-toggle-bar-button-toggled";
                 user.setLightState(parseInt(lightId), {on: true}, function(d){
@@ -349,7 +361,9 @@ var HueApp = function(){
         return lightBarContainer;
 
     }
-    function toggleColorWindow(){
+    function toggleColorWindow(id){
+        toggledLight = id;
+        console.log(toggledLight);
         var x = document.getElementById("hue-color-popup");
 
         if(x.style.display == "none"){
@@ -390,7 +404,45 @@ var HueApp = function(){
         }
     }
 
+   function rgbToXy(r,g,b){
+        r /= 1000; g /= 1000; b /=1000;
+            
+        // parameter validation
+        if (0 > r || r > 1
+          || 0 > g || g > 1
+          || 0 > b || b > 1)
+          throw "invalid color range";
 
+        // init
+        var red = r;
+        var green = g;
+        var blue = b;
+
+        // Apply gamma correction
+        var r = (red   > 0.04045) ? Math.pow((red   + 0.055) / (1.0 + 0.055), 2.4) : (red   / 12.92);
+        var g = (green > 0.04045) ? Math.pow((green + 0.055) / (1.0 + 0.055), 2.4) : (green / 12.92);
+        var b = (blue  > 0.04045) ? Math.pow((blue  + 0.055) / (1.0 + 0.055), 2.4) : (blue  / 12.92);
+
+        // Wide gamut conversion D65
+        var X = r * 0.649926 + g * 0.103455 + b * 0.197109;
+        var Y = r * 0.234327 + g * 0.743075 + b * 0.022598;
+        var Z = r * 0.0000000 + g * 0.053077 + b * 1.035763;
+
+        var cx = X / (X + Y + Z);
+        var cy = Y / (X + Y + Z);
+
+        if (isNaN(cx)) {
+          cx = 0.0;
+        }
+
+        if (isNaN(cy)) {
+          cy = 0.0;
+        }
+
+        return { x: cx, y: cy, bri: Y };
+    }
+    
+    
     return {
         init : init,
     }
