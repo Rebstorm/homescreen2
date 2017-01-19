@@ -11,35 +11,36 @@ var HueApp = function(){
    
 
     function createInterface(lights){
-        var mainPopup = document.getElementById("main-popup");
-        // hide load
-        document.getElementById("load-img").style.display = "none";
-        // remove nobridge
-        removeNoBridgeInterface();
+        if(document.getElementById("main-app-content") == undefined){
+            var mainPopup = document.getElementById("main-popup");
+            // hide load
+            document.getElementById("load-img").style.display = "none";
+            // remove nobridge
+            removeNoBridgeInterface();
 
-        var mainContainer = document.createElement("div");
-        
-        var hueAppContainer = document.createElement("div");
+            var mainContainer = document.createElement("div");
 
-        var lightBars = document.createElement("div");
+            var hueAppContainer = document.createElement("div");
 
-        mainContainer.id = "main-app-content";
-        
-        hueAppContainer.id = "hue-app-c";
-        hueAppContainer.className = "full-app-c";
+            var lightBars = document.createElement("div");
 
-        lightBars.id = "hue-app-lightbars";
-        lightBars.className = "hue-light-bar";
-        
-        for(light in lights){
-            var x = createNewLightBar(lights[light], light);
-            lightBars.appendChild(x);
+            mainContainer.id = "main-app-content";
+
+            hueAppContainer.id = "hue-app-c";
+            hueAppContainer.className = "full-app-c";
+
+            lightBars.id = "hue-app-lightbars";
+            lightBars.className = "hue-light-bar";
+
+            for(light in lights){
+                var x = createNewLightBar(lights[light], light);
+                lightBars.appendChild(x);
+            }
+
+            hueAppContainer.appendChild(lightBars);
+            mainContainer.appendChild(hueAppContainer);
+            mainPopup.appendChild(mainContainer);
         }
-
-        hueAppContainer.appendChild(lightBars);
-        mainContainer.appendChild(hueAppContainer);
-        mainPopup.appendChild(mainContainer);
-
  
     }
 
@@ -60,20 +61,53 @@ var HueApp = function(){
             var spectrumImg = new Image();
             spectrumImg.src = "resources/system/spectrum.jpg";
             spectrumImg.onload = function(){
-                spectrumContext.drawImage(spectrumImg, 0, 0 );
+                spectrumCanvas.width = this.width;
+                spectrumCanvas.height = this.height;
+                spectrumContext.drawImage(spectrumImg, 0, 0, this.width, this.height,
+                                           0, 0, spectrumCanvas.width, spectrumCanvas.height);
             }
-            
+ 
             // constans that shouldnt be regenerated.
             spectrumCanvas.addEventListener("touchmove", function(e){
                 if(e instanceof TouchEvent){
+                    
+                    var context = this.getContext("2d");    
+                    
+                    /*
                     var pos = spectrumCanvas.getBoundingClientRect();
-
+                   
                     var x = e.changedTouches[0].clientX - pos.left;
                     var y = e.changedTouches[0].clientY - pos.top;
+                    */
 
+                    var pos = findPos(this)
+                    var x = e.changedTouches[0].pageX - pos.x;
+                    var y = e.changedTouches[0].pageY - pos.y;
+                    
+                    var p = context.getImageData(parseInt(x), parseInt(y), 1, 1).data;
+                    
+                    console.log(rgbToHex(p[0], p[1], p[2]));
                     console.log("x: "+ x + "y: " + y);                
                 }
             });
+
+            function findPos(obj) {
+                var curleft = 0, curtop = 0;
+                if (obj.offsetParent) {
+                    do {
+                        curleft += obj.offsetLeft;
+                        curtop += obj.offsetTop;
+                    } while (obj = obj.offsetParent);
+                    return { x: curleft, y: curtop };
+                }
+                return undefined;
+            }
+
+            function rgbToHex(r, g, b) {
+                if (r > 255 || g > 255 || b > 255)
+                    throw "Invalid Color";
+                return ((r << 16) | (g << 8) | b).toString(16);
+            }
 
             document.getElementById("hue-popup-exit").addEventListener("click", function(){
                 closeColorWindow();
@@ -155,7 +189,10 @@ var HueApp = function(){
                         }
                     },
                     function(error) {
-                        console.error(error.message);
+                        if(error.message == "")
+                            createNoBridgeInterface();
+                        else
+                            console.error(error.message);
                     }
                 );
             });
@@ -268,7 +305,8 @@ var HueApp = function(){
            if(obj.className == "hue-toggle-bar-button-toggled"){
                 obj.className = "hue-toggle-bar-button";
                 user.setLightState(parseInt(lightId), {on: false}, function(d){
-                    document.getElementById("lightindicator"+id).style.background = "#000";
+                    lightInd.style.background = "#000";
+                    lightInd.className = "hue-light-indicator";
                 })
            } else if(obj.className == "hue-toggle-bar-button"){
                 obj.className = "hue-toggle-bar-button-toggled";
@@ -276,6 +314,7 @@ var HueApp = function(){
                     user.getLight(parseInt(lightId), function(e){
                         var color = xyBriToRgb(e.state.xy[0], e.state.xy[1], e.state.bri);
                         lightInd.style.background = "rgb("+parseInt(color.r)+","+parseInt(color.g)+","+parseInt(color.b)+")";
+                        lightInd.className = "hue-light-indicator glowing";
                     });
                 })
            } else if(obj.className == "hue-toggle-bar-button-disabled"){
