@@ -261,19 +261,24 @@ var HueApp = function(){
 
 
         toggleBar.addEventListener("click", function(e){
-           var id = document.getElementById(this.dataset.button);
+           var obj = document.getElementById(this.dataset.button);
            var lightId = document.getElementById("lightbar" + this.dataset.nr).dataset.nr;
-           if(id.className == "hue-toggle-bar-button-toggled"){
-                id.className = "hue-toggle-bar-button";
+           var lightInd = document.getElementById("lightindicator"+this.dataset.nr);
+           var id = this.dataset.nr;
+           if(obj.className == "hue-toggle-bar-button-toggled"){
+                obj.className = "hue-toggle-bar-button";
                 user.setLightState(parseInt(lightId), {on: false}, function(d){
-                    console.log(d);
+                    document.getElementById("lightindicator"+id).style.background = "#000";
                 })
-           } else if(id.className == "hue-toggle-bar-button"){
-                id.className = "hue-toggle-bar-button-toggled";
+           } else if(obj.className == "hue-toggle-bar-button"){
+                obj.className = "hue-toggle-bar-button-toggled";
                 user.setLightState(parseInt(lightId), {on: true}, function(d){
-                    console.log(d);
+                    user.getLight(parseInt(lightId), function(e){
+                        var color = xyBriToRgb(e.state.xy[0], e.state.xy[1], e.state.bri);
+                        lightInd.style.background = "rgb("+parseInt(color.r)+","+parseInt(color.g)+","+parseInt(color.b)+")";
+                    });
                 })
-           } else if(id.className == "hue-toggle-bar-button-disabled"){
+           } else if(obj.className == "hue-toggle-bar-button-disabled"){
                console.log("TODO: herp derp is disabled");
            }
         });
