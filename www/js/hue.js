@@ -14,6 +14,8 @@ var HueApp = function(){
         var mainPopup = document.getElementById("main-popup");
         // hide load
         document.getElementById("load-img").style.display = "none";
+        // remove nobridge
+        removeNoBridgeInterface();
 
         var mainContainer = document.createElement("div");
         
@@ -81,6 +83,39 @@ var HueApp = function(){
 
     }
 
+    function createNoBridgeInterface(){
+        var mainPopup = document.getElementById("main-popup");
+
+
+        if(document.getElementById("hue-fail-refresh") == undefined){
+            var failDiv = document.createElement("div");
+            failDiv.className = "hue-fail-refresh-c";
+            failDiv.id="hue-fail-refresh";
+
+            var failDivButton = document.createElement("div");
+            failDivButton.className = "hue-fail-refresh-button";
+
+            failDivButton.addEventListener("click", function(e){
+               createHueConnection(); 
+            });
+            
+            var failDivButtonText = document.createElement("div");
+            failDivButtonText.className = "hue-fail-refresh-button-text";
+            failDivButtonText.innerHTML = "<i class='wi wi-refresh'>";
+            
+            failDivButton.appendChild(failDivButtonText);
+            failDiv.appendChild(failDivButton);
+            mainPopup.appendChild(failDiv);
+        }
+    }
+
+    function removeNoBridgeInterface(){
+        var mainPopup = document.getElementById("main-popup");
+
+        if(document.getElementById("hue-fail-refresh"))
+            mainPopup.removeChild(document.getElementById("hue-fail-refresh"));
+    }
+
     function createHueConnection(){
 
         var hue = jsHue();
@@ -99,7 +134,7 @@ var HueApp = function(){
                     function(bridges) {
                         if(bridges.length === 0) {
                             console.log('No bridges found. :(');
-                            // TODO, refresh and error msg when no bridge found.
+                            createNoBridgeInterface();
                         }
                         else {
                             bridges.forEach(function(e) {
