@@ -127,7 +127,7 @@ var HueApp = function(){
 
     }
 
-    function createNoBridgeInterface(){
+    function createNoBridgeInterface(refreshed){
         var mainPopup = document.getElementById("main-popup");
 
 
@@ -140,16 +140,26 @@ var HueApp = function(){
             failDivButton.className = "hue-fail-refresh-button";
 
             failDivButton.addEventListener("click", function(e){
-               createHueConnection(); 
+               createHueConnection(true); 
+               document.getElementById("hue-refresh-buttton-text").className = "wi wi-refresh rotating";
             });
             
             var failDivButtonText = document.createElement("div");
             failDivButtonText.className = "hue-fail-refresh-button-text";
-            failDivButtonText.innerHTML = "<i class='wi wi-refresh'>";
+            failDivButtonText.innerHTML = "<i id='hue-refresh-buttton-text' class='wi wi-refresh'>";
+
+            var failPText = document.createElement("p");
+            failPText.className = "hue-fail-text";
+            failPText.textContent = "Can't find a bridge. :( Retry?";
             
             failDivButton.appendChild(failDivButtonText);
             failDiv.appendChild(failDivButton);
+            failDiv.appendChild(failPText);
             mainPopup.appendChild(failDiv);
+        }
+
+        if(refreshed){
+            document.getElementById("hue-refresh-buttton-text").className = "wi wi-refresh";  
         }
     }
 
@@ -160,7 +170,7 @@ var HueApp = function(){
             mainPopup.removeChild(document.getElementById("hue-fail-refresh"));
     }
 
-    function createHueConnection(){
+    function createHueConnection(refreshed){
 
         var hue = jsHue();
         FileUtil.checkAppSettings(Files.HueApp, function(fEntry){
@@ -178,7 +188,7 @@ var HueApp = function(){
                     function(bridges) {
                         if(bridges.length === 0) {
                             console.log('No bridges found. :(');
-                            createNoBridgeInterface();
+                            createNoBridgeInterface(refreshed);
                         }
                         else {
                             bridges.forEach(function(e) {
