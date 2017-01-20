@@ -3,11 +3,16 @@ var AppInit = function(){
     function init(){
         setUniversalHandlers();
         getAvailableApps();
+        getAvailableNotes();
     }
 
 
     function getAvailableApps(){
-        return Apps.getAllApps();
+        Apps.getAllApps();
+    }
+
+    function getAvailableNotes(){
+        Notes.getAllNotes();
     }
 
     function setUniversalHandlers(){
