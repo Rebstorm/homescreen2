@@ -1,6 +1,7 @@
 var HueApp = function(){
     
     var user;
+    var SPECTRUM_IMG = "resources/system/spectrum.jpg";
 
     function init(){
         createConstantInterface();
@@ -59,7 +60,7 @@ var HueApp = function(){
             var spectrumContext = spectrumCanvas.getContext("2d");
 
             var spectrumImg = new Image();
-            spectrumImg.src = "resources/system/spectrum.jpg";
+            spectrumImg.src = SPECTRUM_IMG;
             spectrumImg.onload = function(){
                 spectrumCanvas.width = this.width;
                 spectrumCanvas.height = this.height;
@@ -79,50 +80,49 @@ var HueApp = function(){
                     var pos = findPos(this);
                     var x = e.changedTouches[0].pageX - pos.x;
                     var y = e.changedTouches[0].pageY - pos.y;
-                    
-                    var p = context.getImageData(parseInt(x), parseInt(y), 1, 1).data;
-                    
-                    if(lastX && lastY){
-                        var spectrumImg = new Image();
-                        spectrumImg.src = "resources/system/spectrum.jpg";
-                        spectrumImg.onload = function(){
-                            var spectrumCanvas = document.getElementById("spectrum-canvas");
-                            
-                            spectrumCanvas.width = this.width;
-                            spectrumCanvas.height = this.height;
+                                       
 
-                            context.drawImage(spectrumImg, 0, 0, this.width, this.height,
-                                                       0, 0, spectrumCanvas.width, spectrumCanvas.height);
-                           
-                            context.strokeStyle = "#000";
-                            context.lineWidth = 5;
-                            context.fillStyle = "#fff";
-                            context.beginPath();
-                            // x , y , radius, start-angle, end
-                            context.arc(x, y, 10, 0, 2*Math.PI);
-                            context.stroke();
-                            context.fill();
-                        }
+                    var spectrumImg = new Image();
+                    spectrumImg.src = SPECTRUM_IMG;
+                    spectrumImg.onload = function(){
+                        var spectrumCanvas = document.getElementById("spectrum-canvas");
+
+                        spectrumCanvas.width = this.width;
+                        spectrumCanvas.height = this.height;
+
+                        context.drawImage(spectrumImg, 0, 0, this.width, this.height,
+                                                   0, 0, spectrumCanvas.width, spectrumCanvas.height);
+
+                        var p = context.getImageData(parseInt(x), parseInt(y), 1, 1).data;
+
+                        context.strokeStyle = "#000";
+                        context.lineWidth = 5;
+                        context.fillStyle = "#fff";
+                        context.beginPath();
+                        // x , y , radius, start-angle, end
+                        context.arc(x, y, 10, 0, 2*Math.PI);
+                        context.stroke();
+                        context.fill();
+
+                        toggledLight.style.background = "rgb("+p[0]+"," + p[1] + "," + p[2] +  ")";
+                        
+                        var c = rgbToXy(p[0], p[1], p[2]);
+                        if(c == undefined){
+                            return;
+                        } else {
+                           user.setLightState(parseInt(toggledLight.dataset.nr), { "xy" : [c.x , c.y ] }  , function(e){
+                              //console.log(e);
+                              if(e[0].success)
+                                console.log("light changed");
+                              else
+                                console.log(e);
+                           });
+                         }
+
+                        lastTrigger = Date.now(); 
                     }
 
-                    lastX = x;
-                    lastY = y;
-                    
-                    var c = rgbToXy(p[0], p[1], p[2]);
-                    if(c == undefined){
-                        return;
-                    } else {
-                       user.setLightState(parseInt(toggledLight.dataset.nr), { "xy" : [c.x , c.y ] }  , function(e){
-                          //console.log(e);
-                          if(e[0].success)
-                            console.log("light changed");
-                          else
-                            console.log(e);
-                       });
-
-                    }
-
-                    lastTrigger = Date.now();
+                  
                                    
                 }
             });
@@ -318,14 +318,22 @@ var HueApp = function(){
         var lightBar = document.createElement("div");
         lightBar.id = "lightbarC"+nextId;
         lightBar.className = "hue-lightbar-c";
-
+        
+        // CREATE INDICATOR
         var lightIndicator = document.createElement("div");
         lightIndicator.id = "lightindicator" + nextId;
         lightIndicator.dataset.nr = nr;
-        lightIndicator.className = "hue-light-indicator glowing";
+
+        // SET COLOR OF INDICATOR
         var color = xyBriToRgb(light.state.xy[0], light.state.xy[1], light.state.bri);
-        if(light.state.on)
+        if(light.state.on && light.state.reachable){
             lightIndicator.style.background = "rgb("+parseInt(color.r)+","+parseInt(color.g)+","+parseInt(color.b)+")";
+            lightIndicator.className = "hue-light-indicator";
+        } else if(!light.state.on || !light.state.reachable) {
+            lightIndicator.className = "hue-light-indicator";
+            lightIndicator.style.background = "#fff";
+            lightIndicator.style.border = "1px solid #000";
+        }
 
         lightIndicator.addEventListener("click", function(e){
            toggleColorWindow(this); 
@@ -353,7 +361,8 @@ var HueApp = function(){
            if(obj.className == "hue-toggle-bar-button-toggled"){
                 obj.className = "hue-toggle-bar-button";
                 user.setLightState(parseInt(lightId), {on: false}, function(d){
-                    lightInd.style.background = "#000";
+                    lightInd.style.background = "";
+                    lightInd.style.border = "1px solid #000";
                     lightInd.className = "hue-light-indicator";
                 });
            } else if(obj.className == "hue-toggle-bar-button"){
@@ -361,8 +370,10 @@ var HueApp = function(){
                 user.setLightState(parseInt(lightId), {on: true}, function(d){
                     user.getLight(parseInt(lightId), function(e){
                         var color = xyBriToRgb(e.state.xy[0], e.state.xy[1], e.state.bri);
+                        lightInd.style.border = "none";
                         lightInd.style.background = "rgb("+parseInt(color.r)+","+parseInt(color.g)+","+parseInt(color.b)+")";
-                        lightInd.className = "hue-light-indicator glowing";
+                        lightInd.className = "hue-light-indicator fade-in";
+
                     });
                 })
            } else if(obj.className == "hue-toggle-bar-button-disabled"){
@@ -401,6 +412,19 @@ var HueApp = function(){
         toggledLight = id;
         console.log(toggledLight);
         var x = document.getElementById("hue-color-popup");
+        
+
+        // Rerender the img
+        var spectrumImg = new Image();
+        var spectrumCanvas = document.getElementById("spectrum-canvas");
+        var spectrumContext = spectrumCanvas.getContext("2d");
+        spectrumImg.src = SPECTRUM_IMG;
+            spectrumImg.onload = function(){
+                spectrumCanvas.width = this.width;
+                spectrumCanvas.height = this.height;
+                spectrumContext.drawImage(spectrumImg, 0, 0, this.width, this.height,
+                                           0, 0, spectrumCanvas.width, spectrumCanvas.height);
+            }
 
         if(x.style.display == "none"){
             x.style.display = "block";

@@ -23,7 +23,11 @@
 }
 
 .glowing {
-  animation: glowing 5s ease-in-out infinite;
+  animation: glowing-anim 5s ease-in-out infinite;
+}
+
+.fade-in{
+  animation: fade-in-anim 1s cubic-bezier(0.4, 0, 1, 1);
 }
 
 @keyframes main-popup-in-anim{
@@ -48,9 +52,17 @@
   }
 }
 
-@-webkit-keyframes glowing {
+@keyframes glowing-anim{
     0% { box-shadow: 0 0 15px rgb(230, 239, 230); }
     33% { box-shadow: 0 0 45px #788878; }
     66% { box-shadow: 0 0 30px #060606; }
     100% { box-shadow: 0 0 15px rgb(230, 239, 230); }
 }
+
+@keyframes fade-in-anim {
+   0% { opacity: 0 }
+   100%{ opacity: 100 }
+}
+
+
+

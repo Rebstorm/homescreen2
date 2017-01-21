@@ -127,8 +127,9 @@ div.hue-light-bar {
 
 div.hue-lightbar-c{
     display: inline-block;
-    width: 65%;
+    width: 60%;
     height: 100%;
+    float: right;
     position: relative;
 }
 
@@ -266,6 +267,7 @@ div#notes-container{
     /* border: 1px solid black; */
     margin-top: 1em;
     height: 10em;
+    /* text-align: center; */
 }
 
 div.notes-control-button {
