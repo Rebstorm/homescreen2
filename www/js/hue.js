@@ -68,20 +68,46 @@ var HueApp = function(){
             }
             
             var lastTrigger = 0;
+            var lastX;
+            var lastY;
             // constans that shouldnt be regenerated.
             spectrumCanvas.addEventListener("touchmove", function(e){
-                if(e instanceof TouchEvent && (Date.now() - lastTrigger) > 200){
+                if(e instanceof TouchEvent && (Date.now() - lastTrigger) > 50){
                     
                     var context = this.getContext("2d");    
                    
-                    var pos = findPos(this)
+                    var pos = findPos(this);
                     var x = e.changedTouches[0].pageX - pos.x;
                     var y = e.changedTouches[0].pageY - pos.y;
                     
                     var p = context.getImageData(parseInt(x), parseInt(y), 1, 1).data;
                     
-                    //var newC = "rgb(" + p[0] + "," +  p[1] + "," + p[2] + ")";
-                    //var c = rgbToHsl(p[0], p[1], p[2]);
+                    if(lastX && lastY){
+                        var spectrumImg = new Image();
+                        spectrumImg.src = "resources/system/spectrum.jpg";
+                        spectrumImg.onload = function(){
+                            var spectrumCanvas = document.getElementById("spectrum-canvas");
+                            
+                            spectrumCanvas.width = this.width;
+                            spectrumCanvas.height = this.height;
+
+                            context.drawImage(spectrumImg, 0, 0, this.width, this.height,
+                                                       0, 0, spectrumCanvas.width, spectrumCanvas.height);
+                           
+                            context.strokeStyle = "#000";
+                            context.lineWidth = 5;
+                            context.fillStyle = "#fff";
+                            context.beginPath();
+                            // x , y , radius, start-angle, end
+                            context.arc(x, y, 10, 0, 2*Math.PI);
+                            context.stroke();
+                            context.fill();
+                        }
+                    }
+
+                    lastX = x;
+                    lastY = y;
+                    
                     var c = rgbToXy(p[0], p[1], p[2]);
                     if(c == undefined){
                         return;
