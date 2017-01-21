@@ -74,6 +74,11 @@ div.full-app-c {
     /* background: #f0f0f0; */
 }
 
+div.hue-brightness-container {
+    text-align: center;
+    margin-top: 2em;
+}
+
 div.hue-fail-refresh-button{
     display: block;
     width:5em;
@@ -225,6 +230,31 @@ canvas.hue-spectrum-canvas{
     margin: 0 auto;
     display: block;
     border: 1px #000 solid;
+}
+
+input#hue-brightness-slider{
+    margin: 0 auto;
+    display: block;
+    max-width: 80%;
+    width: 602px;
+    max-height: 4em;
+    /* margin-top: 1em; */
+    color: black;
+    /* border: 1px solid black; */
+}
+/* GENERAL RANGE */
+
+input#hue-brightness-slider[type=range]{
+  -webkit-appearance: none;
+  background: #ded5d5;
+  border-radius: 1em;
+}
+
+
+/* THE THUMB STYLE */
+input#hue-brightness-slider[type=range]::-webkit-slider-thumb {
+  border: 15px solid transparent;
+  border-radius: 2em;
 }
 
 img#hue-popup-exit{

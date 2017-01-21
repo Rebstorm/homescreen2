@@ -67,6 +67,23 @@ var HueApp = function(){
                 spectrumContext.drawImage(spectrumImg, 0, 0, this.width, this.height,
                                            0, 0, spectrumCanvas.width, spectrumCanvas.height);
             }
+
+            var brightnessContainer = document.createElement("div");
+            brightnessContainer.className = "hue-brightness-container";
+            
+            var brightnessDescription = document.createElement("p");
+            brightnessDescription.textContent = "Brightness";
+
+            var brightnessSlider = document.createElement("input");
+            brightnessSlider.id = "hue-brightness-slider";
+            brightnessSlider.type = "range";
+            brightnessSlider.min = 0; 
+            brightnessSlider.max = 100;
+
+            brightnessContainer.appendChild(brightnessDescription);
+            brightnessContainer.appendChild(brightnessSlider);
+
+            hueColorPopup.appendChild(brightnessContainer);
             
             var lastTrigger = 0;
             var lastX;
@@ -103,7 +120,14 @@ var HueApp = function(){
                         context.arc(x, y, 10, 0, 2*Math.PI);
                         context.stroke();
                         context.fill();
+                        
 
+                        // If the img is white, the thing shouldnt be changed. Because the light isnt on.
+                        if(toggledLight.style.background == "rgb(255, 255, 255)" 
+                            || toggledLight.style.background == "" )
+                            return; 
+
+                            
                         toggledLight.style.background = "rgb("+p[0]+"," + p[1] + "," + p[2] +  ")";
                         
                         var c = rgbToXy(p[0], p[1], p[2]);
@@ -125,6 +149,24 @@ var HueApp = function(){
                   
                                    
                 }
+            });
+            
+            var lastTriggerBrightness = 0;
+            brightnessSlider.addEventListener("touchmove", function(e){
+
+                if(Date.now() - lastTriggerBrightness > 100){
+                    var b = this.value * 2.55;
+                    if(b > 255)
+                        b = 254;
+
+                    console.log(b);
+                    user.setLightState(parseInt(toggledLight.dataset.nr), { "bri" : parseInt(b) } , function(e){
+                       console.log(e); 
+                    });
+                    
+                    lastTriggerBrightness = Date.now();
+                }
+               
             });
 
             function findPos(obj) {
@@ -323,7 +365,7 @@ var HueApp = function(){
         var lightIndicator = document.createElement("div");
         lightIndicator.id = "lightindicator" + nextId;
         lightIndicator.dataset.nr = nr;
-
+        
         // SET COLOR OF INDICATOR
         var color = xyBriToRgb(light.state.xy[0], light.state.xy[1], light.state.bri);
         if(light.state.on && light.state.reachable){
@@ -412,8 +454,11 @@ var HueApp = function(){
         toggledLight = id;
         console.log(toggledLight);
         var x = document.getElementById("hue-color-popup");
-        
 
+        user.getLight(parseInt(id.dataset.nr), function(e){
+            document.getElementById("hue-brightness-slider").value = (e.state.bri / 2.55);
+        });
+                
         // Rerender the img
         var spectrumImg = new Image();
         var spectrumCanvas = document.getElementById("spectrum-canvas");
