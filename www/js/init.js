@@ -34,6 +34,8 @@ var AppInit = function(){
            if(window.outerWidth < 375){
                document.getElementById("uhoh").style.display = "block";
                document.getElementById("app").style.display = "none";
+               // hide main-popup
+               //document.getElementById("main-popup").style.display = "none";
            } else {
                document.getElementById("uhoh").style.display = "none";
                document.getElementById("app").style.display = "block";

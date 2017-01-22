@@ -288,7 +288,9 @@ var HueApp = function(){
     }
 
     function showtempLoadScreen(){
+        document.getElementById("load-img").style.marginTop = "5em";
         document.getElementById("load-img").style.display = "block";
+       
     }
 
     function showPairWindow(){
