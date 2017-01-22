@@ -14,4 +14,4 @@ _You have an old tablet that is good for nothing more than collecting dust? Why 
 
 - [ ] Install / First time usage
 - [ ] Notes/Note app for making quick notes
-- [ ] Hue Detail View (urgh)
+- [x] Hue Detail View (urgh)
