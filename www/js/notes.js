@@ -48,10 +48,66 @@ var Notes = function(){
     
     function createNotePopup(){
         var mainPopup = document.getElementById("main-popup");
+        
         var container = document.createElement("div");
         container.id = "main-popup-content";
-        container.textContent = "new note";
+        
 
+        var mainC = document.createElement("div");
+        mainC.id = "main-note-c";
+        mainC.className = "main-note-ct";
+        
+        var titleInputLabel = document.createElement("div");
+        titleInputLabel.textContent = "Title";
+        titleInputLabel.className ="main-note-title";
+
+        var titleInput = document.createElement("input");
+        titleInput.id="main-note-title-input";
+        titleInput.type = "text";
+
+        var importantLowButton = document.createElement("div");
+        importantLowButton.className = "main-note-importance-button";
+        
+        var colorCodebarLow = document.createElement("div");
+        colorCodebarLow.className = "main-note-colorbar-low";
+        
+        var importanceLowText = document.createElement("div");
+        importanceLowText.textContent = "low";
+
+        importantLowButton.appendChild(colorCodebarLow);
+        importantLowButton.appendChild(importanceLowText);
+        
+        var importantMiddleButton = document.createElement("div");
+        importantMiddleButton.className = "main-note-importance-button";
+
+        var colorCodebarMiddle = document.createElement("div");
+        colorCodebarMiddle.className = "main-note-colorbar-middle";
+        
+        var importanceMiddleText = document.createElement("div");
+        importanceMiddleText.textContent = "low";
+
+        importantMiddleButton.appendChild(colorCodebarMiddle);
+        importantMiddleButton.appendChild(importanceMiddleText);
+
+        var importantHighButton = document.createElement("div");
+        importantHighButton.className = "main-note-importance-button";
+
+        var colorCodebarHigh = document.createElement("div");
+        colorCodebarHigh.className = "main-note-colorbar-high";
+        
+        var importanceHighText = document.createElement("div");
+        importanceHighText.textContent = "high";
+
+        importantHighButton.appendChild(colorCodebarHigh);
+        importantHighButton.appendChild(importanceHighText);
+
+        mainC.appendChild(titleInputLabel);
+        mainC.appendChild(titleInput);
+        mainC.appendChild(importantLowButton);
+        mainC.appendChild(importantMiddleButton);
+        mainC.appendChild(importantHighButton);
+
+        container.appendChild(mainC);
         mainPopup.appendChild(container);
 
 

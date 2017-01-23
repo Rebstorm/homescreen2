@@ -25,7 +25,7 @@ var HueApp = function(){
 
             var lightBars = document.createElement("div");
 
-            mainContainer.id = "main-app-content";
+            mainContainer.id = "main-popup-content";
 
             hueAppContainer.id = "hue-app-c";
             hueAppContainer.className = "full-app-c";
@@ -256,37 +256,41 @@ var HueApp = function(){
                         console.log("file error: " + e.stack);
                 }
                 // discovery
-                hue.discover(
-                    function(bridges) {
-                        if(bridges.length === 0) {
-                            console.log('No bridges found. :(');
-                            createNoBridgeInterface(refreshed);
-                        }
-                        else {
-                            bridges.forEach(function(e) {
-                                if(r.username){ 
-                                   var bridge = hue.bridge(e.internalipaddress);
-                                   user = bridge.user(r.username);
-                                   user.getLights(function(l){
-                                      createInterface(l);
-                                   });
-                                   showtempLoadScreen();
-                                   
-                               } else {
-                                   pairBridgeFirstTime(e.internalipaddress);
-                                }
+                try{
+                    hue.discover(
+                        function(bridges) {
+                            if(bridges.length === 0) {
+                                console.log('No bridges found. :(');
+                                createNoBridgeInterface(refreshed);
+                            }
+                            else {
+                                bridges.forEach(function(e) {
+                                    if(r.username){ 
+                                       var bridge = hue.bridge(e.internalipaddress);
+                                       user = bridge.user(r.username);
+                                       user.getLights(function(l){
+                                          createInterface(l);
+                                       });
+                                       showtempLoadScreen();
+
+                                   } else {
+                                       pairBridgeFirstTime(e.internalipaddress);
+                                    }
 
 
-                            });
+                                });
+                            }
+                        },
+                        function(error) {
+                            if(error.message == "")
+                                createNoBridgeInterface();
+                            else
+                                console.error(error.message);
                         }
-                    },
-                    function(error) {
-                        if(error.message == "")
-                            createNoBridgeInterface();
-                        else
-                            console.error(error.message);
-                    }
-                );
+                    );
+                } catch(e){
+                    console.log(e);
+                }
             });
         });
     }
