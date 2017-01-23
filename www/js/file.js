@@ -65,6 +65,10 @@ var FileUtil = function(){
                 res = "hue.json";
                 break;
 
+            case Files.Notes:
+                res = "notes.json";
+                break;
+
             default:
                 console.log("couldnt find enum of file");
                 break;
@@ -75,11 +79,11 @@ var FileUtil = function(){
     }
 
 
-    function writeFile(fileEntry, dataObj) {
+    function writeFile(fileEntry, dataObj, deleteContents) {
         // Create a FileWriter object for our FileEntry (log.txt).
         fileEntry.createWriter(function (fileWriter) {
-            fileWriter.onwriteend = function() {
-                console.log("Successfully wrote to file.");
+            fileWriter.onwriteend = function(d) {
+                console.log("successfully written to file.");
                 //readFile(fileEntry);
             };
 
@@ -87,13 +91,18 @@ var FileUtil = function(){
                 console.log("Failed file write: " + e.toString());
             };
 
-            // If data object is not passed in,
-            // create a new Blob instead.
-            if (!dataObj) {
-                dataObj = new Blob(['some file data'], { type: 'text/plain' });
+            if(deleteContents){
+                fileWriter.truncate(0);
+                console.log("succesfully empties file");
+                return;
             }
+            if (!dataObj) {
+               return;
+            }
+           
             fileWriter.seek(0);
             fileWriter.write(dataObj);
+
         });
     }
 
@@ -141,6 +150,7 @@ var Files = {
     Apps : 0,
     Settings: 1,
     Weather: 2,
-    HueApp: 3
+    HueApp: 3,
+    Notes: 4
         
 }

@@ -441,11 +441,6 @@ div.main-note-importance-button{
     display: inline-block;
 }
 
-div.main-note-importance-button:hover{
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
-
-
 p.notes-control-button-text{
     text-align: center;
     height: inherit;

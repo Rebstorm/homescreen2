@@ -46,6 +46,7 @@ var Notes = function(){
 
     }
     
+    var setButton = "none";
     function createNotePopup(){
         var mainPopup = document.getElementById("main-popup");
         
@@ -76,6 +77,12 @@ var Notes = function(){
 
         importantLowButton.appendChild(colorCodebarLow);
         importantLowButton.appendChild(importanceLowText);
+
+        importantLowButton.addEventListener("click", function(e){
+            setButton = "low";
+            removeHighLight();
+            this.style.boxShadow = "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)";
+        });
         
         var importantMiddleButton = document.createElement("div");
         importantMiddleButton.className = "main-note-importance-button";
@@ -84,10 +91,16 @@ var Notes = function(){
         colorCodebarMiddle.className = "main-note-colorbar-middle";
         
         var importanceMiddleText = document.createElement("div");
-        importanceMiddleText.textContent = "low";
+        importanceMiddleText.textContent = "middle";
 
         importantMiddleButton.appendChild(colorCodebarMiddle);
         importantMiddleButton.appendChild(importanceMiddleText);
+
+        importantMiddleButton.addEventListener("click", function(e){
+            setButton = "middle";
+            removeHighLight();
+            this.style.boxShadow = "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)";
+        });
 
         var importantHighButton = document.createElement("div");
         importantHighButton.className = "main-note-importance-button";
@@ -100,18 +113,27 @@ var Notes = function(){
 
         importantHighButton.appendChild(colorCodebarHigh);
         importantHighButton.appendChild(importanceHighText);
+
+        importantHighButton.addEventListener("click", function(e){
+            setButton = "high";
+            removeHighLight();
+            this.style.boxShadow = "0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)";
+        });
         
         var descriptionAreaTitle = document.createElement("div");
         descriptionAreaTitle.className = "main-notes-description-title";
         descriptionAreaTitle.textContent = "Description";
 
         var descriptionArea = document.createElement("textarea");
-        descriptionAreaTitle.id = "main-notes-description";
+        descriptionArea.id = "main-notes-description";
         descriptionArea.className = "main-notes-description-area";
         
         var cancelButton = document.createElement("div");
         cancelButton.id = "main-notes-cancel-btn";
         cancelButton.className = "main-notes-cancel-button";
+        cancelButton.addEventListener("click", function(e){
+           console.log("clear note"); 
+        });
 
         var cancelImg = document.createElement("img");
         cancelImg.className = "main-notes-cancel-img";
@@ -121,6 +143,16 @@ var Notes = function(){
         var okButton = document.createElement("div");
         okButton.id = "main-notes-ok-btn";
         okButton.className = "main-notes-ok-button";
+        okButton.addEventListener("click", function(e){
+            var t = document.getElementById("main-note-title-input").value;
+            if(t == ""){
+                console.log("no title given"); 
+                return;
+            }
+            var d = document.getElementById("main-notes-description").value;
+            
+            saveNote(t, setButton, d);
+        });
 
               
         var okImg = document.createElement("img");
@@ -142,9 +174,56 @@ var Notes = function(){
         container.appendChild(mainC);
         mainPopup.appendChild(container);
 
+        function removeHighLight(){
+            var t = document.getElementsByClassName("main-note-importance-button");
+            for(var i = 0; i < t.length; i++){
+                t[i].style.boxShadow = "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)";
+            }
+        }
+    }
 
 
+    function saveNote(title, importance, description){
+        console.log(title, importance, description);
+        
+        if(title == undefined)
+            title = "asd";
 
+        if(importance == undefined)
+            importance = "low";
+
+        if(description == undefined)
+            description = ""; 
+
+        var x = { 
+            title: title,
+            importance: importance,
+            description: description
+        };
+
+        FileUtil.checkAppSettings(Files.Notes, function(fEntry){
+            FileUtil.readFile(fEntry.fEntry, function(r){
+                // file is empty
+                try{
+                    if(r == ""){
+                       var a = [];
+                       a.push(x);
+                       FileUtil.writeFile(fEntry.fEntry, JSON.stringify(a));
+                    } else {
+                        var o = JSON.parse(r);
+                        o.push(x);
+                                                    
+                        FileUtil.writeFile(fEntry.fEntry, JSON.stringify(o));
+                    }
+
+                } catch(e){
+                     console.log(e);
+                     if(e.stack.indexOf("SyntaxError") >= 0){
+                        FileUtil.writeFile(fEntry.fEntry, "", true);
+                     }
+                }
+            });
+        });
     }
 
     return {
