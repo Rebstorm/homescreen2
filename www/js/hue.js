@@ -393,7 +393,7 @@ var HueApp = function(){
         var lightOpacity = document.createElement("p");
         lightName.textContent = light.name;
         lightName.className ="hue-text";
-        lightOpacity.textContent = light.state.bri ;
+        //lightOpacity.textContent = (parseInt(light.state.bri / 2.55)) + "%";
         lightOpacity.className = "hue-text";
         
 
