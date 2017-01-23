@@ -99,6 +99,10 @@ div.hue-fail-refresh-button-text{
     text-align: center;
 }
 
+div#hue-fail-refresh{
+    width: 100%;
+    /* height: 200%; */
+}
 
 div#hue-color-popup{
     position: absolute;
@@ -285,7 +289,7 @@ div#main-popup {
     left: 0;
     right: 0;
     width: 99%;
-    /* height: 90%; */
+    height: 200%;
     background: #fff;
     z-index: 10;
     margin: 0 auto;

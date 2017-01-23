@@ -40,6 +40,8 @@ var AppInit = function(){
                document.getElementById("uhoh").style.display = "none";
                document.getElementById("app").style.display = "block";
            }
+
+
         });
         
     }
