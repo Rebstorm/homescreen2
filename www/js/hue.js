@@ -199,7 +199,10 @@ var HueApp = function(){
         var mainPopup = document.getElementById("main-popup");
 
 
-        if(document.getElementById("hue-fail-refresh") == undefined){
+        if(document.getElementById("main-popup-content") == undefined){
+            var container = document.createElement("div");
+            container.id = "main-popup-content";
+
             var failDiv = document.createElement("div");
             failDiv.className = "hue-fail-refresh-c";
             failDiv.id="hue-fail-refresh";
@@ -223,7 +226,8 @@ var HueApp = function(){
             failDivButton.appendChild(failDivButtonText);
             failDiv.appendChild(failDivButton);
             failDiv.appendChild(failPText);
-            mainPopup.appendChild(failDiv);
+            container.appendChild(failDiv);
+            mainPopup.appendChild(container);
         }
 
         if(refreshed){

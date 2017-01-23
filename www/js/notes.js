@@ -18,6 +18,10 @@ var Notes = function(){
             var addButton = document.createElement("div");
             addButton.className = "notes-control-button";
             addButton.id = "notes-control-button-add";
+            
+            addButton.addEventListener("click", function(e){
+                createNewNote();
+            })
 
             var addButtonText = document.createElement("p");
             addButtonText.className = "notes-control-button-text";
@@ -31,6 +35,29 @@ var Notes = function(){
         }
     }
 
+
+    function createNewNote(){
+
+        if(document.getElementById("main-popup-content") == undefined){
+            createNotePopup();
+        }
+
+        AppInit.startNewActivity();
+
+    }
+    
+    function createNotePopup(){
+        var mainPopup = document.getElementById("main-popup");
+        var container = document.createElement("div");
+        container.id = "main-popup-content";
+        container.textContent = "new note";
+
+        mainPopup.appendChild(container);
+
+
+
+
+    }
 
     return {
         getAllNotes: getAllNotes,
