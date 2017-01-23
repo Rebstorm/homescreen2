@@ -100,12 +100,44 @@ var Notes = function(){
 
         importantHighButton.appendChild(colorCodebarHigh);
         importantHighButton.appendChild(importanceHighText);
+        
+        var descriptionAreaTitle = document.createElement("div");
+        descriptionAreaTitle.className = "main-notes-description-title";
+        descriptionAreaTitle.textContent = "Description";
+
+        var descriptionArea = document.createElement("textarea");
+        descriptionAreaTitle.id = "main-notes-description";
+        descriptionArea.className = "main-notes-description-area";
+        
+        var cancelButton = document.createElement("div");
+        cancelButton.id = "main-notes-cancel-btn";
+        cancelButton.className = "main-notes-cancel-button";
+
+        var cancelImg = document.createElement("img");
+        cancelImg.className = "main-notes-cancel-img";
+        cancelImg.src = "resources/system/exit.svg";
+        cancelButton.appendChild(cancelImg);
+    
+        var okButton = document.createElement("div");
+        okButton.id = "main-notes-ok-btn";
+        okButton.className = "main-notes-ok-button";
+
+              
+        var okImg = document.createElement("img");
+        okImg.className = "main-notes-ok-img";
+        okImg.src = "resources/system/check.svg";
+        okButton.appendChild(okImg);
+        
 
         mainC.appendChild(titleInputLabel);
         mainC.appendChild(titleInput);
         mainC.appendChild(importantLowButton);
         mainC.appendChild(importantMiddleButton);
         mainC.appendChild(importantHighButton);
+        mainC.appendChild(descriptionAreaTitle);
+        mainC.appendChild(descriptionArea);
+        mainC.appendChild(cancelButton);
+        mainC.appendChild(okButton);
 
         container.appendChild(mainC);
         mainPopup.appendChild(container);
