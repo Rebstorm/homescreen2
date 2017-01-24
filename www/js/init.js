@@ -12,6 +12,7 @@ var AppInit = function(){
     }
 
     function getAvailableNotes(){
+        Notes.init();
         Notes.getAllNotes();
     }
 
@@ -52,10 +53,21 @@ var AppInit = function(){
         document.getElementById("main-popup").className = "main-popup-in";
     }
 
+    function killActivity(){
+
+       document.getElementById("main-popup").className = "main-popup-out";
+       if(document.getElementById("main-popup-content")){
+           document.getElementById("main-popup").removeChild(document.getElementById("main-popup-content"));
+       }
+       document.getElementById("main-popup").style.display = "none";
+
+    }
+
 
     return {
         init: init,
         startNewActivity : startNewActivity,
+        killActivity : killActivity,
     }
 
 }();

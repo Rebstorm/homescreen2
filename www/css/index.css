@@ -83,7 +83,7 @@ div#apps-container {
     width: 100%;
     display: block;
     text-align: center;
-    margin-bottom: 5em;
+    margin-bottom: 3em;
 }
 
 div.full-app-c {
@@ -327,24 +327,56 @@ div#main-app-content{
     /* background: gray; */
 }
 
+div#notes-all-container{
+    display: inline-block;
+    /* margin-left: 1em; */
+    height: 10em;
+    margin-top: 1em;
+    width: 89%;
+    overflow-x: auto;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+div.note-note-box{
+    display: inline-block;
+    margin-top: 1em;
+    /* height: inherit; */
+    margin-left: 1em;
+    background: #fff;
+    padding-right: 1em;
+    padding-left: 1em;
+    /* border: 1px solid black; */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    z-index: 1;
+}
 
 div#notes-container{
     /* border: 1px solid black; */
-    margin-top: 1em;
-    height: 10em;
+    /* margin-top: 1em; */
+    height: 12em;
+    width: 100%;
     /* text-align: center; */
+    /* overflow-y: scroll; */
+    /* overflow-x: auto; */
+    /* white-space: nowrap; */
 }
 
 div.notes-control-button {
     display: inline-block;
     /* padding: 1em; */
-    width: 4em;
-    height: inherit;
+    vertical-align: top;
+    width: 10%;
+    height: 10em;
     background: #fff;
+    margin-top: 1em;
+    margin-right: 1%;
     /* border-radius: 2em 2em; */
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     /* text-align: center; */
+    z-index: 5;
 }
 
 div.notes-control-button:hover{
@@ -443,8 +475,9 @@ div.main-note-importance-button{
 
 p.notes-control-button-text{
     text-align: center;
-    height: inherit;
+    /* height: inherit; */
     margin: 4em auto;
+    z-index: 5;
 }
 
 

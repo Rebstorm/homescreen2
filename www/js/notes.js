@@ -1,7 +1,7 @@
 var Notes = function(){
     
     function getAllNotes(){
-        init();
+        createNotes();
     }
 
     function init(){
@@ -152,6 +152,7 @@ var Notes = function(){
             var d = document.getElementById("main-notes-description").value;
             
             saveNote(t, setButton, d);
+            AppInit.killActivity();
         });
 
               
@@ -184,8 +185,7 @@ var Notes = function(){
 
 
     function saveNote(title, importance, description){
-        console.log(title, importance, description);
-        
+               
         if(title == undefined)
             title = "asd";
 
@@ -216,6 +216,8 @@ var Notes = function(){
                         FileUtil.writeFile(fEntry.fEntry, JSON.stringify(o));
                     }
 
+                    createNotes();
+
                 } catch(e){
                      console.log(e);
                      if(e.stack.indexOf("SyntaxError") >= 0){
@@ -226,7 +228,68 @@ var Notes = function(){
         });
     }
 
+    function createNotes(){
+
+        FileUtil.checkAppSettings(Files.Notes, function(fEntry){
+            FileUtil.readFile(fEntry.fEntry, function(r){
+                
+                try{
+
+                   if(r == ""){
+                    console.log("no notes are available");
+                    return;
+                   }
+                   var x = JSON.parse(r);
+                    
+                   if(document.getElementById("notes-all-container"))
+                        document.getElementById("notes-container").removeChild(document.getElementById("notes-all-container"));
+
+                   for(var i = 0; i < x.length; i++){
+                       createNote(x[i]);
+                   }
+
+                } catch(e){
+                     console.log(e);
+                }
+            });
+        });
+    }
+
+    function createNote(obj){
+
+        var c;
+        if(document.getElementById("notes-all-container") == undefined){
+            c = document.createElement("div");
+            c.id="notes-all-container";
+
+            var container = document.getElementById("notes-container");
+            container.appendChild(c);
+
+        } else {
+            c = document.getElementById("notes-all-container");
+        }
+
+        var boxReminder = document.createElement("div");
+        boxReminder.className = "note-note-box";
+
+        var noteTitle = document.createElement("p");
+        noteTitle.textContent = obj.title;
+
+        var noteImportance = document.createElement("div");
+        noteImportance.textContent = obj.importance;
+
+        var noteDescription = document.createElement("p");
+        noteDescription.textContent = obj.description;
+
+        boxReminder.appendChild(noteTitle);
+        boxReminder.appendChild(noteImportance);
+        boxReminder.appendChild(noteDescription);
+
+        c.appendChild(boxReminder);
+    }
+
     return {
+        init: init,
         getAllNotes: getAllNotes,
     }
 
