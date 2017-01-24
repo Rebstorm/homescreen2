@@ -227,7 +227,7 @@ var Notes = function(){
             });
         });
     }
-
+    var currentNotes;
     function createNotes(){
 
         FileUtil.checkAppSettings(Files.Notes, function(fEntry){
@@ -240,7 +240,8 @@ var Notes = function(){
                     return;
                    }
                    var x = JSON.parse(r);
-                    
+                   currentNotes = x;
+
                    if(document.getElementById("notes-all-container"))
                         document.getElementById("notes-container").removeChild(document.getElementById("notes-all-container"));
 
@@ -271,22 +272,90 @@ var Notes = function(){
 
         var boxReminder = document.createElement("div");
         boxReminder.className = "note-note-box";
+        boxReminder.dataset.note = JSON.stringify(obj);
+
+        boxReminder.addEventListener("click", function(e){
+           var dObject = JSON.parse(this.dataset.note);
+           var objectsFound = findByMatchingProperties(currentNotes, dObject);
+           
+           currentNotes.splice(objectsFound, 1);
+           saveNewNotes(currentNotes);
+        });
 
         var noteTitle = document.createElement("p");
         noteTitle.textContent = obj.title;
 
         var noteImportance = document.createElement("div");
-        noteImportance.textContent = obj.importance;
+        var imp;
+        switch(obj.importance){
+            case "low":
+                imp = "main-note-colorbar-low";
+                break;
+            case "middle":
+                imp = "main-note-colorbar-middle";
+                break;
+            case "high":
+                imp = "main-note-colorbar-high";
+                break;
+
+            default:
+                imp = "main-note-colorbar-low";
+                break;
+
+        }
+        noteImportance.className = imp;
 
         var noteDescription = document.createElement("p");
         noteDescription.textContent = obj.description;
-
-        boxReminder.appendChild(noteTitle);
+        
         boxReminder.appendChild(noteImportance);
+        boxReminder.appendChild(noteTitle);
         boxReminder.appendChild(noteDescription);
 
         c.appendChild(boxReminder);
     }
+
+    function findByMatchingProperties(set, properties) {
+        for(var i = 0; i < set.length; i++){
+            if(set[i].title == properties.title){
+                if(set[i].importance == properties.importance){
+                    if(set[i].description == properties.description){
+                        return i;
+                    }
+                }
+            }
+
+        }
+    }
+
+    function saveNewNotes(currentNotes){
+        FileUtil.checkAppSettings(Files.Notes, function(fEntry){
+            FileUtil.readFile(fEntry.fEntry, function(r){
+                // file is empty
+                try{
+                    if(r == ""){
+                       var a = [];
+                       a.push(currentNotes);
+                       FileUtil.writeFile(fEntry.fEntry, JSON.stringify(a));
+                    } else {
+                        var o = JSON.parse(r);
+                        o.push(currentNotes);
+                                                    
+                        FileUtil.writeFile(fEntry.fEntry, JSON.stringify(o));
+                    }
+
+                    createNotes();
+
+                } catch(e){
+                     console.log(e);
+                     if(e.stack.indexOf("SyntaxError") >= 0){
+                        FileUtil.writeFile(fEntry.fEntry, "", true);
+                     }
+                }
+            });
+        });
+    }
+
 
     return {
         init: init,
