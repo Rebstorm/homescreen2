@@ -79,31 +79,42 @@ var FileUtil = function(){
     }
 
 
-    function writeFile(fileEntry, dataObj, deleteContents) {
-        // Create a FileWriter object for our FileEntry (log.txt).
-        fileEntry.createWriter(function (fileWriter) {
-            fileWriter.onwriteend = function(d) {
-                console.log("successfully written to file.");
-                //readFile(fileEntry);
-            };
+    function writeFile(fileEntry, dataObj, deleteContents, fileWriterSeek, c) {
+        // Create a FileWriter object for our FileEntry
+        
+        var res = new Promise(function(resolve, rej){
 
-            fileWriter.onerror = function (e) {
-                console.log("Failed file write: " + e.toString());
-            };
+            fileEntry.createWriter(function (fileWriter) {
+                fileWriter.onwriteend = function(d) {
+                    resolve(d);
+                };
 
-            if(deleteContents){
-                fileWriter.truncate(0);
-                console.log("succesfully empties file");
-                return;
-            }
-            if (!dataObj) {
-               return;
-            }
-           
-            fileWriter.seek(0);
-            fileWriter.write(dataObj);
+                fileWriter.onerror = function (e) {
+                    console.log("Failed file write: " + e.toString());
+                };
 
+                if(deleteContents){
+                    fileWriter.truncate(0);
+                    console.log("succesfully emptied file");
+                    return;
+                }
+                if (!dataObj) {
+                   return;
+                }
+                if(fileWriterSeek){
+                    fileWriter.seek(fileWriter.length);
+                }else {
+                    fileWriter.seek(0);
+                }
+                fileWriter.write(dataObj);
+
+            });
+        }, onErrorLoadFs);
+        
+        res.then(function(d){
+            console.log("write was OK")
         });
+        
     }
 
     function readFile(fileEntry, callback) {

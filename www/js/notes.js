@@ -235,22 +235,26 @@ var Notes = function(){
                 
                 try{
 
+                   if(document.getElementById("notes-all-container"))
+                        document.getElementById("notes-container").removeChild(document.getElementById("notes-all-container"));
+
                    if(r == ""){
-                    console.log("no notes are available");
+                        console.log("no notes are available");
                     return;
                    }
                    var x = JSON.parse(r);
                    currentNotes = x;
 
-                   if(document.getElementById("notes-all-container"))
-                        document.getElementById("notes-container").removeChild(document.getElementById("notes-all-container"));
-
+                   
                    for(var i = 0; i < x.length; i++){
                        createNote(x[i]);
                    }
 
                 } catch(e){
                      console.log(e);
+                     if(e.stack.indexOf("SyntaxError") >= 0){
+                        FileUtil.writeFile(fEntry.fEntry, "", true);
+                     }
                 }
             });
         });
@@ -279,7 +283,8 @@ var Notes = function(){
            var objectsFound = findByMatchingProperties(currentNotes, dObject);
            
            currentNotes.splice(objectsFound, 1);
-           saveNewNotes(currentNotes);
+
+           removeNote(currentNotes);
         });
 
         var noteTitle = document.createElement("p");
@@ -328,7 +333,7 @@ var Notes = function(){
         }
     }
 
-    function saveNewNotes(currentNotes){
+    function removeNote(currentNotes){
         FileUtil.checkAppSettings(Files.Notes, function(fEntry){
             FileUtil.readFile(fEntry.fEntry, function(r){
                 // file is empty
@@ -338,13 +343,15 @@ var Notes = function(){
                        a.push(currentNotes);
                        FileUtil.writeFile(fEntry.fEntry, JSON.stringify(a));
                     } else {
-                        var o = JSON.parse(r);
-                        o.push(currentNotes);
-                                                    
-                        FileUtil.writeFile(fEntry.fEntry, JSON.stringify(o));
+                        var o = currentNotes;
+                        
+                        if(o.length <= 0){
+                          FileUtil.writeFile(fEntry.fEntry, "", true);
+                        }else {
+                          FileUtil.writeFile(fEntry.fEntry, JSON.stringify(o));  
+                        }
+                                                                            
                     }
-
-                    createNotes();
 
                 } catch(e){
                      console.log(e);
