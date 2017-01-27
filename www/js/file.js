@@ -79,7 +79,7 @@ var FileUtil = function(){
     }
 
 
-    function writeFile(fileEntry, dataObj, deleteContents, fileWriterSeek, c) {
+    function writeFile(fileEntry, dataObj, deleteContent, deleteAndWrite) {
         // Create a FileWriter object for our FileEntry
         
         var res = new Promise(function(resolve, rej){
@@ -93,26 +93,29 @@ var FileUtil = function(){
                     console.log("Failed file write: " + e.toString());
                 };
 
-                if(deleteContents){
+                if(deleteContent){
                     fileWriter.truncate(0);
                     console.log("succesfully emptied file");
                     return;
+                } else if(deleteAndWrite){
+                    fileWriter.seek (fileWriter.length);
+                    fileWriter.truncate(0);
                 }
+
+                
                 if (!dataObj) {
                    return;
-                }
-                if(fileWriterSeek){
-                    fileWriter.seek(fileWriter.length);
-                }else {
+                }else if(!deleteAndWrite || deleteAndWrite == undefined){
                     fileWriter.seek(0);
                 }
+
                 fileWriter.write(dataObj);
 
             });
         }, onErrorLoadFs);
         
         res.then(function(d){
-            console.log("write was OK")
+            console.log("Writing went OK");
         });
         
     }

@@ -372,6 +372,7 @@ div.notes-control-button {
     /* padding: 1em; */
     vertical-align: top;
     width: 10%;
+    max-width: 5em;
     height: 10em;
     background: #fff;
     margin-top: 1em;

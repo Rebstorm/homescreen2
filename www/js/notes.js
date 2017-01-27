@@ -184,7 +184,7 @@ var Notes = function(){
     }
 
 
-    function saveNote(title, importance, description){
+    function saveNote(title, importance, description, array, deleteMode){
                
         if(title == undefined)
             title = "asd";
@@ -201,6 +201,10 @@ var Notes = function(){
             description: description
         };
 
+
+        if(array)
+            x = array;
+
         FileUtil.checkAppSettings(Files.Notes, function(fEntry){
             FileUtil.readFile(fEntry.fEntry, function(r){
                 // file is empty
@@ -209,11 +213,14 @@ var Notes = function(){
                        var a = [];
                        a.push(x);
                        FileUtil.writeFile(fEntry.fEntry, JSON.stringify(a));
-                    } else {
+                    } else if(!deleteMode) {
                         var o = JSON.parse(r);
                         o.push(x);
                                                     
                         FileUtil.writeFile(fEntry.fEntry, JSON.stringify(o));
+                    } else if(deleteMode) {
+                        var o = x;
+                        FileUtil.writeFile(fEntry.fEntry, JSON.stringify(o), undefined, true);
                     }
 
                     createNotes();
@@ -284,7 +291,7 @@ var Notes = function(){
            
            currentNotes.splice(objectsFound, 1);
 
-           removeNote(currentNotes);
+           saveNote(undefined, undefined, undefined, currentNotes, true);
         });
 
         var noteTitle = document.createElement("p");
@@ -331,36 +338,6 @@ var Notes = function(){
             }
 
         }
-    }
-
-    function removeNote(currentNotes){
-        FileUtil.checkAppSettings(Files.Notes, function(fEntry){
-            FileUtil.readFile(fEntry.fEntry, function(r){
-                // file is empty
-                try{
-                    if(r == ""){
-                       var a = [];
-                       a.push(currentNotes);
-                       FileUtil.writeFile(fEntry.fEntry, JSON.stringify(a));
-                    } else {
-                        var o = currentNotes;
-                        
-                        if(o.length <= 0){
-                          FileUtil.writeFile(fEntry.fEntry, "", true);
-                        }else {
-                          FileUtil.writeFile(fEntry.fEntry, JSON.stringify(o));  
-                        }
-                                                                            
-                    }
-
-                } catch(e){
-                     console.log(e);
-                     if(e.stack.indexOf("SyntaxError") >= 0){
-                        FileUtil.writeFile(fEntry.fEntry, "", true);
-                     }
-                }
-            });
-        });
     }
 
 
