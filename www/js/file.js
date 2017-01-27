@@ -82,11 +82,11 @@ var FileUtil = function(){
     function writeFile(fileEntry, dataObj, deleteContent, deleteAndWrite) {
         // Create a FileWriter object for our FileEntry
         
-        var res = new Promise(function(resolve, rej){
+        return res = new Promise(function(resolve, rej){
 
             fileEntry.createWriter(function (fileWriter) {
                 fileWriter.onwriteend = function(d) {
-                    resolve(d);
+                    setTimeout(resolve(d), 50);
                 };
 
                 fileWriter.onerror = function (e) {
@@ -98,8 +98,9 @@ var FileUtil = function(){
                     console.log("succesfully emptied file");
                     return;
                 } else if(deleteAndWrite){
-                    fileWriter.seek (fileWriter.length);
                     fileWriter.truncate(0);
+                    writeFile(fileEntry, dataObj, undefined, undefined);
+                    return;
                 }
 
                 
@@ -113,10 +114,6 @@ var FileUtil = function(){
 
             });
         }, onErrorLoadFs);
-        
-        res.then(function(d){
-            console.log("Writing went OK");
-        });
         
     }
 

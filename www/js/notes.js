@@ -207,23 +207,38 @@ var Notes = function(){
 
         FileUtil.checkAppSettings(Files.Notes, function(fEntry){
             FileUtil.readFile(fEntry.fEntry, function(r){
-                // file is empty
+                
                 try{
+                    // file is empty
                     if(r == ""){
                        var a = [];
                        a.push(x);
-                       FileUtil.writeFile(fEntry.fEntry, JSON.stringify(a));
-                    } else if(!deleteMode) {
+                       var p = FileUtil.writeFile(fEntry.fEntry, JSON.stringify(a));
+
+                       p.then(function(d){
+                          createNotes();
+                       });
+                    // if its save mode
+                    }else if(!deleteMode) {
                         var o = JSON.parse(r);
                         o.push(x);
                                                     
-                        FileUtil.writeFile(fEntry.fEntry, JSON.stringify(o));
+                        var p = FileUtil.writeFile(fEntry.fEntry, JSON.stringify(o));
+                        p.then(function(d){
+                           createNotes();
+                        });
+
+
                     } else if(deleteMode) {
                         var o = x;
-                        FileUtil.writeFile(fEntry.fEntry, JSON.stringify(o), undefined, true);
+                        
+                        var p = FileUtil.writeFile(fEntry.fEntry, JSON.stringify(o), undefined, true);
+                        p.then(function(d){
+                           createNotes();
+                        });
                     }
 
-                    createNotes();
+                    //setTimeout(createNotes(), 300);
 
                 } catch(e){
                      console.log(e);
