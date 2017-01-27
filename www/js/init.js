@@ -63,11 +63,28 @@ var AppInit = function(){
 
     }
 
+    function showErrorBox(msg){
+        var popup = document.getElementById("error-box");
+        popup.className = "fade-in";
+        popup.style.display = "block";
+        popup.textContent = msg;
+
+        setTimeout(function(){
+            popup.className = "fade-out";
+            setTimeout(function(){
+                popup.style.display = "none";
+            }, 900);
+
+        }, 6000);
+
+    }
+
 
     return {
         init: init,
         startNewActivity : startNewActivity,
         killActivity : killActivity,
+        showErrorBox : showErrorBox
     }
 
 }();
