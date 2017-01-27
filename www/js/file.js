@@ -86,7 +86,7 @@ var FileUtil = function(){
 
             fileEntry.createWriter(function (fileWriter) {
                 fileWriter.onwriteend = function(d) {
-                    setTimeout(resolve(d), 50);
+                    resolve(d);
                 };
 
                 fileWriter.onerror = function (e) {

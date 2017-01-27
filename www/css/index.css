@@ -336,12 +336,18 @@ div#notes-all-container{
     overflow-x: auto;
     white-space: nowrap;
     z-index: 1;
+    word-break: break-all;
 }
 
-div.note-note-box{
+div.note-note-container{
+    position: relative;
     display: inline-block;
     margin-top: 1em;
-    /* height: inherit; */
+    border-radius: 1em;
+    vertical-align: top;
+    width: 20%;
+    height: 80%;
+    max-width: 10em;
     margin-left: 1em;
     background: #fff;
     padding-right: 1em;
@@ -352,9 +358,29 @@ div.note-note-box{
     z-index: 1;
 }
 
-div.note-note-box:hover{
+div.note-note-container:hover{
     box-shadow: 0 1px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
+
+div.notes-box-remove{
+    background: #f3f5f3;
+    position: absolute;
+    /* align-content: center; */
+    /* margin: 0 auto; */
+    bottom: 1%;
+    left: 0;
+    width: 100%;
+    padding-top: 1em;
+    height: 10%;
+    border-radius: 0 0 1em 1em;
+    text-align: center;
+}
+
+div.notes-box-remove:hover{
+    box-shadow: 0 1px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+
 
 div#notes-container{
     /* border: 1px solid black; */

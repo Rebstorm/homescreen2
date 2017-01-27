@@ -283,7 +283,7 @@ var Notes = function(){
     }
 
     function createNote(obj){
-
+        
         var c;
         if(document.getElementById("notes-all-container") == undefined){
             c = document.createElement("div");
@@ -291,26 +291,26 @@ var Notes = function(){
 
             var container = document.getElementById("notes-container");
             container.appendChild(c);
-
         } else {
             c = document.getElementById("notes-all-container");
         }
-
+        var oContainer = document.createElement("div");
+        oContainer.className = "note-note-container";
+        
         var boxReminder = document.createElement("div");
-        boxReminder.className = "note-note-box";
+        boxReminder.className = "";
         boxReminder.dataset.note = JSON.stringify(obj);
 
         boxReminder.addEventListener("click", function(e){
-           var dObject = JSON.parse(this.dataset.note);
-           var objectsFound = findByMatchingProperties(currentNotes, dObject);
-           
-           currentNotes.splice(objectsFound, 1);
 
-           saveNote(undefined, undefined, undefined, currentNotes, true);
         });
 
         var noteTitle = document.createElement("p");
-        noteTitle.textContent = obj.title;
+        var tit = obj.title;
+        if(tit.length > 25){
+            tit = tit.substring(0, 25) + "...";
+        }
+        noteTitle.textContent = tit;
 
         var noteImportance = document.createElement("div");
         var imp;
@@ -333,13 +333,42 @@ var Notes = function(){
         noteImportance.className = imp;
 
         var noteDescription = document.createElement("p");
-        noteDescription.textContent = obj.description;
+        var desc = obj.description;
+        if(desc.length > 25){
+            desc = desc.substring(0, 25) + "...";
+        }
+        noteDescription.textContent = desc;
+
+        var removeDiv = document.createElement("div");
+        removeDiv.className = "notes-box-remove";
+        removeDiv.dataset.note = JSON.stringify(obj);
+        var removeDivText = document.createElement("div");
+        removeDivText.style.position = "absolute";
+        removeDivText.style.top = "0";
+        removeDivText.style.left = "50%";
+        removeDivText.textContent = "X";
+
+        removeDiv.addEventListener("click", function(d){
+            var dObject = JSON.parse(this.dataset.note);
+            var objectsFound = findByMatchingProperties(currentNotes, dObject);
+           
+            currentNotes.splice(objectsFound, 1);
+
+            saveNote(undefined, undefined, undefined, currentNotes, true);
+
+            console.log(d);
+            d.stopPropagation();
+        })
+
+        removeDiv.appendChild(removeDivText);
         
         boxReminder.appendChild(noteImportance);
         boxReminder.appendChild(noteTitle);
         boxReminder.appendChild(noteDescription);
-
-        c.appendChild(boxReminder);
+        boxReminder.appendChild(removeDiv);
+        
+        oContainer.appendChild(boxReminder);
+        c.appendChild(oContainer);
     }
 
     function findByMatchingProperties(set, properties) {
