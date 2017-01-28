@@ -65,9 +65,10 @@ var AppInit = function(){
 
     function showErrorBox(msg){
         var popup = document.getElementById("error-box");
+        var text = document.getElementById("error-box-text");
         popup.className = "fade-in";
         popup.style.display = "block";
-        popup.textContent = msg;
+        text.innerHTML = msg;
 
         setTimeout(function(){
             popup.className = "fade-out";

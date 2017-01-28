@@ -58,7 +58,7 @@ var WeatherApp = function(){
         if(tries < 3){
             makeWeatherCall(position);
         } else {
-            console.log("Weops! Too many tries!");
+            AppInit.showErrorBox("Couldnt get weather data :( <br>Are we connected to the internet?")
             document.getElementById("weather-refresh-button").className = "";
             tries = 0;
         }

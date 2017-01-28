@@ -355,8 +355,6 @@ var Notes = function(){
             currentNotes.splice(objectsFound, 1);
 
             saveNote(undefined, undefined, undefined, currentNotes, true);
-
-            console.log(d);
             d.stopPropagation();
         })
 
