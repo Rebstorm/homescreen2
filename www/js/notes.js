@@ -9,12 +9,8 @@ var Notes = function(){
     }
 
     function createConstantInterface(){
-        if(document.getElementById("notes-container") == undefined){
-            var appC = document.getElementById("app");
-            var notesContainer = document.createElement("div");
-            notesContainer.id = "notes-container";
-
-
+        if(document.getElementById("notes-container") != undefined){
+            
             var addButton = document.createElement("div");
             addButton.className = "notes-control-button";
             addButton.id = "notes-control-button-add";
@@ -28,9 +24,8 @@ var Notes = function(){
             addButtonText.textContent = "+";
             
             addButton.appendChild(addButtonText);
-            notesContainer.appendChild(addButton);
+            document.getElementById("notes-container").appendChild(addButton);
             
-            appC.appendChild(notesContainer);
 
         }
     }
@@ -146,7 +141,7 @@ var Notes = function(){
         okButton.addEventListener("click", function(e){
             var t = document.getElementById("main-note-title-input").value;
             if(t == ""){
-                console.log("no title given"); 
+                AppInit.showErrorBox("No forgot to give it a title :(");
                 return;
             }
             var d = document.getElementById("main-notes-description").value;

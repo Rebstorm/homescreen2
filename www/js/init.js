@@ -33,7 +33,7 @@ var AppInit = function(){
 
 
         window.addEventListener("resize", function(event){
-           if(window.outerWidth < 375){
+           if(window.outerWidth < 379){
                document.getElementById("uhoh").style.display = "block";
                document.getElementById("app").style.display = "none";
                // hide main-popup

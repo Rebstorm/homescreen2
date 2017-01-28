@@ -354,7 +354,7 @@ div#notes-all-container{
     /* margin-left: 1em; */
     height: 10em;
     margin-top: 1em;
-    width: 89%;
+    width: 79%;
     overflow-x: auto;
     white-space: nowrap;
     z-index: 1;
@@ -419,7 +419,7 @@ div.notes-control-button {
     display: inline-block;
     /* padding: 1em; */
     vertical-align: top;
-    width: 10%;
+    width: 20%;
     max-width: 5em;
     height: 10em;
     background: #fff;
