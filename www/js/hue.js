@@ -262,6 +262,7 @@ var HueApp = function(){
                             if(bridges.length === 0) {
                                 console.log('No bridges found. :(');
                                 createNoBridgeInterface(refreshed);
+                                
                             }
                             else {
                                 bridges.forEach(function(e) {
@@ -306,7 +307,18 @@ var HueApp = function(){
         if(document.getElementById("main-app-content") == undefined){
             var bubble = document.createElement("div");
             bubble.id = "main-app-content";
-            bubble.textContent  = "Please pair me :(";
+
+            var contentWindow = document.createElement("div");
+            contentWindow.innerHTML = "Please pair me so I can help you with your lights<br>";
+            contentWindow.className = "pair-div-helper";
+            
+            var contentImg = document.createElement("img");
+            contentImg.src = "resources/system/pushlink_image.png";
+            contentImg.className = "pair-img";
+
+            contentWindow.appendChild(contentImg);
+            bubble.appendChild(contentWindow);
+            
             div.appendChild(bubble);
         }
 

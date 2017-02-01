@@ -78,6 +78,11 @@ img.main-notes-ok-img{
     display: block;
 }
 
+img.pair-img {
+    max-width: 100%;
+    padding-top: 10%;
+}
+
 
 div#apps-container {
     width: 100%;
@@ -107,6 +112,7 @@ div#error-box-text{
     margin-top: 1em; 
     margin-left: 0.5em;
 }
+
 
 div.full-app-c {
     /* width: inherit; */
@@ -526,12 +532,17 @@ div.main-note-importance-button{
     display: inline-block;
 }
 
+div.pair-div-helper{
+    text-align: center;
+}
+
 p.notes-control-button-text{
     text-align: center;
     /* height: inherit; */
     margin: 4em auto;
     z-index: 5;
 }
+
 
 
 
