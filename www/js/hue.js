@@ -221,7 +221,7 @@ var HueApp = function(){
 
             var failPText = document.createElement("p");
             failPText.className = "hue-fail-text";
-            failPText.textContent = "Can't find a bridge. :( Retry?";
+            failPText.innerHTML = ":( <br>Can't find a bridge. <br> Retry?";
             
             failDivButton.appendChild(failDivButtonText);
             failDiv.appendChild(failDivButton);

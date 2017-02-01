@@ -44,7 +44,7 @@ var Apps = function(){
 
     function firstTimeInstall(){      
         createAppButton(AppsRepo.hueApp);
-        createAppButton(AppsRepo.testApp);
+        //createAppButton(AppsRepo.testApp);
     }
 
     return {

@@ -127,7 +127,7 @@ var Notes = function(){
         cancelButton.id = "main-notes-cancel-btn";
         cancelButton.className = "main-notes-cancel-button";
         cancelButton.addEventListener("click", function(e){
-           console.log("clear note"); 
+           AppInit.killActivity();
         });
 
         var cancelImg = document.createElement("img");
