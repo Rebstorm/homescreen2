@@ -62,7 +62,7 @@ var Apps = function(){
         
         var welcomeContainer = document.createElement("p");
         welcomeContainer.className = "first-time-welcome-container";
-        welcomeContainer.innerHTML = "Hello and welcome to Homescreen2 <3<br> Im glad you've chosen to try it out.<br>Before we start off, let's personalize your experience:";
+        welcomeContainer.innerHTML = "Hello and welcome to Homescreen2 <3<br> Im glad you've chosen to try it out.<br>Before we start off, do you want to use:";
 
         var appContainer = document.createElement("div");
         appContainer.className = "first-time-app-container";
@@ -83,6 +83,7 @@ var Apps = function(){
             })
             
             var appCheckbox = document.createElement("input");
+            appCheckbox.className = "first-time-app-check";
             appCheckbox.type = "checkbox";
             appCheckbox.id = "check-"+i;
            
@@ -96,14 +97,15 @@ var Apps = function(){
             appLogo.src = AppsRepoLive[Object.keys(AppsRepoLive)[i]].logo;
             appTxt.textContent = AppsRepoLive[Object.keys(AppsRepoLive)[i]].name;
             
-
-
+            
             
             appRow.appendChild(appCheckbox);
             appRow.appendChild(appLogo);
             appRow.appendChild(appTxt);
             appContainer.appendChild(appRow);
         }
+
+        
 
         container.appendChild(firstInstallContainer);
         container.appendChild(welcomeContainer);
@@ -145,12 +147,4 @@ var AppsRepoLive = {
             HueApp.init();
         },
     },
-    testApp: {
-        name: "Internal Testing",
-        logo: "resources/logos/test.svg",
-        onClick: function(){
-            console.log("this be test app");
-        },
-
-    }
 }

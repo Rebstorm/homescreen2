@@ -62,8 +62,8 @@ img.app-icon-logo{
 }
 
 img.first-time-logo-img{
-    width: 4em;
-    height: 4em;
+    width: 3em;
+    height: 3em;
     /* max-width: 10%; */
 }
 
@@ -124,6 +124,20 @@ div.first-time-app-txt{
     font-size: 1.3em;
     /* top: 0; */
     /* bottom: 2em; */
+}
+
+div.first-time-app-row{
+    /* border-top: 1px dashed black; */
+    margin-bottom: 1em;
+    padding-top: 1em;
+    /* text-align: center; */
+}
+
+input.first-time-app-check {
+    width: 2em;
+    height: 2em;
+    margin-right: 1em;
+    /* text-align: left; */
 }
 
 
