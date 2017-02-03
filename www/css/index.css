@@ -61,6 +61,12 @@ img.app-icon-logo{
     height: inherit;
 }
 
+img.first-time-logo-img{
+    width: 4em;
+    height: 4em;
+    /* max-width: 10%; */
+}
+
 img.main-notes-cancel-img{
     width: 2.5em;
     height: 2.5em;
@@ -111,6 +117,13 @@ div#error-box{
 div#error-box-text{
     margin-top: 1em; 
     margin-left: 0.5em;
+}
+
+div.first-time-app-txt{
+    display: inline-block;
+    font-size: 1.3em;
+    /* top: 0; */
+    /* bottom: 2em; */
 }
 
 
@@ -341,7 +354,7 @@ div#main-popup {
     left: 0;
     right: 0;
     width: 99%;
-    height: 200%;
+    height: 100%;
     background: #fff;
     z-index: 10;
     margin: 0 auto;

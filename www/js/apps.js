@@ -38,13 +38,80 @@ var Apps = function(){
         appIconC.appendChild(appIcon);
 
         document.getElementById("apps-container").appendChild(appIconC);
+        
 
     }
 
 
     function firstTimeInstall(){      
-        createAppButton(AppsRepo.hueApp);
+        //createAppButton(AppsRepo.hueApp);
         //createAppButton(AppsRepo.testApp);
+        if(document.getElementById("main-popup-container") == undefined){
+            createConstantInterface();
+        }
+
+    }
+
+    function createConstantInterface(){
+        var mainPopup = document.getElementById("main-popup");
+
+        var container = document.createElement("div");
+        container.id = "main-popup-content";
+        
+        var firstInstallContainer = document.createElement("div");
+        
+        var welcomeContainer = document.createElement("p");
+        welcomeContainer.className = "first-time-welcome-container";
+        welcomeContainer.innerHTML = "Hello and welcome to Homescreen2 <3<br> Im glad you've chosen to try it out.<br>Before we start off, let's personalize your experience:";
+
+        var appContainer = document.createElement("div");
+        appContainer.className = "first-time-app-container";
+
+        for(var i = 0; i < Object.keys(AppsRepoLive).length; i++){
+            var appRow = document.createElement("div");
+            appRow.className = "first-time-app-row";
+            appRow.dataset.id = i;
+            appRow.id = "app-row"+i;
+
+            appRow.addEventListener("click", function(e){
+                var checkbox = document.getElementById("check-"+this.dataset.id);
+
+                if(checkbox.checked)
+                    checkbox.checked = false;
+                else
+                    checkbox.checked = true;
+            })
+            
+            var appCheckbox = document.createElement("input");
+            appCheckbox.type = "checkbox";
+            appCheckbox.id = "check-"+i;
+           
+            var appLogo = document.createElement("img");
+            appLogo.className = "first-time-logo-img";
+
+
+            var appTxt = document.createElement("div");
+            appTxt.className = "first-time-app-txt";
+            
+            appLogo.src = AppsRepoLive[Object.keys(AppsRepoLive)[i]].logo;
+            appTxt.textContent = AppsRepoLive[Object.keys(AppsRepoLive)[i]].name;
+            
+
+
+            
+            appRow.appendChild(appCheckbox);
+            appRow.appendChild(appLogo);
+            appRow.appendChild(appTxt);
+            appContainer.appendChild(appRow);
+        }
+
+        container.appendChild(firstInstallContainer);
+        container.appendChild(welcomeContainer);
+        container.appendChild(appContainer);
+
+        mainPopup.appendChild(container);
+
+        AppInit.startNewActivity();
     }
 
     return {
@@ -53,6 +120,24 @@ var Apps = function(){
 }();
 
 var AppsRepo = {
+    hueApp : {
+        name: "Philips Hue",    
+        logo: "resources/logos/bulb.svg",
+        onClick: function(){
+            HueApp.init();
+        },
+    },
+    testApp: {
+        name: "Internal Testing",
+        logo: "resources/logos/test.svg",
+        onClick: function(){
+            console.log("this be test app");
+        },
+
+    }
+}
+
+var AppsRepoLive = {
     hueApp : {
         name: "Philips Hue",    
         logo: "resources/logos/bulb.svg",
