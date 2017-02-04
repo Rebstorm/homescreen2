@@ -5,12 +5,13 @@
 body {
     font-family: 'Source Sans Pro Light';
     overflow-x: hidden;
+    margin: 0;
     /* width: 10em; */
     /* height: 100%; */
 }
 
 
-div.title-screen{
+div#title-screen{
     /* max-width: 90%; */
     display:block;
     margin: 0 auto;
@@ -18,7 +19,7 @@ div.title-screen{
     position: relative;
     padding-bottom: 1em;
     min-height: 6em;
-    border-bottom: 1px black solid;
+    /* border-bottom: 1px black solid; */
 }
 
 p.title {
@@ -138,6 +139,19 @@ input.first-time-app-check {
     height: 2em;
     margin-right: 1em;
     /* text-align: left; */
+}
+
+
+div.first-time-logo-div{
+    width: 2em;
+    height: 2em;
+    border: 1px solid black;
+    display: inline-block;
+}
+
+div.first-time-theme-txt{
+    display: inline-block;
+    margin-left: 1em;
 }
 
 
@@ -367,9 +381,9 @@ div#main-popup {
     top: 0%;
     left: 0;
     right: 0;
-    width: 99%;
+    /* width: 99%; */
     height: 100%;
-    background: #fff;
+    /* background: #fff; */
     z-index: 10;
     margin: 0 auto;
     border-radius: 2px;
@@ -404,7 +418,7 @@ div.note-note-container{
     height: 80%;
     max-width: 10em;
     margin-left: 1em;
-    background: #fff;
+    /* background: #fff; */
     padding-right: 1em;
     padding-left: 1em;
     /* border: 1px solid black; */
@@ -418,7 +432,7 @@ div.note-note-container:hover{
 }
 
 div.notes-box-remove{
-    background: #f3f5f3;
+    /* background: #f3f5f3; */
     position: absolute;
     /* align-content: center; */
     /* margin: 0 auto; */
@@ -455,7 +469,7 @@ div.notes-control-button {
     width: 20%;
     max-width: 5em;
     height: 10em;
-    background: #fff;
+    /* background: #fff; */
     margin-top: 1em;
     margin-right: 1%;
     /* border-radius: 2em 2em; */
@@ -532,7 +546,7 @@ div.main-notes-ok-button{
     margin-top: 2em;
     width: 45%;
     height: 3em;
-    background: #fff;
+    /* background: #fff; */
     /* border-radius: 2em 2em; */
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
@@ -553,7 +567,7 @@ div.main-note-importance-button{
     width: 30%;
     margin-left: 3%;
     height: 4em;
-    background: #fff;
+    /* background: #fff; */
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     display: inline-block;
@@ -587,7 +601,7 @@ i#weather-icon{
     font-size: 4em;
     margin-top: 0.3em;
     margin-right: 0.4em;
-    color: #000000;
+    /* color: #000000; */
 }
 
 div#weather-refresh-button{

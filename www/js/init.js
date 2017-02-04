@@ -1,6 +1,7 @@
 var AppInit = function(){
     
     function init(){
+        setTheming();
         setUniversalHandlers();
         getAvailableApps();
         getAvailableNotes();
@@ -14,6 +15,24 @@ var AppInit = function(){
     function getAvailableNotes(){
         Notes.init();
         Notes.getAllNotes();
+    }
+
+    function setTheming(){
+        //get theming from file. 
+                    // This is the temp one for testing.
+        var theme = ThemeRepo.light;
+
+        // body
+        document.body.style.backgroundColor = theme.shadeColor;
+        document.body.style.color = theme.textColor;
+
+        // titlescreen/weather-bar
+        document.getElementById("title-screen").style.backgroundColor = theme.mainColor;
+
+        //main-popup
+        document.getElementById("main-popup").style.backgroundColor = theme.shadeColor;
+        
+
     }
 
     function setUniversalHandlers(){

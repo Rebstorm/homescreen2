@@ -62,7 +62,7 @@ var Apps = function(){
         
         var welcomeContainer = document.createElement("p");
         welcomeContainer.className = "first-time-welcome-container";
-        welcomeContainer.innerHTML = "Hello and welcome to Homescreen2 <3<br> Im glad you've chosen to try it out.<br>Before we start off, do you want to use:";
+        welcomeContainer.innerHTML = "Hello and welcome to Homescreen2 <3<br> Im glad you've chosen to try it out.<br><h3> App Integration </h3>Before we start off, do you want to use?";
 
         var appContainer = document.createElement("div");
         appContainer.className = "first-time-app-container";
@@ -75,12 +75,15 @@ var Apps = function(){
 
             appRow.addEventListener("click", function(e){
                 var checkbox = document.getElementById("check-"+this.dataset.id);
+                
+                if(e.target == checkbox)
+                    return;
 
                 if(checkbox.checked)
                     checkbox.checked = false;
                 else
                     checkbox.checked = true;
-            })
+            });
             
             var appCheckbox = document.createElement("input");
             appCheckbox.className = "first-time-app-check";
@@ -95,9 +98,7 @@ var Apps = function(){
             appTxt.className = "first-time-app-txt";
             
             appLogo.src = AppsRepoLive[Object.keys(AppsRepoLive)[i]].logo;
-            appTxt.textContent = AppsRepoLive[Object.keys(AppsRepoLive)[i]].name;
-            
-            
+            appTxt.textContent = AppsRepoLive[Object.keys(AppsRepoLive)[i]].name;         
             
             appRow.appendChild(appCheckbox);
             appRow.appendChild(appLogo);
@@ -105,11 +106,62 @@ var Apps = function(){
             appContainer.appendChild(appRow);
         }
 
+
+        var themeSelectionCon = document.createElement("div");
+        var themeTxt = document.createElement("p");
+        themeTxt.innerHTML = "<h3>Theming</h3>What theme would you like to use?";
+        themeSelectionCon.appendChild(themeTxt);
+
+        var themeSelectionRows = document.createElement("div");
+
+
+        for(var i = 0; i < Object.keys(ThemeRepo).length; i++){
+            var appRow = document.createElement("div");
+            appRow.className = "first-time-app-row";
+            appRow.dataset.id = i;
+            appRow.id = "theme-row"+i;
+
+            appRow.addEventListener("click", function(e){
+                var checkbox = document.getElementById("theme-check-"+this.dataset.id);
+                
+                if(e.target == checkbox)
+                    return;
+
+                if(checkbox.checked)
+                    checkbox.checked = false;
+                else
+                    checkbox.checked = true;
+            });
+            
+            var appCheckbox = document.createElement("input");
+            appCheckbox.className = "first-time-app-check";
+            appCheckbox.type = "checkbox";
+            appCheckbox.id = "theme-check-"+i;
+           
+            var appLogo = document.createElement("div");
+            appLogo.className = "first-time-logo-div";
+            appLogo.style.backgroundColor = ThemeRepo[Object.keys(ThemeRepo)[i]].representColor;
+
+
+            var appTxt = document.createElement("div");
+            appTxt.className = "first-time-theme-txt";
+            
+            appTxt.textContent = ThemeRepo[Object.keys(ThemeRepo)[i]].name;         
+            
+            appRow.appendChild(appCheckbox);
+            appRow.appendChild(appLogo);
+            appRow.appendChild(appTxt);
+            themeSelectionRows.appendChild(appRow);
+            themeSelectionCon.appendChild(themeSelectionRows);
+        }
+
         
 
         container.appendChild(firstInstallContainer);
         container.appendChild(welcomeContainer);
         container.appendChild(appContainer);
+        container.appendChild(themeSelectionCon);
+
 
         mainPopup.appendChild(container);
 
@@ -135,6 +187,31 @@ var AppsRepo = {
         onClick: function(){
             console.log("this be test app");
         },
+
+    }
+}
+
+
+var ThemeRepo = {
+    light: {
+        name: "light",
+        representColor: "#fff",
+        mainColor: "#fff",
+        shadeColor: "#fff",
+        attributionColor: "#fff",
+        textColor: "#000",
+        altColor: "#fff",
+    },
+
+    dark: {
+        name: "dark",
+        representColor: "#3F3E40",
+        mainColor: "#3F3E40",
+        shadeColor: "#7F7D7F",
+        attributionColor: "#BEBBBF",
+        textColor: "#FEF9FF",
+        altColor: "#E4E0E5",
+
 
     }
 }
