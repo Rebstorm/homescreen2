@@ -26,6 +26,11 @@ var HelpFunctions = function(){
         // GENERAL ITEMS
         // ok buttons
         HelpFunctions.changeCSSClass("div.main-notes-ok-button", "backgroundColor", theme.altColor);
+        //cancel button
+        HelpFunctions.changeCSSClass("div.main-notes-cancel-button", "backgroundColor", theme.altColor);
+
+        // note buttons
+        HelpFunctions.changeCSSClass("div.note-note-container", "backgroundColor", theme.attributionColor);
 
         /* MAIN WINDOW*/
         // titlescreen/weather-bar

@@ -302,8 +302,8 @@ var Notes = function(){
 
         var noteTitle = document.createElement("p");
         var tit = obj.title;
-        if(tit.length > 25){
-            tit = tit.substring(0, 25) + "...";
+        if(tit.length > 20){
+            tit = tit.substring(0, 20) + "...";
         }
         noteTitle.textContent = tit;
 
@@ -329,8 +329,8 @@ var Notes = function(){
 
         var noteDescription = document.createElement("p");
         var desc = obj.description;
-        if(desc.length > 25){
-            desc = desc.substring(0, 25) + "...";
+        if(desc.length > 20){
+            desc = desc.substring(0, 20) + "...";
         }
         noteDescription.textContent = desc;
 
