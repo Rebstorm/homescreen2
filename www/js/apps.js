@@ -57,9 +57,9 @@ var Apps = function(){
 
         var container = document.createElement("div");
         container.id = "main-popup-content";
-        container.style.marginLeft = "1em";
         
         var firstInstallContainer = document.createElement("div");
+        firstInstallContainer.style.marginLeft = "1em";
         
         var welcomeContainer = document.createElement("p");
         welcomeContainer.className = "first-time-welcome-container";
@@ -125,6 +125,15 @@ var Apps = function(){
             appRow.addEventListener("click", function(e){
                 var checkbox = document.getElementById("theme-check-"+this.dataset.id);
                 
+                var checkedItems = document.getElementsByClassName("first-time-theme-check");
+
+                for(var i = 0; i < checkedItems.length; i++){
+                    if(e.target == checkedItems[i])
+                        checkedItems[i].checked = true;
+                    else
+                        checkedItems[i].checked = false;
+                }
+                
                 if(e.target == checkbox)
                     return;
 
@@ -135,7 +144,7 @@ var Apps = function(){
             });
             
             var appCheckbox = document.createElement("input");
-            appCheckbox.className = "first-time-app-check";
+            appCheckbox.className = "first-time-theme-check";
             appCheckbox.type = "checkbox";
             appCheckbox.id = "theme-check-"+i;
            
@@ -157,11 +166,12 @@ var Apps = function(){
         }
 
         
-
+        firstInstallContainer.appendChild(welcomeContainer);
+        firstInstallContainer.appendChild(appContainer);
+        firstInstallContainer.appendChild(themeSelectionCon);
+        
         container.appendChild(firstInstallContainer);
-        container.appendChild(welcomeContainer);
-        container.appendChild(appContainer);
-        container.appendChild(themeSelectionCon);
+
 
 
         mainPopup.appendChild(container);

@@ -38,6 +38,10 @@ var AppInit = function(){
         /* HUE WINDOW */
         //hue detail window
         document.getElementById("hue-color-popup").style.backgroundColor = theme.shadeColor;
+
+
+        /* UHOH WINDOW */
+        HelpFunctions.changeCSSClass("div#uhoh", "backgroundColor", theme.shadeColor);
      
         
         /* NOTES WINDOW */
