@@ -228,7 +228,12 @@ var WeatherApp = function(){
 
         document.getElementById("weather-refresh-button").addEventListener("click", function(){
            document.getElementById("weather-refresh-button").className = "rotating";
-           makeWeatherCall(position);
+           try{
+               makeWeatherCall(position);
+           } catch(e){
+               AppInit.showErrorBox("I cant seem to find my current location. Where did I park again..?")
+           }
+           
         });
     }
     

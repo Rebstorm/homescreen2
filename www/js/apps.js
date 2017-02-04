@@ -2,20 +2,20 @@ var Apps = function(){
     
     function getAllApps(){
         
-        checkFirstTimeInstall(Files.Apps);
+        checkFirstTimeInstall();
         
-        // because weather app is a constant notes as well, perhaps. 
+        // because weather app is a constant and so is notes as well, perhaps. 
         WeatherApp.init();
-        //createAppButton(hueApp);
+
        
     }
 
-    function checkFirstTimeInstall(files){
-       FileUtil.checkAppSettings(files, function(r){
+    function checkFirstTimeInstall(){
+       FileUtil.checkAppSettings(Files.Apps, function(r){
            if(r.readValue == ReadValues.EMPTY){
                firstTimeInstall();
            } else {
-               // do shit
+               createUserInterface(r.readValue);
            }
        });
     }
@@ -38,21 +38,22 @@ var Apps = function(){
         appIconC.appendChild(appIcon);
 
         document.getElementById("apps-container").appendChild(appIconC);
-        
 
     }
 
 
     function firstTimeInstall(){      
-        createAppButton(AppsRepo.hueApp);
-        //createAppButton(AppsRepo.testApp);
-        if(document.getElementById("main-popup-container") == undefined){
+        if(document.getElementById("main-popup-content") == undefined){
             createConstantInterface();
         }
 
     }
 
     function createConstantInterface(){
+
+        //hide exit button
+        document.getElementById("main-popup-exit").style.display = "none";
+        
         var mainPopup = document.getElementById("main-popup");
 
         var container = document.createElement("div");
@@ -60,6 +61,7 @@ var Apps = function(){
         
         var firstInstallContainer = document.createElement("div");
         firstInstallContainer.style.marginLeft = "1em";
+        firstInstallContainer.style.textAlign = "center";
         
         var welcomeContainer = document.createElement("p");
         welcomeContainer.className = "first-time-welcome-container";
@@ -68,10 +70,11 @@ var Apps = function(){
         var appContainer = document.createElement("div");
         appContainer.className = "first-time-app-container";
 
-        for(var i = 0; i < Object.keys(AppsRepoLive).length; i++){
+        for(var i = 0; i < Object.keys(AppsRepo).length; i++){
             var appRow = document.createElement("div");
             appRow.className = "first-time-app-row";
             appRow.dataset.id = i;
+            appRow.dataset.name = AppsRepo[Object.keys(AppsRepo)[i]].name; 
             appRow.id = "app-row"+i;
 
             appRow.addEventListener("click", function(e){
@@ -90,6 +93,7 @@ var Apps = function(){
             appCheckbox.className = "first-time-app-check";
             appCheckbox.type = "checkbox";
             appCheckbox.id = "check-"+i;
+            appCheckbox.dataset.name = AppsRepo[Object.keys(AppsRepo)[i]].name; 
            
             var appLogo = document.createElement("img");
             appLogo.className = "first-time-logo-img";
@@ -98,8 +102,8 @@ var Apps = function(){
             var appTxt = document.createElement("div");
             appTxt.className = "first-time-app-txt";
             
-            appLogo.src = AppsRepoLive[Object.keys(AppsRepoLive)[i]].logo;
-            appTxt.textContent = AppsRepoLive[Object.keys(AppsRepoLive)[i]].name;         
+            appLogo.src = AppsRepo[Object.keys(AppsRepo)[i]].logo;
+            appTxt.textContent = AppsRepo[Object.keys(AppsRepo)[i]].name;         
             
             appRow.appendChild(appCheckbox);
             appRow.appendChild(appLogo);
@@ -118,13 +122,13 @@ var Apps = function(){
 
         for(var i = 0; i < Object.keys(ThemeRepo).length; i++){
             var appRow = document.createElement("div");
-            appRow.className = "first-time-app-row";
+            appRow.className = "first-time-theme-row";
             appRow.dataset.id = i;
+            appRow.dataset.theme = ThemeRepo[Object.keys(ThemeRepo)[i]].name;
             appRow.id = "theme-row"+i;
 
             appRow.addEventListener("click", function(e){
                 var checkbox = document.getElementById("theme-check-"+this.dataset.id);
-                
                 var checkedItems = document.getElementsByClassName("first-time-theme-check");
 
                 for(var i = 0; i < checkedItems.length; i++){
@@ -147,6 +151,7 @@ var Apps = function(){
             appCheckbox.className = "first-time-theme-check";
             appCheckbox.type = "checkbox";
             appCheckbox.id = "theme-check-"+i;
+            appCheckbox.dataset.name = ThemeRepo[Object.keys(ThemeRepo)[i]].name;
            
             var appLogo = document.createElement("div");
             appLogo.className = "first-time-logo-div";
@@ -165,18 +170,99 @@ var Apps = function(){
             themeSelectionCon.appendChild(themeSelectionRows);
         }
 
+
+        var okButton = document.createElement("div");
+        okButton.id = "first-time-ok-btn";
+        okButton.className = "main-notes-ok-button";
+        okButton.addEventListener("click", function(e){
+           configureApp(e);
+        });
+
+              
+        var okImg = document.createElement("img");
+        okImg.className = "main-notes-ok-img";
+        okImg.src = "resources/system/check.svg";
+        okButton.appendChild(okImg);
+
         
         firstInstallContainer.appendChild(welcomeContainer);
         firstInstallContainer.appendChild(appContainer);
         firstInstallContainer.appendChild(themeSelectionCon);
+        firstInstallContainer.appendChild(okButton);
         
         container.appendChild(firstInstallContainer);
-
-
-
         mainPopup.appendChild(container);
 
         AppInit.startNewActivity();
+    }
+
+    function configureApp(e){
+        
+        var appsUsed = document.getElementsByClassName("first-time-app-check");
+        var apps = [];
+        for(var i = 0; i < appsUsed.length; i++){
+            if(appsUsed[i].checked)
+                apps.push(appsUsed[i].dataset.name);
+        }
+
+        var themeUsed = document.getElementsByClassName("first-time-theme-check");
+        var theme;
+        for(var i = 0; i < themeUsed.length; i++){
+            if(themeUsed[i].checked){
+               theme = themeUsed[i].dataset.name;
+               break;
+            }
+        }
+
+        //console.log("theme used: " + theme + " \n apps used: " + apps);
+
+        var o = {
+            theme: theme,
+            apps: apps
+        };
+        
+        // save
+        FileUtil.checkAppSettings(Files.Apps, function(fEntry){
+
+           var p = FileUtil.writeFile(fEntry.fEntry, JSON.stringify(o));
+
+           p.then(function(d){
+              // let people exit and use it like normal
+              document.getElementById("main-popup-exit").style.display = "block";
+              AppInit.killActivity();
+           });
+          
+        });
+
+    }
+
+    function createUserInterface(data){
+
+        try{
+            
+            var o = JSON.parse(data);
+
+            for(var i = 0; i < o.apps.length; i++){
+                for(var x = 0; x < Object.keys(AppsRepo).length; x++){
+                    if(o.apps[i] == AppsRepo[Object.keys(AppsRepo)[x]].name){
+                        createAppButton(AppsRepo[Object.keys(AppsRepo)[x]]);
+                    }
+                }
+            }
+
+            for(var i = 0; i < Object.keys(ThemeRepo).length; i++){
+                    if(o.theme == ThemeRepo[Object.keys(ThemeRepo)[i]].name){
+                        HelpFunctions.setTheme(ThemeRepo[Object.keys(ThemeRepo)[i]]);
+                        break;
+                    }
+            }
+            
+
+
+        } catch(e){
+            console.log(e);
+        }
+
     }
 
     return {
@@ -184,7 +270,7 @@ var Apps = function(){
     }
 }();
 
-var AppsRepo = {
+var AppsRepoTest = {
     hueApp : {
         name: "Philips Hue",    
         logo: "resources/logos/bulb.svg",
@@ -227,7 +313,7 @@ var ThemeRepo = {
     }
 }
 
-var AppsRepoLive = {
+var AppsRepo = {
     hueApp : {
         name: "Philips Hue",    
         logo: "resources/logos/bulb.svg",

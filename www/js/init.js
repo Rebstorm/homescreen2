@@ -1,7 +1,7 @@
 var AppInit = function(){
     
     function init(){
-        setTheming();
+        HelpFunctions.setTheme(ThemeRepo.light);
         setUniversalHandlers();
         getAvailableApps();
         getAvailableNotes();
@@ -17,41 +17,7 @@ var AppInit = function(){
         Notes.getAllNotes();
     }
 
-    function setTheming(){
-        //get theming from file. 
-                    // This is the temp one for testing.
-        var theme = ThemeRepo.dark;
-
-        // body
-        document.body.style.backgroundColor = theme.shadeColor;
-        document.body.style.color = theme.textColor;
-
-        /* MAIN WINDOW*/
-        // titlescreen/weather-bar
-        document.getElementById("title-screen").style.backgroundColor = theme.mainColor;
-        //main-popup window
-        document.getElementById("main-popup").style.backgroundColor = theme.shadeColor;
-        // button style
-        HelpFunctions.changeCSSClass("div.app-icon-button", "backgroundColor", theme.altColor);
-        
-
-        /* HUE WINDOW */
-        //hue detail window
-        document.getElementById("hue-color-popup").style.backgroundColor = theme.shadeColor;
-
-
-        /* UHOH WINDOW */
-        HelpFunctions.changeCSSClass("div#uhoh", "backgroundColor", theme.shadeColor);
-     
-        
-        /* NOTES WINDOW */
-
-        //Input@Notes-title
-        HelpFunctions.changeCSSClass("input#main-note-title-input", "backgroundColor", theme.attributionColor);
-        //textarea@Notes-description
-        HelpFunctions.changeCSSClass("textarea.main-notes-description-area", "backgroundColor", theme.attributionColor);
-        
-    }
+   
 
     function setUniversalHandlers(){
 
@@ -122,7 +88,7 @@ var AppInit = function(){
         init: init,
         startNewActivity : startNewActivity,
         killActivity : killActivity,
-        showErrorBox : showErrorBox
+        showErrorBox : showErrorBox,
     }
 
 }();
