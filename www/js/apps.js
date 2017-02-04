@@ -44,7 +44,7 @@ var Apps = function(){
 
 
     function firstTimeInstall(){      
-        //createAppButton(AppsRepo.hueApp);
+        createAppButton(AppsRepo.hueApp);
         //createAppButton(AppsRepo.testApp);
         if(document.getElementById("main-popup-container") == undefined){
             createConstantInterface();
@@ -57,6 +57,7 @@ var Apps = function(){
 
         var container = document.createElement("div");
         container.id = "main-popup-content";
+        container.style.marginLeft = "1em";
         
         var firstInstallContainer = document.createElement("div");
         
