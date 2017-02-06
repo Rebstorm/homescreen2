@@ -17,8 +17,9 @@ div#title-screen{
     margin: 0 auto;
     text-align: center;
     position: relative;
-    padding-bottom: 1em;
-    min-height: 6em;
+    /* padding-bottom: 1em; */
+    /* min-height: 6em; */
+    /* height: 20%; */
     /* border-bottom: 1px black solid; */
 }
 
@@ -60,6 +61,15 @@ div.app-icon-button:hover{
 img.app-icon-logo{
     width: inherit;
     height: inherit;
+}
+
+div#clock-container{
+    display: inline-block;
+    margin-right: 3em;
+}
+
+div#clock-display {
+    font-size: 2em;
 }
 
 img.first-time-logo-img{
@@ -598,9 +608,10 @@ div#weather-container{
     font-family: 'Source Sans Pro Light';
     box-sizing: border-box;
     width: inherit;
-    height: 5em;
+    /* height: 5em; */
     padding-top: 0.3em;
     /* font-size: 2em; */
+    display: inline-block;
 }
 
 i#weather-icon{

@@ -6,6 +6,7 @@ var Apps = function(){
         
         // because weather app is a constant and so is notes as well, perhaps. 
         WeatherApp.init();
+        ClockApp.init();
 
        
     }

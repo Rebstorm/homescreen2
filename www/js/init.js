@@ -1,7 +1,6 @@
 var AppInit = function(){
     
     function init(){
-        HelpFunctions.setTheme(ThemeRepo.light);
         setUniversalHandlers();
         getAvailableApps();
         getAvailableNotes();
