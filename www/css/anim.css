@@ -10,6 +10,14 @@
     font-weight: 700;
     src: url('../font/SourceSansPro-Light.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'Source Sans Pro-Semibold';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../font/SourceSansPro-Semibold.ttf') format('truetype');
+}
+
 .main-popup-in{
     animation: main-popup-in-anim 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }

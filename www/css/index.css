@@ -12,7 +12,7 @@ body {
 
 
 div#title-screen{
-    /* max-width: 90%; */
+    width: 100%;
     display:block;
     margin: 0 auto;
     text-align: center;
@@ -71,10 +71,14 @@ div#clock-container{
     text-align: center;
     align-items: stretch;
     /* width: 100%; */
+    /* border-bottom: 1px solid white; */
+    font-family: Source Sans Pro-Semibold;
 }
 
 div#clock-display {
     font-size: 2em;
+    margin: 0 auto;
+    /* width: 50%; */
     /* display: block; */
 }
 
@@ -618,6 +622,7 @@ div#weather-container{
     /* font-size: 2em; */
     display: inline-block;
     min-width: 375px;
+    width: 30%;
 }
 
 i#weather-icon{
@@ -707,13 +712,14 @@ textarea.main-notes-description-area{
 
 }
 
-@media screen and (min-width:530px){
+@media screen and (min-width:600px){
     
     div#clock-container{
         height: inherit;
         display: inline-block;
         font-size: 1.7em;
-        padding-right: 1em;
+        /* margin-right: 1em; */
+        width: 35%;
     }
 
     
