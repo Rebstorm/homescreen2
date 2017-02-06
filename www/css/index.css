@@ -17,7 +17,7 @@ div#title-screen{
     margin: 0 auto;
     text-align: center;
     position: relative;
-    /* padding-bottom: 1em; */
+    margin-bottom: 1em;
     /* min-height: 6em; */
     /* height: 20%; */
     /* border-bottom: 1px black solid; */
@@ -64,12 +64,18 @@ img.app-icon-logo{
 }
 
 div#clock-container{
-    display: inline-block;
-    margin-right: 3em;
+    display: block;
+    /* margin-left: 2em; */
+    /* float: left; */
+    /* margin: 0 auto; */
+    text-align: center;
+    align-items: stretch;
+    /* width: 100%; */
 }
 
 div#clock-display {
     font-size: 2em;
+    /* display: block; */
 }
 
 img.first-time-logo-img{
@@ -431,9 +437,9 @@ div.note-note-container{
     margin-top: 1em;
     border-radius: 1em;
     vertical-align: top;
-    width: 20%;
+    width: 40%;
     height: 80%;
-    max-width: 10em;
+    max-width: 12em;
     margin-left: 1em;
     /* background: #fff; */
     padding-right: 1em;
@@ -607,11 +613,11 @@ p.notes-control-button-text{
 div#weather-container{
     font-family: 'Source Sans Pro Light';
     box-sizing: border-box;
-    width: inherit;
     /* height: 5em; */
     padding-top: 0.3em;
     /* font-size: 2em; */
     display: inline-block;
+    min-width: 375px;
 }
 
 i#weather-icon{
@@ -623,7 +629,6 @@ i#weather-icon{
 }
 
 div#weather-refresh-button{
-    display: inline-block;
     font-size: 4em;
     width: 1em;
     float: right;
@@ -700,4 +705,16 @@ textarea.main-notes-description-area{
     }
 
 
+}
+
+@media screen and (min-width:530px){
+    
+    div#clock-container{
+        height: inherit;
+        display: inline-block;
+        font-size: 1.7em;
+        padding-right: 1em;
+    }
+
+    
 }
