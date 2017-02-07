@@ -231,6 +231,28 @@ var Apps = function(){
               // let people exit and use it like normal
               document.getElementById("main-popup-exit").style.display = "block";
               AppInit.killActivity();
+
+              try{
+            
+                for(var i = 0; i < o.apps.length; i++){
+                    for(var x = 0; x < Object.keys(AppsRepo).length; x++){
+                        if(o.apps[i] == AppsRepo[Object.keys(AppsRepo)[x]].name){
+                            createAppButton(AppsRepo[Object.keys(AppsRepo)[x]]);
+                        }
+                    }
+                }
+
+                for(var i = 0; i < Object.keys(ThemeRepo).length; i++){
+                        if(o.theme == ThemeRepo[Object.keys(ThemeRepo)[i]].name){
+                            HelpFunctions.setTheme(ThemeRepo[Object.keys(ThemeRepo)[i]]);
+                            break;
+                        }
+                }
+              } catch(e){
+                  console.log(e);
+              }
+
+
            });
           
         });

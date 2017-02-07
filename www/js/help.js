@@ -28,6 +28,8 @@ var HelpFunctions = function(){
         HelpFunctions.changeCSSClass("div.main-notes-ok-button", "backgroundColor", theme.altColor);
         //cancel button
         HelpFunctions.changeCSSClass("div.main-notes-cancel-button", "backgroundColor", theme.altColor);
+        // show-error
+        HelpFunctions.changeCSSClass("div#error-box", "backgroundColor", theme.attributionColor);
 
         // note buttons
         HelpFunctions.changeCSSClass("div.note-note-container", "backgroundColor", theme.attributionColor);
