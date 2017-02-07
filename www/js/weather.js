@@ -173,8 +173,10 @@ var WeatherApp = function(){
                 }
             } catch(e){
 
-                if(e.stack.indexOf("TypeError") >= 0)
+                if(e.stack.indexOf("TypeError") >= 0){
                     console.log("Error parsing weather data, maybe api is screwed?");
+                    document.getElementById("weather-refresh-button").className = "";
+                }    
             }
         }
         try{
@@ -234,7 +236,7 @@ var WeatherApp = function(){
                     continue;
                 } else { 
                     weather.temp = temp.attributes["value"].nodeValue;
-                    weather.humidity = hum.attributes["value"].nodeValue;
+                    weather.humidity = hum.attributes["value"].nodeValue + "%";
                     weather.precipation = pre.attributes["value"].nodeValue;
                     weather.symbol = sym.attributes["id"].nodeValue;
                     weatherData.push(weather);

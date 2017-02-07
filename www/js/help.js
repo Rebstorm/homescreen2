@@ -17,7 +17,7 @@ var HelpFunctions = function(){
 
     function setTheme(theme){
         //get theming from file. 
-                    // This is the temp one for testing.
+                  
         // body
         document.body.style.backgroundColor = theme.shadeColor;
         document.body.style.color = theme.textColor;
@@ -63,8 +63,26 @@ var HelpFunctions = function(){
         
     }
 
+    function emptySettings(){
+
+        FileUtil.checkAppSettings(Files.Apps, function(r){
+          
+          var p = FileUtil.writeFile(r.fEntry, "", true);
+          p.then(function(d){
+             var p = document.getElementsByClassName("app-icon-c");
+             for(var i = 0; i < p.length; i++){
+                 p[i].parentNode.removeChild(p[i]);
+             }
+             Apps.getAllApps(false);
+          })
+         
+        });
+
+    }
+
    return {
         changeCSSClass: changeCSSClass,
         setTheme: setTheme,
+        emptySettings : emptySettings,
    } 
 }();

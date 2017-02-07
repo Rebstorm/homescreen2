@@ -8,7 +8,7 @@ var AppInit = function(){
 
 
     function getAvailableApps(){
-        Apps.getAllApps();
+        Apps.getAllApps(true);
     }
 
     function getAvailableNotes(){
@@ -53,11 +53,13 @@ var AppInit = function(){
     function startNewActivity(){
         document.getElementById("main-popup").style.display = "block";
         document.getElementById("main-popup").className = "main-popup-in";
+        document.getElementById("main-popup-exit-div").className = "fade-in-fast";
     }
 
     function killActivity(){
 
        document.getElementById("main-popup").className = "main-popup-out";
+       document.getElementById("main-popup-exit-div").className = "fade-out";
        if(document.getElementById("main-popup-content")){
            document.getElementById("main-popup").removeChild(document.getElementById("main-popup-content"));
        }

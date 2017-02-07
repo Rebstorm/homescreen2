@@ -34,6 +34,10 @@
   animation: glowing-anim 5s ease-in-out infinite;
 }
 
+.fade-in-fast{
+  animation: fade-in-anim 0.5s cubic-bezier(0.4, 0, 1, 1);
+}
+
 .fade-in{
   animation: fade-in-anim 1s cubic-bezier(0.4, 0, 1, 1);
 }

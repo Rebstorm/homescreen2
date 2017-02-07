@@ -10,6 +10,16 @@ body {
     /* height: 100%; */
 }
 
+canvas.hue-spectrum-canvas{
+    /* width: 600px; */
+    /* max-height: 72%; */
+    /* max-width: 100%; */
+    /* height: inherit; */
+    margin: 0 auto;
+    display: block;
+    border: 1px #000 solid;
+}
+
 
 div#title-screen{
     width: 100%;
@@ -21,17 +31,6 @@ div#title-screen{
     /* min-height: 6em; */
     /* height: 20%; */
     /* border-bottom: 1px black solid; */
-}
-
-p.title {
-    display: block;
-    margin: 0 auto;
-    width: 20%;
-}
-
-p.hue-fail-text {
-    text-align: center;
-    font-size: 1.4em;
 }
 
 div.app-icon-c{
@@ -72,7 +71,7 @@ div#clock-container{
     align-items: stretch;
     /* width: 100%; */
     /* border-bottom: 1px solid white; */
-    font-family: Source Sans Pro-Semibold;
+    font-family: 'Source Sans Pro-Semibold';
 }
 
 div#clock-display {
@@ -153,6 +152,10 @@ div.first-time-app-row{
     margin-bottom: 1em;
     padding-top: 1em;
     /* text-align: center; */
+}
+
+div.first-time-theme-row{
+    margin-bottom: 1em;
 }
 
 input.first-time-app-check {
@@ -346,14 +349,9 @@ div#hue-popup-exit-div{
     margin-bottom: 12%;
 }
 
-canvas.hue-spectrum-canvas{
-    /* width: 600px; */
-    /* max-height: 72%; */
-    /* max-width: 100%; */
-    /* height: inherit; */
-    margin: 0 auto;
-    display: block;
-    border: 1px #000 solid;
+
+h3.headline-fat{
+    font-family:"Source Sans Pro-Semibold";
 }
 
 input#hue-brightness-slider{
@@ -443,6 +441,7 @@ div#notes-all-container{
     white-space: nowrap;
     z-index: 1;
     word-break: break-all;
+    text-align: center;
 }
 
 div.note-note-container{
@@ -615,14 +614,6 @@ div.pair-div-helper{
     text-align: center;
 }
 
-p.notes-control-button-text{
-    text-align: center;
-    /* height: inherit; */
-    margin: 4em auto;
-    z-index: 5;
-}
-
-
 
 
 div#weather-container{
@@ -662,19 +653,6 @@ div#weather-text-container {
     /* top: 0; */
     font-size: 1.3em;
 }
-p.weather-description {
-    font-family: 'Source Sans Pro Light';
-    box-sizing: border-box;
-    display: block;
-    font-size: 1.1em;
-    margin-right: 0.4em;
-    /* line-height: 0; */
-    /* font-size: x-large; */
-}
-
-p.hue-text{
-    margin: 0;
-}
 
 img#main-popup-exit{
     filter: grayscale(100%);
@@ -690,6 +668,40 @@ img#main-popup-exit{
 img#main-popup-exit:hover{
     filter: none;
 }
+
+
+p.weather-description {
+    font-family: 'Source Sans Pro Light';
+    box-sizing: border-box;
+    display: block;
+    font-size: 1.1em;
+    margin-right: 0.4em;
+    /* line-height: 0; */
+    /* font-size: x-large; */
+}
+
+p.hue-text{
+    margin: 0;
+}
+
+p.notes-control-button-text{
+    text-align: center;
+    /* height: inherit; */
+    margin: 4em auto;
+    z-index: 5;
+}
+
+p.title {
+    display: block;
+    margin: 0 auto;
+    width: 20%;
+}
+
+p.hue-fail-text {
+    text-align: center;
+    font-size: 1.4em;
+}
+
 
 div#uhoh {
     font-family: 'Source Sans Pro Light';

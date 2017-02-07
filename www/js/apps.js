@@ -1,8 +1,8 @@
 var Apps = function(){
     
-    function getAllApps(){
+    function getAllApps(firstTime){
         
-        checkFirstTimeInstall();
+        checkFirstTimeInstall(firstTime);
         
         // because weather app is a constant and so is notes as well, perhaps. 
         WeatherApp.init();
@@ -11,10 +11,10 @@ var Apps = function(){
        
     }
 
-    function checkFirstTimeInstall(){
+    function checkFirstTimeInstall(firstTime){
        FileUtil.checkAppSettings(Files.Apps, function(r){
            if(r.readValue == ReadValues.EMPTY){
-               firstTimeInstall();
+               firstTimeInstall(firstTime);
            } else {
                createUserInterface(r.readValue);
            }
@@ -43,14 +43,14 @@ var Apps = function(){
     }
 
 
-    function firstTimeInstall(){      
+    function firstTimeInstall(firstTime){      
         if(document.getElementById("main-popup-content") == undefined){
-            createConstantInterface();
+            createConstantInterface(firstTime);
         }
 
     }
 
-    function createConstantInterface(){
+    function createConstantInterface(firstTime){
 
         //hide exit button
         document.getElementById("main-popup-exit").style.display = "none";
@@ -66,7 +66,10 @@ var Apps = function(){
         
         var welcomeContainer = document.createElement("p");
         welcomeContainer.className = "first-time-welcome-container";
-        welcomeContainer.innerHTML = "Hello and welcome to Homescreen2 <3<br> Im glad you've chosen to try it out.<br><h3> App Integration </h3>Before we start off, do you want to use?";
+        if(firstTime)
+            welcomeContainer.innerHTML = "Hello and welcome to Homescreen2 <3<br> Im glad you've chosen to try it out.<br><h3 class='headline-fat'> App Integration </h3>Before we start off, do you want to use?";
+        else
+            welcomeContainer.innerHTML = "Want to reconfigure? Thats cool.";
 
         var appContainer = document.createElement("div");
         appContainer.className = "first-time-app-container";
@@ -115,7 +118,7 @@ var Apps = function(){
 
         var themeSelectionCon = document.createElement("div");
         var themeTxt = document.createElement("p");
-        themeTxt.innerHTML = "<h3>Theming</h3>What theme would you like to use?";
+        themeTxt.innerHTML = "<h3 class='headline-fat'>Theming</h3>What theme would you like to use?";
         themeSelectionCon.appendChild(themeTxt);
 
         var themeSelectionRows = document.createElement("div");
@@ -307,31 +310,6 @@ var AppsRepoTest = {
         onClick: function(){
             console.log("this be test app");
         },
-
-    }
-}
-
-
-var ThemeRepo = {
-    light: {
-        name: "light",
-        representColor: "#fff",
-        mainColor: "#fff",
-        shadeColor: "#fff",
-        attributionColor: "#fff",
-        textColor: "#000",
-        altColor: "#fff",
-    },
-
-    dark: {
-        name: "dark",
-        representColor: "#3F3E40",
-        mainColor: "#3F3E40",
-        shadeColor: "#7F7D7F",
-        attributionColor: "#BEBBBF",
-        textColor: "#FEF9FF",
-        altColor: "#E4E0E5",
-
 
     }
 }
