@@ -202,15 +202,44 @@ var WeatherApp = function(){
             var weatherData = [];
             for(var i = 0; i < length; i++){
                 var weather = {}
+                /*
                 weather.from = new Date(forecastData[i].attributes["from"].nodeValue);
                 weather.to = new Date(forecastData[i].attributes["to"].nodeValue);
                 weather.temp = forecastData[i].children[0].children[0].attributes["value"].nodeValue;
-                weather.humidity = forecastData[i].children[0].children[3].attributes["value"].nodeValue + "%";
+                if(forecastData[i].children[0].children[3].attributes["value"].nodeValue != undefined)
+                    weather.humidity = forecastData[i].children[0].children[3].attributes["value"].nodeValue + "%";
                 weather.symbol = forecastData[i+1].children[0].children[1].attributes["id"].nodeValue;
                 weather.precipation = forecastData[i+1].children[0].children[0].attributes["value"].nodeValue;
                 
                 weatherData.push(weather);
-                i = i + 2;
+                */
+                if(i+1 > forecastData.length){
+                    break;
+                }
+
+                var loc = forecastData[i].getElementsByTagName("location")[0];
+                var temp = forecastData[i].getElementsByTagName("temperature")[0];
+                var hum = forecastData[i].getElementsByTagName("humidity")[0];
+
+   
+                var sym = forecastData[i+1].getElementsByTagName("symbol")[0];
+                var pre = forecastData[i+1].getElementsByTagName("precipitation")[0];
+
+                weather.from = new Date(forecastData[i].attributes["from"].nodeValue);
+                weather.to = new Date(forecastData[i].attributes["to"].nodeValue);
+                
+
+
+                if(temp == undefined || sym == undefined){
+                    continue;
+                } else { 
+                    weather.temp = temp.attributes["value"].nodeValue;
+                    weather.humidity = hum.attributes["value"].nodeValue;
+                    weather.precipation = pre.attributes["value"].nodeValue;
+                    weather.symbol = sym.attributes["id"].nodeValue;
+                    weatherData.push(weather);
+                }
+
             }
             
             displayWeatherData(weatherData);
