@@ -30,7 +30,7 @@ var WeatherApp = function(){
                 if(min < 10)
                     min = "0" + min;
                     
-                textContainer.innerHTML = "<b>" + data[i].temp + "</b> &deg;Celcius <br><b>" + data[i].humidity + "</b> Humidity<br><b>" + data[i].precipation + "</b> mm rain incoming<br>" +
+                textContainer.innerHTML = "<div style='font-family:Source Sans Pro-Semibold; display: inline'>" + data[i].symbol +  "</div><br><b>" + data[i].temp + "</b> &deg;Celcius <br><b>" + data[i].humidity + "</b> Humidity<br><b>" + data[i].precipation + "</b> mm rain incoming<br>" +
                                           "Checked for " + checkedDate.getHours() + ":" + min + ".";
                 
                 // animate button
@@ -159,6 +159,10 @@ var WeatherApp = function(){
                 break;
             case "Sun":
                 sym = WeatherIcons.SunnyDay;
+                break;
+
+            case "Sleet":
+                sym = WeatherIcons.SleetDay;
                 break;
 
             default:
