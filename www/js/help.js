@@ -30,6 +30,9 @@ var HelpFunctions = function(){
         HelpFunctions.changeCSSClass("div.main-notes-cancel-button", "backgroundColor", theme.altColor);
         // show-error
         HelpFunctions.changeCSSClass("div#error-box", "backgroundColor", theme.attributionColor);
+        // note add buttons
+        HelpFunctions.changeCSSClass("div.notes-control-button", "box-shadow", "inset 0 0 0 1pt rgba(0,0,0, .1)"); 
+        HelpFunctions.changeCSSClass("div.notes-control-button", "backgroundColor", theme.shadeColor);
 
         // note buttons
         HelpFunctions.changeCSSClass("div.note-note-container", "backgroundColor", theme.attributionColor);
@@ -55,7 +58,6 @@ var HelpFunctions = function(){
      
         
         /* NOTES WINDOW */
-
         //Input@Notes-title
         HelpFunctions.changeCSSClass("input#main-note-title-input", "backgroundColor", theme.attributionColor);
         //textarea@Notes-description

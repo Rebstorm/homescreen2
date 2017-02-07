@@ -264,7 +264,10 @@ var Notes = function(){
 
                    
                    for(var i = 0; i < x.length; i++){
-                       createNote(x[i]);
+                       if(i == x.length -1)
+                        createNote(x[i], true);
+                       else
+                        createNote(x[i]);
                    }
 
                 } catch(e){
@@ -277,7 +280,7 @@ var Notes = function(){
         });
     }
 
-    function createNote(obj){
+    function createNote(obj, lastObject){
         
         var c;
         if(document.getElementById("notes-all-container") == undefined){
@@ -291,6 +294,8 @@ var Notes = function(){
         }
         var oContainer = document.createElement("div");
         oContainer.className = "note-note-container";
+        if(lastObject)
+            oContainer.style.marginRight = "20%";
         
         var boxReminder = document.createElement("div");
         boxReminder.className = "";
