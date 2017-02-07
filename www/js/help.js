@@ -41,6 +41,8 @@ var HelpFunctions = function(){
         document.getElementById("main-popup").style.backgroundColor = theme.shadeColor;
         // button style
         HelpFunctions.changeCSSClass("div.app-icon-button", "backgroundColor", theme.altColor);
+        // hue fail button style 
+        HelpFunctions.changeCSSClass("div.hue-fail-refresh-button", "backgroundColor", theme.altColor);
         
 
         /* HUE WINDOW */

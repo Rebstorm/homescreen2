@@ -3,15 +3,18 @@ _You have an old tablet that is good for nothing more than collecting dust? Why 
 
 ### TODOS:
 
+#### General:
+- [ ] Write documentation
 
 #### Design:
 - [ ] Weather Icons for day and night (Currently only day is supported)
 - [ ] Icon for Homescreen2
-- [ ] A dark design (for those energy saving moments <3)
+- [x] A dark design (for those energy saving moments <3)
 
 
 #### Functionality
 
-- [ ] Install / First time usage
+- [x] Install / First time usage
 - [x] Notes/Note app for making quick notes
 - [x] Hue Detail View (urgh)
+- [ ] Hue pre-installed themes.
