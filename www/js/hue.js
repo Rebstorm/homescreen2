@@ -38,11 +38,33 @@ var HueApp = function(){
                 lightBars.appendChild(x);
             }
 
+            var templates = document.createElement("div");
+            templates.className = "hue-app-templates";
+            
+            var templateContainer = document.createElement("div");
+            templateContainer.innerHTML = "<h3 class='headline-fat'>Templates </h3>";
+            var temps = createTemplates();
+            
+            templateContainer.appendChild(temps);
+            templates.appendChild(templateContainer);
+
             hueAppContainer.appendChild(lightBars);
             mainContainer.appendChild(hueAppContainer);
+            mainContainer.appendChild(templates);
             mainPopup.appendChild(mainContainer);
         }
  
+    }
+
+    function createTemplates(){
+        
+        var container = document.createElement("div");
+
+        for(var i = 0; i < 3; i++){
+
+        }
+        
+        return container;
     }
 
     function createConstantInterface(){

@@ -193,10 +193,15 @@ div.full-app-c {
     /* background: aquamarine; */
 }
 
+div.hue-app-templates {
+    margin-left: 2em;
+}
+
 div.hue-brightness-container {
     text-align: center;
     margin-top: 2em;
 }
+
 
 div.hue-fail-refresh-button{
     display: block;
@@ -240,7 +245,7 @@ div.hue-light-bar {
     padding-bottom: 2em;
     /* background: #f0f0f0; */
     /* width: 100%; */
-    height: 30em;
+    /* height: 30em; */
     /* background: #ad5454; */
     /* max-width: 40em; */
     /* height: 20%; */
