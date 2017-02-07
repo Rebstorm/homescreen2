@@ -41,12 +41,20 @@ var WeatherApp = function(){
                 d.width = "32";
                 d.height = "32";
                 document.getElementById("weather-refresh-button-sym").style.display = "none";
-                document.getElementById("weather-refresh-button").appendChild(d);
+                if(document.getElementById("weather-refresh-button").hasChildNodes()){
+                    document.getElementById("weather-refresh-button").appendChild(d);
 
-                window.setTimeout(function(){
-                    document.getElementById("weather-refresh-button-sym").style.display = "block";
-                    document.getElementById("weather-refresh-button").removeChild(d);
-                }, 2000);
+                    window.setTimeout(function(){
+                        document.getElementById("weather-refresh-button-sym").style.display = "block";
+                        document.getElementById("weather-refresh-button").removeChild(d);
+                    }, 2000);
+
+                } else {
+                    window.setTimeout(function(){
+                            document.getElementById("weather-refresh-button-sym").style.display = "block";
+                    }, 2000);
+
+                }
                 
                 recheckWeather(position, recheck);
 
