@@ -292,7 +292,8 @@ var Apps = function(){
     }
 
     return {
-        getAllApps : getAllApps
+        getAllApps : getAllApps,
+        firstTimeInstall: firstTimeInstall
     }
 }();
 

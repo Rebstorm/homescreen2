@@ -59,8 +59,28 @@ var HueApp = function(){
     function createTemplates(){
         
         var container = document.createElement("div");
+        container.className = "hue-template-bar";
 
-        for(var i = 0; i < 3; i++){
+        for(var i = 0; i < Object.keys(HueTemplates).length; i++){
+           
+            var templateContainer = document.createElement("div"); 
+            templateContainer.className = "hue-template-button";
+            templateContainer.dataset.data = JSON.stringify(HueTemplates[Object.keys(HueTemplates)[i]]);
+
+            var templateContainerDesign = document.createElement("div");
+            templateContainerDesign.className = "hue-template-button-design";
+            templateContainerDesign.style.background = HueTemplates[Object.keys(HueTemplates)[i]].background;
+    
+            var templateContainerText = document.createElement("div");
+            templateContainerText.className = "hue-template-button-text";
+            templateContainerText.textContent = HueTemplates[Object.keys(HueTemplates)[i]].name;
+            templateContainerText.style.color = (HueTemplates[Object.keys(HueTemplates)[i]].textColor == undefined) ? "#fff" : HueTemplates[Object.keys(HueTemplates)[i]].textColor;
+
+            templateContainerDesign.appendChild(templateContainerText);
+            templateContainer.appendChild(templateContainerDesign);
+
+            
+            container.appendChild(templateContainer);
 
         }
         
@@ -283,7 +303,8 @@ var HueApp = function(){
                         function(bridges) {
                             if(bridges.length === 0) {
                                 console.log('No bridges found. :(');
-                                createNoBridgeInterface(refreshed);
+                                //createNoBridgeInterface(refreshed);
+                                createInterface(undefined);
                                 
                             }
                             else {
@@ -305,10 +326,15 @@ var HueApp = function(){
                             }
                         },
                         function(error) {
-                            if(error.message == "")
-                                createNoBridgeInterface();
-                            else
+                            if(error.message == ""){
+                                 //createNoBridgeInterface();
+                                 createInterface(undefined);
+                            }
+                                
+                            else{
                                 console.error(error.message);
+
+                            }
                         }
                     );
                 } catch(e){
@@ -596,3 +622,36 @@ var HueApp = function(){
         init : init,
     }
 }();
+
+
+var HueTemplates = {
+
+    sunset : {
+        name: "Sunset",
+        background: "linear-gradient(to right, #f0b7a1 0%,#8c3310 50%,#752201 51%,#bf6e4e 100%)",
+        values : ["#f0b7a1", "#8c3310", "#752201", "#bf6e4e" ]
+    },
+
+
+    cold : {
+        name: "Cold",
+        background: "linear-gradient(to right, #1E5799 0%,#40A6F9 50%,#2C5BE8 51%,#0041F7 100%)",
+        values : ["#1E5799", "#40A6F9", "#2C5BE8", "#0041F7"]
+    },
+
+    nature : {
+        name: "Nature",
+        background: "linear-gradient(to right, #b4ddb4 0%,#83c783 17%,#52b152 33%,#008a00 67%,#005700 83%,#002400 100%)",
+        values : ["#b4ddb4", "#83c783", "#52b152", "#002400"]
+    },
+
+    focus : {
+       name: "Focus",
+        background: "linear-gradient(to right, rgba(249,252,247,1) 0%,rgba(245,249,240,1) 100%)",
+        values : ["#F9FCF7", "F5F9F0"],
+        textColor: "#000"
+    }
+
+
+
+}

@@ -350,6 +350,43 @@ div.hue-toggle-bar-button-disabled{
     display: inline-block;
 }
 
+div.hue-template-bar {
+    margin-right: 2em;
+    text-align:center;
+}
+
+div.hue-template-button {
+    width: 6.5em;
+    height: 6.5em;
+    background: #fff;
+    border-radius: 3em;
+    margin-top: 0.2em;
+    margin-left: 1.8em;
+    display: inline-block;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+div.hue-template-button-design {
+    width: 5.5em;
+    height: 5.5em;
+    background: #7350e0;
+    border-radius: 3em;
+    margin-top: 0.5em;
+    /* margin-left: 0.5em; */
+    /* margin-left: 1.8em; */
+    display: inline-block;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+
+div.hue-template-button-text {
+    margin-top: 1.5em;
+    font-size: 1.3em;
+}
+div.hue-template-button:hover{
+    box-shadow: 0 1px 10px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
 div#hue-popup-exit-div{
     margin-bottom: 12%;
 }
