@@ -156,6 +156,7 @@ div.first-time-app-row{
 
 div.first-time-theme-row{
     margin-bottom: 1em;
+    /* width: 80%; */
 }
 
 input.first-time-app-check {
@@ -168,7 +169,7 @@ input.first-time-app-check {
 input.first-time-theme-check {
     width: 2em;
     height: 2em;
-    margin-right: 1em;
+    margin-right: 1.1em;
     /* text-align: left; */
 }
 
@@ -470,7 +471,7 @@ div#main-popup {
     left: 0;
     right: 0;
     /* width: 99%; */
-    height: 100%;
+    height: calc(100%);
     background: #fff;
     z-index: 10;
     margin: 0 auto;

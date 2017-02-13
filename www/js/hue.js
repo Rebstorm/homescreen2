@@ -304,6 +304,8 @@ var HueApp = function(){
                             if(bridges.length === 0) {
                                 console.log('No bridges found. :(');
                                 //createNoBridgeInterface(refreshed);
+
+                                // This is for debugging without a bridge.
                                 createInterface(undefined);
                                 
                             }
@@ -328,6 +330,8 @@ var HueApp = function(){
                         function(error) {
                             if(error.message == ""){
                                  //createNoBridgeInterface();
+
+                                 // debugging without a bridge
                                  createInterface(undefined);
                             }
                                 

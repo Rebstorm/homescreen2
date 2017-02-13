@@ -45,7 +45,6 @@ var AppInit = function(){
                document.getElementById("app").style.display = "block";
            }
 
-
         });
         
     }
@@ -54,6 +53,7 @@ var AppInit = function(){
         document.getElementById("main-popup").style.display = "block";
         document.getElementById("main-popup").className = "main-popup-in";
         document.getElementById("main-popup-exit-div").className = "fade-in-fast";
+
     }
 
     function killActivity(){

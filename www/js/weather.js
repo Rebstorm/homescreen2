@@ -198,7 +198,7 @@ var WeatherApp = function(){
             if(e.stack.indexOf("TypeError") >= 0){
                 // position is not defined
                 document.getElementById("weather-refresh-button").className = "";
-                console.log(e);
+                AppInit.showErrorBox("I dont know where we are? Is the GPS on?");
 
             }
         }
