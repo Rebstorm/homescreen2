@@ -68,7 +68,7 @@ var Apps = function(){
         if(firstTime)
             welcomeContainer.innerHTML = "Hello and welcome to Homescreen2 <3<br> Im glad you've chosen to try it out.<br><h3 class='headline-fat'> App Integration </h3>Before we start off, do you want to use?";
         else
-            welcomeContainer.innerHTML = "Want to reconfigure? Thats cool.";
+            welcomeContainer.innerHTML = "Want to reconfigure? Thats cool. <h3 class='headline-fat'> App Integration </h3>";
 
         var appContainer = document.createElement("div");
         appContainer.className = "first-time-app-container";
@@ -220,7 +220,10 @@ var Apps = function(){
         }
 
         //console.log("theme used: " + theme + " \n apps used: " + apps);
-
+        if(theme == undefined){
+            theme = HelpFunctions.getTheme().name;
+        }
+        
         var o = {
             theme: theme,
             apps: apps

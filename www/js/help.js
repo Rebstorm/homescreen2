@@ -7,15 +7,23 @@ var HelpFunctions = function(){
         {
             if(ruleSearch[i].selectorText==typeAndClass)
             {
-                var target=ruleSearch[i]
+                var target=ruleSearch[i];
                 break;
             }
         }
         target.style[newRule] = newValue;
     }
+    
 
+    var t;
+    function getTheme(){
+        return t;
+    }
 
     function setTheme(theme){
+
+        t = theme;
+
         //get theming from file. 
                   
         // body
@@ -85,6 +93,7 @@ var HelpFunctions = function(){
    return {
         changeCSSClass: changeCSSClass,
         setTheme: setTheme,
+        getTheme: getTheme,
         emptySettings : emptySettings,
    } 
 }();

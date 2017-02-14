@@ -49,6 +49,7 @@ var Notes = function(){
         
         var container = document.createElement("div");
         container.id = "main-popup-content";
+        container.style.backgroundColor = "inherit";
         
 
         var mainC = document.createElement("div");

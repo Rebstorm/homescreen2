@@ -25,7 +25,8 @@ var HueApp = function(){
 
             var lightBars = document.createElement("div");
 
-            mainContainer.id = "main-popup-content";
+            mainContainer.id = "main-app-content";
+            mainContainer.style.backgroundColor = "inherit";
 
             hueAppContainer.id = "hue-app-c";
             hueAppContainer.className = "full-app-c";
@@ -303,11 +304,9 @@ var HueApp = function(){
                         function(bridges) {
                             if(bridges.length === 0) {
                                 console.log('No bridges found. :(');
-                                //createNoBridgeInterface(refreshed);
-
+                                createNoBridgeInterface(refreshed);
                                 // This is for debugging without a bridge.
-                                createInterface(undefined);
-                                
+                                //createInterface(undefined);                             
                             }
                             else {
                                 bridges.forEach(function(e) {
@@ -321,18 +320,15 @@ var HueApp = function(){
 
                                    } else {
                                        pairBridgeFirstTime(e.internalipaddress);
-                                    }
-
-
+                                   }
                                 });
                             }
                         },
                         function(error) {
                             if(error.message == ""){
-                                 //createNoBridgeInterface();
-
+                                 createNoBridgeInterface();
                                  // debugging without a bridge
-                                 createInterface(undefined);
+                                 //createInterface(undefined);
                             }
                                 
                             else{
@@ -359,6 +355,7 @@ var HueApp = function(){
         if(document.getElementById("main-app-content") == undefined){
             var bubble = document.createElement("div");
             bubble.id = "main-app-content";
+            bubble.style.backgroundColor = "inherit";
 
             var contentWindow = document.createElement("div");
             contentWindow.innerHTML = "Please pair me so I can help you with your lights<br>";

@@ -2,7 +2,7 @@ var ThemeRepo = {
     light: {
         name: "light",
         representColor: "#fff",
-        mainColor: "#fff",
+        mainColor: "#FCFFFF",
         shadeColor: "#fff",
         attributionColor: "#fff",
         textColor: "#000",
