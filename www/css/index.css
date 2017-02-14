@@ -151,12 +151,20 @@ div.first-time-app-row{
     /* border-top: 1px dashed black; */
     margin-bottom: 1em;
     padding-top: 1em;
+    text-align: start;
     /* text-align: center; */
 }
 
 div.first-time-theme-row{
     margin-bottom: 1em;
+    text-align: start;
     /* width: 80%; */
+}
+
+div.first-time-theme-selection-row{
+    margin: 0 auto;
+    position: relative;
+    width: 30%;
 }
 
 input.first-time-app-check {
@@ -173,6 +181,12 @@ input.first-time-theme-check {
     /* text-align: left; */
 }
 
+
+div.first-time-app-container{
+    margin: 0 auto;
+    position: relative;
+    width: 30%;
+}
 
 div.first-time-logo-div{
     width: 2em;

@@ -46,7 +46,7 @@ var AppInit = function(){
            }
 
         });
-        
+
     }
 
     function startNewActivity(){

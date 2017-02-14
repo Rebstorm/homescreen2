@@ -1,4 +1,6 @@
 var Notes = function(){
+
+    var nextNote = 0;
     
     function getAllNotes(){
         createNotes();
@@ -141,7 +143,7 @@ var Notes = function(){
         okButton.addEventListener("click", function(e){
             var t = document.getElementById("main-note-title-input").value;
             if(t == ""){
-                AppInit.showErrorBox("No forgot to give it a title :(");
+                AppInit.showErrorBox("You forgot to give it a title :(");
                 return;
             }
             var d = document.getElementById("main-notes-description").value;
@@ -265,9 +267,9 @@ var Notes = function(){
                    
                    for(var i = 0; i < x.length; i++){
                        if(i == x.length -1)
-                        createNote(x[i], true);
+                        createNote(x[i], true, i);
                        else
-                        createNote(x[i]);
+                        createNote(x[i], false, i);
                    }
 
                 } catch(e){
@@ -280,7 +282,7 @@ var Notes = function(){
         });
     }
 
-    function createNote(obj, lastObject){
+    function createNote(obj, lastObject, n){
         
         var c;
         if(document.getElementById("notes-all-container") == undefined){
@@ -306,10 +308,14 @@ var Notes = function(){
         });
 
         var noteTitle = document.createElement("p");
+        noteTitle.id = "note-title"+n;
+        noteTitle.className = "beingfuzzy";
         var tit = obj.title;
+
         if(tit.length > 20){
             tit = tit.substring(0, 20) + "...";
         }
+        
         noteTitle.textContent = tit;
 
         var noteImportance = document.createElement("div");

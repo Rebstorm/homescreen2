@@ -7,7 +7,6 @@ var Apps = function(){
         // because weather app is a constant and so is notes as well, perhaps. 
         WeatherApp.init();
         ClockApp.init();
-
        
     }
 
@@ -74,6 +73,7 @@ var Apps = function(){
         var appContainer = document.createElement("div");
         appContainer.className = "first-time-app-container";
 
+
         for(var i = 0; i < Object.keys(AppsRepo).length; i++){
             var appRow = document.createElement("div");
             appRow.className = "first-time-app-row";
@@ -122,6 +122,7 @@ var Apps = function(){
         themeSelectionCon.appendChild(themeTxt);
 
         var themeSelectionRows = document.createElement("div");
+        themeSelectionRows.className = "first-time-theme-selection-row";
 
 
         for(var i = 0; i < Object.keys(ThemeRepo).length; i++){
@@ -236,6 +237,11 @@ var Apps = function(){
               AppInit.killActivity();
 
               try{
+
+                var previousAppIcons = document.getElementById("apps-container");
+                while(previousAppIcons.firstChild){
+                    previousAppIcons.removeChild(previousAppIcons.firstChild);
+                }
             
                 for(var i = 0; i < o.apps.length; i++){
                     for(var x = 0; x < Object.keys(AppsRepo).length; x++){
@@ -263,6 +269,11 @@ var Apps = function(){
     }
 
     function createUserInterface(data){
+        
+        var previousAppIcons = document.getElementById("apps-container");
+        while(previousAppIcons.firstChild){
+            previousAppIcons.removeChild(previousAppIcons.firstChild);
+        }
 
         try{
             var o = JSON.parse(data);
