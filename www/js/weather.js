@@ -7,11 +7,14 @@ var WeatherApp = function(){
     var position;
     var tries = 0;
     
+
+    var timeKeeper = ""; 
+    
     function init(){
         getPermission();
         getElements();
         setEventHandlers();
-
+       
     }
 
     function displayWeatherData(data){
@@ -107,8 +110,10 @@ var WeatherApp = function(){
                 } else {
                    FileUtil.readFile(weatherFile, function(data){
                       try{ 
+                          timeKeeper = SunCalc.getTimes(new Date(), pos.coords.latitude, pos.coords.longitude);
                           var dataParsed = JSON.parse(data);
                           displayWeatherData(dataParsed);
+                          
                       } catch(e){
                           makeWeatherCall(pos);
                       }
@@ -119,50 +124,90 @@ var WeatherApp = function(){
         }, function(e){
             // get geo pos failed
             console.log(e);
+            AppInit.showErrorBox("No GPS response :(. Try again later?");
         });
 
     }
 
     function changeSymbol(symbol){
         var sym = "";
+        var timeOfDay = new Date();
+        var isDay = timeKeeper.sunrise < timeOfDay && timeKeeper.sunset > timeOfDay;
         switch(symbol){
             
             case "Cloud":
-                sym = WeatherIcons.CloudyDay;
+                if(isDay)
+                    sym = WeatherIcons.CloudyDay;
+                else
+                    sym = WeatherIcons.CloudyNight;
+                    
                 break;
             case "PartlyCloud":
-                sym = WeatherIcons.CloudyDay;
+                if(isDay)
+                    sym = WeatherIcons.CloudyDay;
+                else
+                    sym = WeatherIcons.CloudyNight;
+
                 break; 
             
             case "DrizzleSun":
-                sym = WeatherIcons.SprinkleDay;
+                if(isDay)
+                    sym = WeatherIcons.SprinkleDay;
+                else
+                    sym = WeatherIcons.SprinkleNight;
+
                 break;
 
             case "Drizzle":
-                sym = WeatherIcons.SprinkleDay;
+                if(isDay)
+                    sym = WeatherIcons.SprinkleDay;
+                else
+                    sym = WeatherIcons.SprinkleNight;
+
                 break;
 
            case "LightRain":
-                sym = WeatherIcons.LightRainDay;
+                if(isDay)
+                    sym = WeatherIcons.LightRainDay;
+                else
+                    sym = WeatherIcons.LightRainNight;
+                
                 break;
 
             case "LightCloud":
-                sym = WeatherIcons.CloudyDay;
+                if(isDay)
+                    sym = WeatherIcons.CloudyDay;
+                else
+                    sym = WeatherIcons.CloudyNight;
+
                 break;
 
             case "SnowSun":
-                sym = WeatherIcons.SnowyDay;
+                if(isDay)
+                    sym = WeatherIcons.SnowyDay;
+                else
+                    sym = WeatherIcons.SnowyNight;
+
                 break;
 
             case "SnowyNight":
                 sym = WeatherIcons.SnowyNight;
                 break;
+
             case "Sun":
-                sym = WeatherIcons.SunnyDay;
+                if(isDay)
+                    sym = WeatherIcons.SunnyDay;
+                else
+                    sym = WeatherIcons.ClearNight;
+                
                 break;
 
             case "Sleet":
-                sym = WeatherIcons.SleetDay;
+                if(isDay)
+                    sym = WeatherIcons.SleetDay;
+                else
+                    sym = WeatherIcons.SleetNight;
+                    
                 break;
 
             default:
@@ -176,7 +221,7 @@ var WeatherApp = function(){
     }
     
     function makeWeatherCall(pos){
-
+        
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
             try{
@@ -192,8 +237,13 @@ var WeatherApp = function(){
             }
         }
         try{
-            xhr.open('GET', 'http://api.met.no/weatherapi/locationforecast/1.9/?lat='+ pos.coords.latitude +';lon=' + pos.coords.longitude, true);
-            xhr.send(null);
+            if(pos == undefined){
+                throw new UserException("GPSNotDefined");
+            } else {
+                xhr.open('GET', 'http://api.met.no/weatherapi/locationforecast/1.9/?lat='+ pos.coords.latitude +';lon=' + pos.coords.longitude, true);
+                xhr.send(null);
+                timeKeeper = SunCalc.getTimes(new Date(), pos.coords.latitude, pos.coords.longitude);
+            }
         }catch(e){
             if(e.stack.indexOf("TypeError") >= 0){
                 // position is not defined
@@ -307,7 +357,9 @@ var WeatherIcons = {
     RainyNight: "wi-night-alt-rain",
     HailNight: "wi-night-alt-hail",
     SleetNight: "wi-night-alt-sleet",
+    SprinkleNight: "wi-night-sprinkle",
     SnowyNight: "wi-night-alt-snow",
+    LightRainNight: "wi-night-rain-mix",
     ThunderstormNight: "wi-night-alt-lightning",
     StaryNight: "wi-stars"
 

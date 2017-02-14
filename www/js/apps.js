@@ -228,7 +228,7 @@ var Apps = function(){
         // save
         FileUtil.checkAppSettings(Files.Apps, function(fEntry){
 
-           var p = FileUtil.writeFile(fEntry.fEntry, JSON.stringify(o));
+           var p = FileUtil.writeFile(fEntry.fEntry, JSON.stringify(o), undefined, true);
 
            p.then(function(d){
               // let people exit and use it like normal
@@ -265,7 +265,6 @@ var Apps = function(){
     function createUserInterface(data){
 
         try{
-            
             var o = JSON.parse(data);
 
             for(var i = 0; i < o.apps.length; i++){
@@ -287,6 +286,10 @@ var Apps = function(){
 
         } catch(e){
             console.log(e);
+            if(e.stack.indexOf("SyntaxError") >= 0){
+                // the config is broken. 
+                Apps.firstTimeInstall(true);
+            }
         }
 
     }

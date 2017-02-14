@@ -7,7 +7,7 @@ _You have an old tablet that is good for nothing more than collecting dust? Why 
 - [ ] Write documentation
 
 #### Design:
-- [ ] Weather Icons for day and night (Currently only day is supported)
+- [ ] Weather Icons for day and night (Currently only day is supported) (Implement this: https://en.wikipedia.org/wiki/Sunrise_equation)
 - [ ] Icon for Homescreen2
 - [x] A dark design (for those energy saving moments <3)
 
