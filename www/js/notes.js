@@ -305,7 +305,14 @@ var Notes = function(){
         boxReminder.dataset.note = JSON.stringify(obj);
 
         boxReminder.addEventListener("click", function(e){
-
+            try{
+                var j = JSON.parse(this.dataset.note);
+               
+                QuickPopup.show(j.title, j.description);
+            }catch(e){
+                console.log(e);
+            }
+            
         });
 
         var noteTitle = document.createElement("p");

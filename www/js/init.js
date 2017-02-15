@@ -34,6 +34,14 @@ var AppInit = function(){
         });
 
 
+        //quickpopup exit
+        document.getElementById("quickpopup-exit").addEventListener("click", function(){
+            
+            document.getElementById("quickpopup").style.display = "none";
+
+        });
+
+
         window.addEventListener("resize", function(event){
            if(window.outerWidth < 379){
                document.getElementById("uhoh").style.display = "block";

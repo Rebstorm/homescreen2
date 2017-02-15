@@ -70,6 +70,10 @@ var HelpFunctions = function(){
         HelpFunctions.changeCSSClass("input#main-note-title-input", "backgroundColor", theme.attributionColor);
         //textarea@Notes-description
         HelpFunctions.changeCSSClass("textarea.main-notes-description-area", "backgroundColor", theme.attributionColor);
+
+
+        /* QUICKPOPUP WINDOW */
+        HelpFunctions.changeCSSClass("div#quickpopup", "backgroundColor", theme.shadeColor);
         
     }
 
