@@ -12,10 +12,12 @@ var HueApp = function(){
    
 
     function createInterface(lights){
+        
+        // hide load
+        document.getElementById("load-img").style.display = "none";
+
         if(document.getElementById("main-app-content") == undefined){
             var mainPopup = document.getElementById("main-popup");
-            // hide load
-            document.getElementById("load-img").style.display = "none";
             // remove nobridge
             removeNoBridgeInterface();
 
@@ -50,8 +52,9 @@ var HueApp = function(){
             templates.appendChild(templateContainer);
 
             hueAppContainer.appendChild(lightBars);
+            hueAppContainer.appendChild(templates);
             mainContainer.appendChild(hueAppContainer);
-            mainContainer.appendChild(templates);
+
             mainPopup.appendChild(mainContainer);
         }
  
@@ -65,8 +68,13 @@ var HueApp = function(){
         for(var i = 0; i < Object.keys(HueTemplates).length; i++){
            
             var templateContainer = document.createElement("div"); 
+            templateContainer.id = "hue-template"+i;
             templateContainer.className = "hue-template-button";
             templateContainer.dataset.data = JSON.stringify(HueTemplates[Object.keys(HueTemplates)[i]]);
+            
+            templateContainer.addEventListener("click", function(e){
+                console.log("this is now an event");
+            })
 
             var templateContainerDesign = document.createElement("div");
             templateContainerDesign.className = "hue-template-button-design";
