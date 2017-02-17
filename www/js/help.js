@@ -39,7 +39,7 @@ var HelpFunctions = function(){
         // show-error
         HelpFunctions.changeCSSClass("div#error-box", "backgroundColor", theme.attributionColor);
         // note add buttons
-        HelpFunctions.changeCSSClass("div.notes-control-button", "box-shadow", "inset 0 0 0 1pt rgba(0,0,0, .1)"); 
+        HelpFunctions.changeCSSClass("div.notes-control-button", "box-shadow", "inset 0 0 0 0.3em rgba(0,0,0, .1)"); 
         HelpFunctions.changeCSSClass("div.notes-control-button", "backgroundColor", theme.shadeColor);
 
         // note buttons

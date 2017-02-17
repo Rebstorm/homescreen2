@@ -602,7 +602,7 @@ div.notes-control-button {
     margin-right: 1pt;
     /* border-radius: 2em 2em; */
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    box-shadow: 0 0 0pt 1pt white;
+    box-shadow: 0 0 0pt 0.3em white;
     /* text-align: center; */
     border-radius: 0 1.5em 1.5em 0;
     z-index: 5;
@@ -783,9 +783,10 @@ p.hue-text{
 p.notes-control-button-text{
     text-align: center;
     /* height: inherit; */
-    margin: 5em auto;
+    /* margin: 5em auto; */
     z-index: 5;
-    /* font-size: 2em; */
+    font-size: 2em;
+    margin-top: 3em;
 }
 
 p.title {
