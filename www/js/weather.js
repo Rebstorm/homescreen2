@@ -125,6 +125,7 @@ var WeatherApp = function(){
             // get geo pos failed
             console.log(e);
             AppInit.showErrorBox("No GPS response :(. Try again later?");
+            document.getElementById("weather-refresh-button").className = "";
         });
 
     }
