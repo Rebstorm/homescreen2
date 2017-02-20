@@ -340,4 +340,12 @@ var AppsRepo = {
             HueApp.init();
         },
     },
+
+    timerApp: {
+        name: "Timer",
+        logo: "resources/logos/test.svg",
+        onClick: function(){
+            Timer.init();
+        }
+    }
 }

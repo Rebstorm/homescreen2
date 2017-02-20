@@ -195,6 +195,14 @@ var WeatherApp = function(){
                 sym = WeatherIcons.SnowyNight;
                 break;
 
+            case "Rain":
+                if(isDay)
+                    sym = WeatherIcons.RainyDay;
+                else
+                    sym = WeatherIcons.RainyNight;
+
+                break;
+
             case "Sun":
                 if(isDay)
                     sym = WeatherIcons.SunnyDay;
