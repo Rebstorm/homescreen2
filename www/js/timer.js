@@ -25,6 +25,7 @@ var Timer = function(){
             uiScrollContainerMin.className = "timer-ui-scroll-min";
 
             var txtScrollContainerMin = document.createElement("div");
+            txtScrollContainerMin.id="txt-min";
             txtScrollContainerMin.className = "time-txt-scroll-min";
             txtScrollContainerMin.textContent = "00";
             var minValue = 00;
@@ -76,6 +77,7 @@ var Timer = function(){
 
                 if(secValue > 59){
                     secValue = 00;
+                    document.getElementById("txt-min").textContent = parseInt(document.getElementById("txt-min").textContent) + 1;
                 } else if(secValue == -1){
                     secValue = 59;
                 }
@@ -89,8 +91,18 @@ var Timer = function(){
             
             uiScrollContainer.appendChild(uiScrollContainerMin);
             uiScrollContainer.appendChild(uiScrollContainerSec);
+
+            var okButton =  document.createElement("div");
+            okButton.className = "main-notes-ok-button";
             
+            var okButtonImg = document.createElement("img");
+            okButtonImg.className = "main-notes-ok-img";
+            okButtonImg.src = "resources/system/check.svg";
+                       
+            okButton.appendChild(okButtonImg);
+                       
             containerTimer.appendChild(uiScrollContainer);
+            containerTimer.appendChild(okButton);
 
             container.appendChild(containerTimer);
             c.appendChild(container);

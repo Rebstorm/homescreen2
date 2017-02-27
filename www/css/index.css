@@ -832,7 +832,8 @@ img#quickpopup-exit{
     top: 0;
     position: absolute;
     right: 0;
-    width: 9%;
+    width: 10%;
+    max-width:50px;
     filter: grayscale(100%);
     margin-right: 0.2em;
     margin-top: 0.3em;
@@ -867,7 +868,7 @@ div.timer-ui-scroll{
 }
 
 div.timer-ui-scroll-min{
-    width: 41%;
+    width: 44%;
     /* width: 10em; */
     height: 100%;
     min-height: 10em;
@@ -880,7 +881,7 @@ div.timer-ui-scroll-min{
 }
 
 div.timer-ui-scroll-sec{
-    width: 40%;
+    width: 45%;
     /* width: 10em; */
     height: 100%;
     min-height: 10em;
