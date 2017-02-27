@@ -7,7 +7,6 @@ var Timer = function(){
     function createConstantInterface(){
 
         if(document.getElementById("main-popup-content") == undefined){
-            console.log("create new interface!");
 
             var c = document.getElementById("main-popup");
             
@@ -16,9 +15,82 @@ var Timer = function(){
 
 
             var containerTimer = document.createElement("div");
-            containerTimer.textContent = "I am ze timer";
-
+            containerTimer.className = "timer-fullview";
+            //containerTimer.textContent = "I am ze timer";
             
+            var uiScrollContainer = document.createElement("div");
+            uiScrollContainer.className = "timer-ui-scroll";
+            
+            var uiScrollContainerMin = document.createElement("div");
+            uiScrollContainerMin.className = "timer-ui-scroll-min";
+
+            var txtScrollContainerMin = document.createElement("div");
+            txtScrollContainerMin.className = "time-txt-scroll-min";
+            txtScrollContainerMin.textContent = "00";
+            var minValue = 00;
+            var lastMinValue = 0;
+            var lastMinTime = "";
+            txtScrollContainerMin.addEventListener("touchmove", function(e){
+
+                if(Date.now() - lastMinTime < 30)
+                    return;
+
+                if(lastMinValue > e.changedTouches[0].clientY){
+                    minValue -= 1;
+                } else {
+                    minValue += 1;
+                }
+
+                if(minValue > 59){
+                    minValue = 00;
+                } else if(minValue == -1){
+                    minValue = 59;
+                }
+                
+                this.textContent = minValue;
+                lastMinValue = e.changedTouches[0].clientY;
+                lastMinTime = Date.now();
+            });
+
+            uiScrollContainerMin.appendChild(txtScrollContainerMin);
+
+
+            var uiScrollContainerSec = document.createElement("div");
+            uiScrollContainerSec.className = "timer-ui-scroll-sec";
+            var txtScrollContainerSec = document.createElement("div");
+            txtScrollContainerSec.className = "time-txt-scroll-sec";
+            txtScrollContainerSec.textContent = "00";
+            var secValue = 00;
+            var lastSecValue = 0;
+            var lastSecTime = "";
+            txtScrollContainerSec.addEventListener("touchmove", function(e){
+
+                if(Date.now() - lastSecTime < 30)
+                    return;
+
+                if(lastSecValue > e.changedTouches[0].clientY){
+                    secValue -= 1;
+                } else {
+                    secValue += 1;
+                }
+
+                if(secValue > 59){
+                    secValue = 00;
+                } else if(secValue == -1){
+                    secValue = 59;
+                }
+                
+                this.textContent = secValue;
+                lastSecValue = e.changedTouches[0].clientY;
+                lastSecTime = Date.now();
+            });
+
+            uiScrollContainerSec.appendChild(txtScrollContainerSec);
+            
+            uiScrollContainer.appendChild(uiScrollContainerMin);
+            uiScrollContainer.appendChild(uiScrollContainerSec);
+            
+            containerTimer.appendChild(uiScrollContainer);
 
             container.appendChild(containerTimer);
             c.appendChild(container);

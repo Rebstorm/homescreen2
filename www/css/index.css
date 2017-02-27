@@ -121,7 +121,8 @@ div#apps-container {
     /* text-align: center; */
     margin-bottom: 3em;
     height: 10em;
-    box-shadow: inset 2px 2px 1px rgba(0,0,0, .1), inset 0 -8px 8px -8px #696868;
+    box-shadow: inset 0 3px 3px rgba(105, 104, 104, 0.3), 
+                inset 0 -8px 8px -8px #696868;
     /* background-color: white; */
     text-align: center;
 }
@@ -848,6 +849,55 @@ div#quickpopup-content{
     /* margin-right: 1em; */
 }
 
+div.timer-fullview{
+    margin-top: 4em;
+    width: inherit;
+    height: inherit;
+    text-align: center;
+}
+
+div.timer-ui-scroll{
+    min-height: 10em;
+    height: 40%;
+    max-width: 30em;
+    width: 80%;
+    background-color: black;
+    margin: 0 auto;
+    border-radius: 0.5em;
+}
+
+div.timer-ui-scroll-min{
+    width: 41%;
+    /* width: 10em; */
+    height: 100%;
+    min-height: 10em;
+    /* padding: 1em; */
+    border: 0.5em solid black;
+    background-color: #fff;
+    display: inline-block;
+    color: #000;
+    font-size: 1em;
+}
+
+div.timer-ui-scroll-sec{
+    width: 40%;
+    /* width: 10em; */
+    height: 100%;
+    min-height: 10em;
+    /* padding: 1em; */
+    border: 0.5em solid black;
+    background-color: #fff;
+    display: inline-block;
+    color: #000;
+}
+
+div.time-txt-scroll-min{
+    font-size: 7.95em;
+}
+
+div.time-txt-scroll-sec{
+    font-size: 7.95em;
+}
 
 div#uhoh {
     font-family: 'Source Sans Pro Light';

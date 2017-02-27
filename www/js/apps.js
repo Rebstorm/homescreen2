@@ -347,5 +347,13 @@ var AppsRepo = {
         onClick: function(){
             Timer.init();
         }
+    },
+
+    homeMaticApp: {
+        name: "HomeMatic",
+        logo: "resources/logos/test.svg",
+        onClick: function(){
+            console.log("I am homeMatic!");
+        }
     }
 }
