@@ -100,6 +100,14 @@ var Timer = function(){
             okButtonImg.src = "resources/system/check.svg";
                        
             okButton.appendChild(okButtonImg);
+
+
+            okButton.addEventListener("click", function(e){
+                var timeOut = secValue + (minValue*60);
+                timeOut *= 1000;
+
+
+            });
                        
             containerTimer.appendChild(uiScrollContainer);
             containerTimer.appendChild(okButton);
@@ -110,6 +118,13 @@ var Timer = function(){
 
             AppInit.startNewActivity();
 
+        }
+
+
+        function setTimer(timeOut){
+            setTimeout(function(){
+                
+            }, timeOut);
         }
         
     }
