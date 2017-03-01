@@ -25,7 +25,7 @@ var Timer = function(){
             uiScrollContainerMin.className = "timer-ui-scroll-min";
 
             var txtScrollContainerMin = document.createElement("div");
-            txtScrollContainerMin.id="txt-min";
+            txtScrollContainerMin.id="time-txt-min";
             txtScrollContainerMin.className = "time-txt-scroll-min";
             txtScrollContainerMin.textContent = "00";
             var minValue = 00;
@@ -59,6 +59,7 @@ var Timer = function(){
             var uiScrollContainerSec = document.createElement("div");
             uiScrollContainerSec.className = "timer-ui-scroll-sec";
             var txtScrollContainerSec = document.createElement("div");
+            txtScrollContainerSec.id="time-txt-sec";
             txtScrollContainerSec.className = "time-txt-scroll-sec";
             txtScrollContainerSec.textContent = "00";
             var secValue = 00;
@@ -77,7 +78,7 @@ var Timer = function(){
 
                 if(secValue > 59){
                     secValue = 00;
-                    document.getElementById("txt-min").textContent = parseInt(document.getElementById("txt-min").textContent) + 1;
+                    document.getElementById("time-txt-min").textContent = parseInt(document.getElementById("time-txt-min").textContent) + 1;
                 } else if(secValue == -1){
                     secValue = 59;
                 }
@@ -103,10 +104,12 @@ var Timer = function(){
 
 
             okButton.addEventListener("click", function(e){
-                var timeOut = secValue + (minValue*60);
-                timeOut *= 1000;
+                var timeOut = (secValue*1000) + (minValue*1000*60);
+                secValue = 0;
+                minValue = 0;
 
 
+                setTimer(timeOut);
             });
                        
             containerTimer.appendChild(uiScrollContainer);
@@ -122,8 +125,11 @@ var Timer = function(){
 
 
         function setTimer(timeOut){
+            document.getElementById("time-txt-sec").textContent = "00";
+            document.getElementById("time-txt-min").textContent = "00";
+            
             setTimeout(function(){
-                
+                QuickPopup.show("Timer", "The timer has run out!");
             }, timeOut);
         }
         

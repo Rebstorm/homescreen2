@@ -343,7 +343,7 @@ var AppsRepo = {
 
     timerApp: {
         name: "Timer",
-        logo: "resources/logos/test.svg",
+        logo: "resources/logos/timer.svg",
         onClick: function(){
             Timer.init();
         }

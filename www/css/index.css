@@ -10,6 +10,11 @@ body {
     /* height: 100%; */
 }
 
+
+audio#audio-player{
+    display: none;
+}
+
 canvas.hue-spectrum-canvas{
     /* width: 600px; */
     /* max-height: 72%; */
