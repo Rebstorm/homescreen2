@@ -73,7 +73,33 @@ var HueApp = function(){
             templateContainer.dataset.data = JSON.stringify(HueTemplates[Object.keys(HueTemplates)[i]]);
             
             templateContainer.addEventListener("click", function(e){
-                console.log("this is now an event");
+               var dr = JSON.parse(this.dataset.data);
+               user.getLights(function(l){
+                  var color = 0;
+
+                  for(light in l){
+                      var x = dr.values[color];
+                      if(x == undefined){
+                          color = 0; 
+                          x = dr.values[color];
+                      }
+                      var c = hexToRgb(x);
+                      c = rgbToXy(c.r, c.g, c.b);
+                      if(c == undefined){
+                        return;
+                      } else {
+
+                          user.setLightState(parseInt(light), { "xy" : [c.x , c.y ] }  , function(e){
+                              if(e[0].success)
+                                console.log("it worked");
+                              else
+                                console.log(e);
+                              
+                          });
+                          color++;
+                      }
+                  }
+               });
             })
 
             var templateContainerDesign = document.createElement("div");
@@ -624,6 +650,15 @@ var HueApp = function(){
         }
 
         return { x: cx, y: cy, bri: Y };
+    }
+
+    function hexToRgb(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
     }
     
     
