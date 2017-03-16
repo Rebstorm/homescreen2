@@ -6,12 +6,12 @@ var Timer = function(){
 
     function createConstantInterface(){
 
-        if(document.getElementById("main-app-content") == undefined){
+        if(document.getElementById("main-popup-content") == undefined){
 
             var c = document.getElementById("main-popup");
             
             var container = document.createElement("div");
-            container.id = "main-app-content";
+            container.id = "main-popup-content";
 
 
             var containerTimer = document.createElement("div");
