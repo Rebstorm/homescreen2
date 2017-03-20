@@ -360,7 +360,7 @@ var Notes = function(){
         removeDivText.style.position = "absolute";
         removeDivText.style.top = "0";
         removeDivText.style.left = "50%";
-        removeDivText.textContent = "X";
+        removeDivText.innerHTML = "<img src='resources/system/exit.svg' style='width:0.8em; height: auto; filter:grayscale(1); line-height: 1.1em;'>";
 
         removeDiv.addEventListener("click", function(d){
             var dObject = JSON.parse(this.dataset.note);

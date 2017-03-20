@@ -846,6 +846,7 @@ div#quickpopup{
     /* margin-right: 10em; */
     margin: 2em;
     box-shadow: 10px 10px 5px 80em rgba(0,0,0,0.75);
+    border-radius: 0.4em;
 }
 
 div#quickpopup-title{
@@ -873,7 +874,6 @@ div#quickpopup-content{
     /* background-color: blueviolet; */
     width: 96%;
     min-height:90%;
-    border-top: 1px solid black;
     word-break: break-all;
     font-size: 2.4em;
     padding-left: 0.5em;
