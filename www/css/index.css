@@ -898,7 +898,8 @@ div.timer-ui-scroll{
 }
 
 div.timer-ui-scroll-min{
-    width: 44%;
+    width: 30%;
+    vertical-align: top;
     /* width: 10em; */
     /* height: 100%; */
     min-height: 10em;
@@ -910,8 +911,38 @@ div.timer-ui-scroll-min{
     font-size: 1em;
 }
 
+div.timer-ui-scroll-min-btns{
+    vertical-align: top;
+    display: inline-block;
+    min-height: 11em;
+    height: 100%;
+    width:15%;
+    font-size: 1em;
+}
+
+div.timer-ui-scroll-sec-btns{
+    vertical-align: top;
+    display: inline-block;
+    min-height: 11em;
+    height: 100%;
+    width:15%;
+    font-size: 1em;
+}
+
+div.timer-ui-scroll-min-btn{
+    display: block;
+    width: 100%;
+    background-color: white;
+    color: black;
+    /* height: 5em; */
+    font-size: 4.0em;
+    margin-top: 0.13em;
+}
+
+
 div.timer-ui-scroll-sec{
-    width: 45%;
+    vertical-align: top;
+    width: 30%;
     /* width: 10em; */
     height: 100%;
     min-height: 10em;

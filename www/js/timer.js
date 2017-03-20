@@ -24,6 +24,16 @@ var Timer = function(){
             var uiScrollContainerMin = document.createElement("div");
             uiScrollContainerMin.className = "timer-ui-scroll-min";
 
+            var uiScrollContainerMinButtons = document.createElement("div");
+            uiScrollContainerMinButtons.className = "timer-ui-scroll-min-btns";
+
+            var uiPlusButtonMin = document.createElement("div");
+            uiPlusButtonMin.textContent = "+";
+            uiPlusButtonMin.className = "timer-ui-scroll-min-btn";
+
+            uiScrollContainerMinButtons.appendChild(uiPlusButtonMin);
+            
+
             var txtScrollContainerMin = document.createElement("div");
             txtScrollContainerMin.id="time-txt-min";
             txtScrollContainerMin.className = "time-txt-scroll-min";
@@ -58,6 +68,10 @@ var Timer = function(){
 
             var uiScrollContainerSec = document.createElement("div");
             uiScrollContainerSec.className = "timer-ui-scroll-sec";
+            
+            var uiScrollContainerSecButtons = document.createElement("div");
+            uiScrollContainerSecButtons.className = "timer-ui-scroll-sec-btns";
+
             var txtScrollContainerSec = document.createElement("div");
             txtScrollContainerSec.id="time-txt-sec";
             txtScrollContainerSec.className = "time-txt-scroll-sec";
@@ -90,8 +104,10 @@ var Timer = function(){
 
             uiScrollContainerSec.appendChild(txtScrollContainerSec);
             
+            uiScrollContainer.appendChild(uiScrollContainerMinButtons);
             uiScrollContainer.appendChild(uiScrollContainerMin);
             uiScrollContainer.appendChild(uiScrollContainerSec);
+            uiScrollContainer.appendChild(uiScrollContainerSecButtons);
 
             var okButton =  document.createElement("div");
             okButton.className = "main-notes-ok-button";
